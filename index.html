@@ -276,11 +276,6 @@
     #how-to-play .guide-details li { margin-bottom: 8px; }
     .guide-footer { position: sticky; bottom: -20px; padding: 12px 0 0; margin-top: 12px; background: #101b30; }
     #close-how-to-play { width: 100%; min-height: 44px; font-size: 13px; }
-    @media (max-width: 440px) {
-      #how-to-play { padding: 14px; }
-      .guide-grid { grid-template-columns: 1fr; }
-      .guide-footer { bottom: -14px; }
-    }
     kbd { padding: 2px 5px; border: 1px solid #879bbd88; border-radius: 4px; background: #27334c; font: inherit; white-space: nowrap; }
     .skip-cutscene { position: absolute; z-index: 4; right: 12px; bottom: 14px; display: grid; gap: 4px; padding: 10px 14px; min-height: 48px; background: #0d1729e6; border: 1px solid #c5dafa88; box-shadow: none; font-size: 12px; }
     .skip-cutscene small { color: #b6c8e3; font-size: 10px; font-weight: 500; }
@@ -435,11 +430,6 @@
     .book-footer button:disabled { opacity: .35; cursor: default; }
     .almanac #almanac-page-number { color: #59442f; font: 12px var(--field-handwriting); white-space: nowrap; }
     .almanac .almanac-close { display: block; margin: 8px auto 0; }
-    @media (max-width: 420px) {
-      .almanac { padding-left: 17px; }
-      .book-page { padding: 16px 14px 16px 22px; }
-      .almanac .book-footer button { padding: 4px 6px; font-size: 11px; }
-    }
     .almanac {
       --field-handwriting: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
     }
@@ -673,12 +663,8 @@
 
     .help b { color: #dce1f6; }
 
-    @media (max-width: 420px) {
-      body { padding: 14px; }
-      .subtitle { margin-bottom: 15px; }
-    }
     body { width: 100%; height: 100dvh; min-height: 0; padding: 0; }
-    .game { position: relative; width: 100%; height: 100%; --dock-height: 188px; background: linear-gradient(110deg, #0d1929, #14172e); }
+    .game { position: fixed; left: 50%; top: 50%; width: 700px; height: 900px; max-width: none; transform: translate(-50%, -50%) scale(var(--game-scale, 1)); transform-origin: 50% 50%; --dock-height: 188px; background: linear-gradient(110deg, #0d1929, #14172e); }
     .game::after { content: ""; position: absolute; z-index: 1; bottom: 0; left: 0; right: 0; height: var(--dock-height); border-top: 1px solid #8ccbe64d; background: linear-gradient(180deg, #82bcff0c, transparent 35%), repeating-linear-gradient(90deg, transparent 0 79px, #8ccbe605 79px 80px); box-shadow: 0 -8px 32px #0005, inset 0 1px #e1f3ff0d; pointer-events: none; }
     .game > .eyebrow, .game > .subtitle, .game > h1 { display: none; }
     .arena { position: absolute; inset: 0 0 var(--dock-height); border: 0; border-radius: 0; box-shadow: none; }
@@ -754,6 +740,9 @@
     #boss-health-name { display: block; max-width: 65%; margin: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--boss-accent); }
     #boss-health-value { position: absolute; right: 4px; bottom: 1px; white-space: nowrap; font: 9px ui-monospace, SFMono-Regular, Consolas, monospace; font-variant-numeric: tabular-nums; }
     .boss-health-track { position: relative; top: 17px; height: 10px; overflow: hidden; border: 1px solid #d6edf366; border-radius: 2px; background: linear-gradient(180deg, #030910e8, var(--boss-dark) 55%, #03070ce8); box-shadow: inset 0 1px 3px #000c, 0 1px 2px #000a; mask-image: linear-gradient(90deg, #000 0 calc(50% - 29px), transparent calc(50% - 29px) calc(50% + 29px), #000 calc(50% + 29px)); }
+    .boss-health-shield { display: none; position: absolute; top: 37px; left: 0; right: 0; color: #a7eaff; font: 8px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .1em; text-shadow: 0 1px 2px #000, 0 0 5px #49c9ff; }
+    .boss-health.harbinger .boss-health-shield { display: block; }
+    .boss-health.harbinger[data-shield="offline"] .boss-health-shield { color: #ffb183; text-shadow: 0 1px 2px #000, 0 0 5px #ff7049; }
     .boss-health-track::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 var(--boss-segment), #02091099 var(--boss-segment) calc(var(--boss-segment) + 2px)); pointer-events: none; }
     .boss-health-fill { height: 100%; background: linear-gradient(180deg, #ffffff99, #ffffff14 35%, transparent 55%, #0008), linear-gradient(90deg, var(--boss-metal), var(--boss-accent)); box-shadow: inset 0 1px #ffffff77, inset 0 -1px #02081088, 0 0 5px var(--boss-accent); }
     .boss-health-lag, .boss-health-stages { display: none; }
@@ -813,7 +802,6 @@
     .sandbox-spawn-buttons { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; margin-top: 8px; }
     .sandbox-spawn-buttons button { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 0; min-height: 40px; padding: 7px 5px; font-size: 11px; overflow-wrap: anywhere; }
     .sandbox-spawn-buttons canvas { display: block; width: 100%; max-width: 100px; height: 64px; aspect-ratio: auto; object-fit: contain; border-radius: 4px; background: #070f1c; }
-    @media (max-width: 420px) { .sandbox-grid { grid-template-columns: minmax(0, 1fr); } .tab-channel { overflow-wrap: anywhere; } }
     #menu-hangar .hangar-preview { margin: 0; padding: 0; border: 0; background: none; box-shadow: none; }
     #menu-hangar #hangar-preview { max-height: 180px; object-fit: contain; }
     .fittings-details { margin-top: 12px; border-top: 1px solid #8ccbe629; padding-top: 10px; }
@@ -845,7 +833,7 @@
     #overlay .menu-actions #resume-checkpoint { flex: 1.2; border: 1px solid #8fe3b0; border-radius: 3px; color: #eafff2; background: linear-gradient(110deg, #1f5a43, #1d3a3f); box-shadow: inset 3px 0 #8fe3b0, 0 0 16px #3fbf8455; letter-spacing: .03em; }
     #overlay .menu-actions #resume-checkpoint small { display: block; font-size: 10px; letter-spacing: .08em; opacity: .78; font-weight: 400; }
     #overlay .menu-actions button { min-height: 46px; padding: 10px 16px; font-size: 13px; }
-    @media (min-width: 700px) {
+    @media all {
       #menu-hangar { display: grid; grid-template-columns: 1.1fr 1fr; gap: 22px; align-items: start; }
       #menu-hangar .shop { margin: 0; }
       #menu-upgrades .shop { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
@@ -897,34 +885,6 @@
     #overlay .menu-actions { background: #0b1524fa; border-color: var(--terminal-accent); }
     #overlay #start { border: 1px solid var(--terminal-accent); border-radius: 3px; color: #f0f8ff; background: linear-gradient(110deg, var(--terminal-glow), #233a52); box-shadow: inset 3px 0 var(--terminal-accent), 0 0 18px var(--terminal-glow); letter-spacing: .04em; }
     #overlay .terminal-footer { margin: 6px 0 0; color: #93adc4; font: 9px/1.5 ui-monospace, monospace; letter-spacing: .05em; }
-    @media (max-width: 540px) {
-      #overlay { padding: 10px; }
-      #overlay .card { padding: 12px; }
-      #overlay .menu-tabs { top: -10px; }
-      #overlay .menu-actions { bottom: -10px; }
-      #overlay .menu-panel { padding: 12px; }
-      .terminal-readouts > div { padding: 7px 6px; }
-      .terminal-readouts dd { font-size: 10px; }
-      #overlay .menu-brand { font-size: 9px; letter-spacing: .1em; }
-      .terminal-insignia { width: 36px; height: 36px; }
-      .terminal-header { gap: 8px; padding-bottom: 9px; margin-bottom: 10px; }
-      .wayline-map { margin-bottom: 5px; padding: 5px 0; }
-      #overlay .menu-tabs button { padding: 6px 4px; font-size: 11px; }
-    }
-    @media (max-width: 540px) {
-      .game { --dock-height: 230px; }
-      .game.boss-active::after { height: var(--dock-height); }
-      .game > .hud, .game > .level-hud, .game > .sector-hud, .game > .health-hud, .weapon-hud {
-        left: 12px; right: auto; width: calc(100% - 24px); font-size: 10px; line-height: 14px; padding: 4px 8px;
-      }
-      .game > .hud { bottom: 131px; }
-      .game > .level-hud { bottom: 108px; }
-      .game > .sector-hud { bottom: 85px; }
-      .game > .health-hud { bottom: 62px; }
-      .weapon-hud { bottom: 39px; }
-      .game > .almanac-button, .fullscreen-button { bottom: 6px; min-height: 32px; padding: 4px 10px; }
-      .game > .help { bottom: 10px; max-width: calc(100% - 210px); font-size: 9px; }
-    }
     .game > .hud, .game > .health-hud, .game > .level-hud, .game > .sector-hud, .game > .weapon-hud {
       border-color: #9dc9d72b;
       background: linear-gradient(110deg, #102436dc, #07111ddc 72%, #0c1929dd);
@@ -983,12 +943,6 @@
     .distress-shelf[data-dormant="true"] .upgrade-cost { color: #8f9aa3; }
     .finale-victory { text-align: center; border-color: #a5eed0; background: radial-gradient(ellipse at top, #235653, #0a1828 70%); }
     .victory-emblem { margin: 10px auto 16px; color: #c8ffe3; font-size: 56px; text-shadow: 0 0 25px #8dffd488; }
-    @media (max-width: 620px) {
-      .parts-shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .part-inspector { grid-template-columns: 1fr; gap: 4px; }
-      #part-preview { max-width: 240px; margin: auto; }
-      .distress-shelf { grid-template-columns: 1fr; }
-    }
     @media (prefers-reduced-motion: reduce) {
       .level-toast, .health-fill, .level-fill { transition: none; }
     }
@@ -1105,6 +1059,14 @@
               <option value="extreme">Extreme</option>
             </select>
             <p class="difficulty-note" id="difficulty-note"></p>
+            <label class="shop-title" for="language-select">Language</label>
+            <select class="difficulty-select" id="language-select" aria-label="Game language">
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="zh-CN">简体中文</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+            </select>
             <p class="shop-title">Choose your ship</p>
             <p class="difficulty-note">Each craft has its own guns and built-in equipment. Open Installed fittings above for its perks. U2 and U3 designs are available for scrap requisition; all purchases stay with this pilot.</p>
             <div class="hangar" role="group" aria-label="Available ships">
@@ -1327,6 +1289,7 @@
           <div class="boss-health-lag" id="boss-health-lag"></div>
           <div class="boss-health-fill" id="boss-health-fill"></div>
         </div>
+        <span class="boss-health-shield" id="boss-health-shield"></span>
       </div>
     </section>
     <p id="fullscreen-status" role="status"></p>
@@ -1509,6 +1472,329 @@
           if (!sandboxActive) profileStorage.setItem(activePlayer.id === "default" ? key : `starfall-player-${activePlayer.id}-${key}`, value);
         }
       };
+      const supportedLanguages = ["en", "es", "zh-CN", "fr", "de"];
+      const localeRows = [
+        ["Score", "Puntuación", "得分", "Score", "Punktzahl"],
+        ["Best", "Récord", "最佳", "Record", "Bestwert"],
+        ["Scrap", "Chatarra", "废料", "Ferraille", "Schrott"],
+        ["Hull", "Casco", "船体", "Coque", "Rumpf"],
+        ["Flight difficulty", "Dificultad de vuelo", "飞行难度", "Difficulté de vol", "Flugschwierigkeit"],
+        ["Language", "Idioma", "语言", "Langue", "Sprache"],
+        ["Choose your ship", "Elige tu nave", "选择飞船", "Choisissez votre vaisseau", "Schiff auswählen"],
+        ["Ready, pilot?", "¿Listo, piloto?", "准备好了吗，飞行员？", "Prêt, pilote ?", "Bereit, Pilot?"],
+        ["Hangar", "Hangar", "机库", "Hangar", "Hangar"],
+        ["Parts shop", "Tienda de piezas", "零件商店", "Atelier de pièces", "Teileladen"],
+        ["Players & saves", "Pilotos y partidas", "飞行员与存档", "Pilotes et sauvegardes", "Piloten & Spielstände"],
+        ["Sandbox", "Simulador", "沙盒", "Bac à sable", "Sandbox"],
+        ["Mission briefing / Flight Command", "Informe de misión / Control de vuelo", "任务简报 / 飞行指挥", "Briefing de mission / Contrôle de vol", "Missionsbesprechung / Flugleitung"],
+        ["Ship hangar", "Hangar de naves", "飞船机库", "Hangar des vaisseaux", "Schiffshangar"],
+        ["Installed fittings", "Componentes instalados", "已安装配件", "Équipements installés", "Installierte Ausrüstung"],
+        ["Pilot ID", "ID del piloto", "飞行员编号", "ID du pilote", "Pilot-ID"],
+        ["Assigned craft", "Nave asignada", "指派飞船", "Vaisseau assigné", "Zugewiesenes Schiff"],
+        ["Scrap reserve", "Reserva de chatarra", "废料储备", "Réserve de ferraille", "Schrottvorrat"],
+        ["Mission status", "Estado de la misión", "任务状态", "État de la mission", "Missionsstatus"],
+        ["Primary target", "Objetivo principal", "主要目标", "Cible principale", "Hauptziel"],
+        ["Systems check", "Verificación de sistemas", "系统检查", "Vérification des systèmes", "Systemprüfung"],
+        ["Launch mission", "Iniciar misión", "开始任务", "Lancer la mission", "Mission starten"],
+        ["How to play", "Cómo jugar", "游戏说明", "Comment jouer", "Spielanleitung"],
+        ["Fullscreen", "Pantalla completa", "全屏", "Plein écran", "Vollbild"],
+        ["Ship Almanac", "Almanaque de naves", "飞船图鉴", "Almanach des vaisseaux", "Schiffsalmanach"],
+        ["Skip cutscene", "Omitir cinemática", "跳过过场动画", "Passer la cinématique", "Zwischensequenz überspringen"],
+        ["BOSS APPROACHING", "JEFE A LA VISTA", "首领即将出现", "BOSS EN APPROCHE", "BOSS IM ANFLUG"],
+        ["Select a part to inspect it.", "Selecciona una pieza para inspeccionarla.", "选择一个零件以查看详情。", "Sélectionnez une pièce pour l'examiner.", "Wähle ein Teil zur Inspektion aus."],
+        ["No signal detected", "No se detecta ninguna señal", "未检测到信号", "Aucun signal détecté", "Kein Signal erkannt"],
+        ["Install part", "Instalar pieza", "安装零件", "Installer la pièce", "Teil einbauen"],
+        ["Previous page", "Página anterior", "上一页", "Page précédente", "Vorherige Seite"],
+        ["Next page", "Página siguiente", "下一页", "Page suivante", "Nächste Seite"],
+        ["Close journal", "Cerrar diario", "关闭日志", "Fermer le journal", "Logbuch schließen"],
+        ["Create player", "Crear piloto", "创建飞行员", "Créer un pilote", "Pilot erstellen"],
+        ["Download save", "Descargar partida", "下载存档", "Télécharger la sauvegarde", "Spielstand herunterladen"],
+        ["Load save file", "Cargar archivo de partida", "加载存档文件", "Charger une sauvegarde", "Spielstand laden"],
+        ["Continue saved run", "Continuar partida guardada", "继续已保存的任务", "Reprendre la partie sauvegardée", "Gespeicherten Lauf fortsetzen"],
+        ["Operation STARFALL / mission background", "Operación STARFALL / contexto de la misión", "STARFALL行动 / 任务背景", "Opération STARFALL / contexte de mission", "Operation STARFALL / Missionshintergrund"],
+        ["The gates are sealed. A convoy is missing. Beyond the blockade, a fourth universe is answering.",
+          "Las puertas están selladas. Falta un convoy. Más allá del bloqueo, responde un cuarto universo.",
+          "航道之门已封锁。一支船队失踪了。封锁线之外，第四个宇宙传来了回应。",
+          "Les portes sont scellées. Un convoi a disparu. Au-delà du blocus, un quatrième univers répond.",
+          "Die Tore sind versiegelt. Ein Konvoi wird vermisst. Jenseits der Blockade meldet sich ein viertes Universum."],
+        ["Dense waves, steep sector pressure, and a sharper escalation at each new universe.",
+          "Oleadas densas, sectores exigentes y una escalada más marcada en cada universo.",
+          "敌群密集，每个宇宙都会带来更严峻的扇区挑战。",
+          "Vagues denses, secteurs exigeants et montée en difficulté à chaque nouvel univers.",
+          "Dichte Wellen, fordernde Sektoren und ein stärkerer Anstieg mit jedem neuen Universum."],
+        ["Easy", "Fácil", "简单", "Facile", "Leicht"],
+        ["Normal", "Normal", "普通", "Normal", "Normal"],
+        ["Hard", "Difícil", "困难", "Difficile", "Schwer"],
+        ["Extreme", "Extremo", "极限", "Extrême", "Extrem"],
+        ["SHIELD GENERATOR", "GENERADOR DE ESCUDO", "护盾发生器", "GÉNÉRATEUR DE BOUCLIER", "SCHILDGENERATOR"],
+        ["GENERATOR OFFLINE", "GENERADOR DESCONECTADO", "发生器离线", "GÉNÉRATEUR HORS LIGNE", "GENERATOR OFFLINE"],
+        ["RECHARGING", "RECARGANDO", "充能中", "RECHARGE", "AUFLADEN"],
+        ["CONVOY RELEASED", "CONVOY LIBERADO", "船队已释放", "CONVOI LIBÉRÉ", "KONVOI BEFREIT"],
+        ["MISSION COMPLETE", "MISIÓN COMPLETADA", "任务完成", "MISSION ACCOMPLIE", "MISSION ERFÜLLT"],
+        ["PAUSED", "EN PAUSA", "已暂停", "EN PAUSE", "PAUSIERT"],
+        ["Resume", "Reanudar", "继续", "Reprendre", "Fortsetzen"],
+        ["Restart", "Reiniciar", "重新开始", "Recommencer", "Neu starten"],
+        ["Settings", "Ajustes", "设置", "Paramètres", "Einstellungen"],
+        ["Credits", "Créditos", "制作人员", "Crédits", "Mitwirkende"],
+        ["Thanks for playing", "Gracias por jugar", "感谢游玩", "Merci d'avoir joué", "Danke fürs Spielen"],
+        ["SPACE / ESC / TAP TO SKIP", "ESPACIO / ESC / TOCA PARA OMITIR", "空格 / ESC / 点击跳过", "ESPACE / ÉCHAP / TOUCHER POUR PASSER", "LEERTASTE / ESC / TIPPEN ZUM ÜBERSPRINGEN"],
+        ["SPACE / ESC / TAP TO CONTINUE", "ESPACIO / ESC / TOCA PARA CONTINUAR", "空格 / ESC / 点击继续", "ESPACE / ÉCHAP / TOUCHER POUR CONTINUER", "LEERTASTE / ESC / TIPPEN ZUM FORTFAHREN"],
+        ["STARFALL / FLIGHT COMMAND", "STARFALL / CONTROL DE VUELO", "STARFALL / 飞行指挥", "STARFALL / CONTRÔLE DE VOL", "STARFALL / FLUGLEITUNG"],
+        ["INDEPENDENT RELIEF / SHIPBOARD TERMINAL", "RED DE AYUDA INDEPENDIENTE / TERMINAL DE A BORDO", "独立救援组织 / 舰载终端", "SECOURS INDÉPENDANT / TERMINAL DE BORD", "UNABHÄNGIGE HILFE / BORDTERMINAL"],
+        ["Standard guns / unlimited ammo", "Armas estándar / munición ilimitada", "标准武器 / 无限弹药", "Canons standards / munitions illimitées", "Standardwaffen / unbegrenzte Munition"],
+        ["Flight recorder", "Registrador de vuelo", "飞行记录仪", "Enregistreur de vol", "Flugschreiber"],
+        ["AWAITING LAUNCH", "ESPERANDO EL LANZAMIENTO", "等待出发", "EN ATTENTE DU DÉPART", "WARTET AUF START"],
+        ["CAPITAL ENGAGEMENT", "COMBATE CAPITAL", "旗舰交战", "COMBAT CAPITAL", "KAPITALGEFECHT"],
+        ["CONVOY RESCUE IN PROGRESS", "RESCATE DEL CONVOY EN CURSO", "正在营救船队", "SAUVETAGE DU CONVOI EN COURS", "KONVOIRETTUNG LÄUFT"],
+        ["MISSION COMPLETE / MISSING CONVOY RESCUED", "MISIÓN COMPLETADA / CONVOY RESCATADO", "任务完成 / 失踪船队已救出", "MISSION ACCOMPLIE / CONVOI SECOURU", "MISSION ERFÜLLT / VERMISSTER KONVOI GERETTET"],
+        ["The whole station is going. Get them out, now!", "La estación entera se viene abajo. ¡Sácalos ya!", "整座空间站都要塌了。快把他们带出去！", "Toute la station s'effondre. Sortez-les, maintenant !", "Die ganze Station bricht auseinander. Bring sie sofort raus!"],
+        ["All seven signatures outside. Keep burning!", "Las siete naves están fuera. ¡Sigue a máxima potencia!", "七艘船都已脱离。继续全速前进！", "Les sept vaisseaux sont sortis. Continue à pleine poussée !", "Alle sieben Signaturen sind draußen. Weiter Vollschub!"],
+        ["The command heart is silent.", "El núcleo de mando está silenciado.", "指挥核心已沉寂。", "Le cœur de commandement est réduit au silence.", "Das Kommandoherz ist verstummt."],
+        ["Everyone is home.", "Todos han vuelto a casa.", "所有人都回家了。", "Tout le monde est rentré.", "Alle sind wieder zu Hause."],
+        ["FOLLOW THE COURIER", "SIGUE AL MENSAJERO", "跟随信使", "SUIVEZ LE COURSIER", "FOLGE DEM KURIER"],
+        ["STRUCTURAL FAILURE", "FALLO ESTRUCTURAL", "结构失效", "DÉFAILLANCE STRUCTURELLE", "STRUKTURVERSAGEN"],
+        ["HULL INTEGRITY", "INTEGRIDAD DEL CASCO", "船体完整性", "INTÉGRITÉ DE LA COQUE", "RUMPFINTEGRITÄT"],
+        ["DETONATION", "DETONACIÓN", "引爆", "DÉTONATION", "DETONATION"],
+        ["REACTOR CRITICAL", "REACTOR CRÍTICO", "反应堆临界", "RÉACTEUR CRITIQUE", "REAKTOR KRITISCH"],
+        ["ESCAPE CORRIDOR / COLLAPSING", "CORREDOR DE ESCAPE / COLAPSANDO", "逃生通道 / 正在坍塌", "COULOIR D'ÉVACUATION / EFFONDREMENT", "FLUCHTKORRIDOR / STÜRZT EIN"],
+        ["THE MISSING CONVOY / FOUND", "CONVOY DESAPARECIDO / LOCALIZADO", "已找到失踪船队", "CONVOI DISPARU / RETROUVÉ", "VERMISSTER KONVOI / GEFUNDEN"],
+        ["THE STATION IS TEARING APART", "LA ESTACIÓN SE ESTÁ DESGARRANDO", "空间站正在解体", "LA STATION SE DÉCHIRE", "DIE STATION ZERREISST"],
+        ["THE EMPEROR'S HARBINGER IS GONE", "EL HARBINGER DEL EMPERADOR HA CAÍDO", "皇帝的先驱号已覆灭", "LE HARBINGER DE L'EMPEREUR A DISPARU", "DER HARBINGER DES KAISERS IST ZERSTÖRT"],
+        ["WAYLINE OPEN / EVERYONE IS GOING HOME", "RUTA ABIERTA / TODOS VUELVEN A CASA", "航路已通 / 所有人即将回家", "VOIE OUVERTE / TOUT LE MONDE RENTRE", "WAYLINE OFFEN / ALLE KEHREN HEIM"],
+        ["Distress beacon", "Baliza de socorro", "遇险信标", "Balise de détresse", "Notrufsender"],
+        ["Dormant distress beacon", "Baliza de socorro inactiva", "休眠遇险信标", "Balise de détresse inactive", "Inaktiver Notrufsender"],
+        ["This item doesn't appear to do anything.", "Este objeto no parece hacer nada.", "这个物品似乎没有任何作用。", "Cet objet ne semble rien faire.", "Dieser Gegenstand scheint nichts zu bewirken."],
+        ["Follow distress beacon", "Seguir la baliza de socorro", "追踪遇险信标", "Suivre la balise de détresse", "Notrufsender verfolgen"],
+        ["Distress route / station approach", "Ruta de socorro / aproximación a la estación", "遇险航线 / 接近空间站", "Signal de détresse / approche de la station", "Notrufroute / Stationsanflug"],
+        ["CONVOY CLEAR / ALL SIX SHIPS OUT", "CONVOY A SALVO / LAS SEIS NAVES FUERA", "船队安全 / 六艘船全部脱离", "CONVOI ÉVACUÉ / SIX VAISSEAUX SORTIS", "KONVOI IN SICHERHEIT / ALLE SECHS SCHIFFE DRAUSSEN"],
+        ["HARBINGER / CRITICAL MASS", "HARBINGER / MASA CRÍTICA", "先驱号 / 临界状态", "HARBINGER / MASSE CRITIQUE", "HARBINGER / KRITISCHE MASSE"],
+        ["Press Space, Esc or tap to continue.", "Pulsa Espacio, Esc o toca para continuar.", "按空格、Esc或点击继续。", "Appuyez sur Espace, Échap ou touchez pour continuer.", "Leertaste, Esc oder Tippen zum Fortfahren."],
+        ["A tiny arcade game", "Un pequeño juego arcade", "一款小型街机游戏", "Un petit jeu d'arcade", "Ein kleines Arcade-Spiel"],
+        ["Fight off enemy ships and survive the meteor shower.", "Repele a las naves enemigas y sobrevive a la lluvia de meteoritos.", "击退敌舰，在陨石雨中生存下来。", "Repoussez les vaisseaux ennemis et survivez à la pluie de météores.", "Wehre feindliche Schiffe ab und überlebe den Meteoritenschauer."],
+        ["Expedition route", "Ruta de expedición", "远征路线", "Itinéraire d'expédition", "Expeditionsroute"],
+        ["Hangar sections", "Secciones del hangar", "机库分区", "Sections du hangar", "Hangarbereiche"],
+        ["Current story dispatch", "Último informe de historia", "当前剧情简报", "Dernier message narratif", "Aktuelle Storymeldung"],
+        ["Pilot terminal readouts", "Datos de terminal del piloto", "飞行员终端信息", "Données du terminal pilote", "Pilotenterminaldaten"],
+        ["Ship hangar and installed fittings", "Hangar de naves y componentes instalados", "飞船机库与已安装配件", "Hangar des vaisseaux et équipements installés", "Schiffshangar und installierte Ausrüstung"],
+        ["Available ships", "Naves disponibles", "可用飞船", "Vaisseaux disponibles", "Verfügbare Schiffe"],
+        ["Player health", "Salud del piloto", "飞行员状态", "Santé du pilote", "Pilotengesundheit"],
+        ["Hull health", "Integridad del casco", "船体耐久", "Intégrité de la coque", "Rumpfzustand"],
+        ["Experience to next level", "Experiencia para el siguiente nivel", "升级所需经验", "Expérience avant le niveau suivant", "Erfahrung bis zum nächsten Level"],
+        ["Sector progress", "Progreso del sector", "扇区进度", "Progression du secteur", "Sektorfortschritt"],
+        ["Flight instruments and radio", "Instrumentos de vuelo y radio", "飞行仪表与无线电", "Instruments de vol et radio", "Fluginstrumente und Funk"],
+        ["Boss hull status", "Integridad del jefe", "首领装甲状态", "État de la coque du boss", "Bossrumpfstatus"],
+        ["Boss hull", "Casco del jefe", "首领装甲", "Coque du boss", "Bossrumpf"],
+        ["Dodge", "Esquivar", "闪避", "Esquiver", "Ausweichen"],
+        ["Controls", "Controles", "操作", "Commandes", "Steuerung"],
+        ["← → or A / D to move", "← → o A / D para moverte", "← → 或 A / D 移动", "← → ou A / D pour bouger", "← → oder A / D zum Bewegen"],
+        ["drag to steer", "arrastra para dirigir", "拖动以转向", "glissez pour diriger", "ziehen zum Steuern"],
+        ["auto-fire", "disparo automático", "自动开火", "tir automatique", "Dauerfeuer"],
+        ["Locked after launch.", "Se bloque tras el lanzamiento.", "出发后将锁定。", "Verrouillé après le lancement.", "Nach dem Start gesperrt."],
+        ["U1 / Driftfield", "U1 / Campo de Deriva", "宇宙一 / 漂流区", "U1 / Champ de dérive", "U1 / Driftfeld"],
+        ["Driftfield is an imperial customs cordon now. Follow the relief convoy's beacon and break the command ship's hold on the route.",
+          "Driftfield es ahora un cordón aduanero imperial. Sigue la baliza del convoy de ayuda y rompe el control de la nave de mando sobre la ruta.",
+          "漂流区如今已成为帝国海关封锁线。跟随救援船队的信标，击破指挥舰对航道的控制。",
+          "Driftfield est désormais un cordon douanier impérial. Suivez la balise du convoi de secours et brisez l'emprise du vaisseau de commandement sur la route.",
+          "Driftfield ist jetzt ein imperialer Zollkordon. Folge dem Signal des Hilfskonvois und beende die Kontrolle des Kommandoschiffs über die Route."],
+        ["ACT I / THE IMPERIAL BLOCKADE", "ACTO I / EL BLOQUEO IMPERIAL", "第一幕 / 帝国封锁", "ACTE I / LE BLOCUS IMPÉRIAL", "AKT I / DIE IMPERIALE BLOCKADE"],
+        ["Aurelian customs orders you to submit your cargo for seizure. Mara cuts in: \"You used to carry letters through this belt. Now the Empire calls medicine contraband. Follow the convoy beacon. I'll keep you off their charts.\"",
+          "La aduana aurelia te ordena entregar la carga para confiscarla. Mara interrumpe: «Antes llevabas cartas por este cinturón. Ahora el Imperio llama contrabando a las medicinas. Sigue la baliza del convoy. Te mantendré fuera de sus mapas».",
+          "奥瑞利安海关命令你交出货物以供没收。玛拉插话道：“你以前常在这片星带送信。如今帝国把药品也叫作违禁品。跟着船队信标走，我会让你避开他们的监视。”",
+          "La douane aurélienne exige la saisie de votre cargaison. Mara intervient : « Tu transportais des lettres dans cette ceinture. Maintenant, l'Empire traite les médicaments comme de la contrebande. Suis la balise du convoi. Je te garderai hors de leurs cartes. »",
+          "Der Aurelianische Zoll fordert die Beschlagnahmung deiner Fracht. Mara schaltet sich ein: „Früher hast du Briefe durch diesen Gürtel gebracht. Jetzt nennt das Imperium Medizin Schmuggelware. Folge dem Konvoisignal. Ich halte dich von ihren Karten fern.“"],
+        ["Game language", "Idioma del juego", "游戏语言", "Langue du jeu", "Spielsprache"],
+        ["Each craft has its own guns and built-in equipment. Open Installed fittings above for its perks. U2 and U3 designs are available for scrap requisition; all purchases stay with this pilot.",
+          "Cada nave tiene armas y equipo propios. Abre Componentes instalados para consultar sus ventajas. Los diseños de U2 y U3 se pueden comprar con chatarra; todo lo adquirido queda vinculado a este piloto.",
+          "每艘飞船都有专属武器和内置装备。打开上方的“已安装配件”查看特性。宇宙二和宇宙三的飞船可用废料购买；所有购买内容均属于当前飞行员。",
+          "Chaque vaisseau possède ses armes et équipements intégrés. Consultez les équipements installés ci-dessus pour découvrir ses avantages. Les modèles des univers 2 et 3 s'achètent avec de la ferraille ; les achats restent à ce pilote.",
+          "Jedes Schiff hat eigene Waffen und eingebaute Ausrüstung. Unter Installierte Ausrüstung findest du seine Vorteile. Schiffe aus U2 und U3 sind gegen Schrott erhältlich; alle Käufe bleiben diesem Piloten zugeordnet."],
+        ["Select a ship", "Selecciona una nave", "选择飞船", "Choisissez un vaisseau", "Schiff auswählen"],
+        ["Ship", "Nave", "飞船", "Vaisseau", "Schiff"],
+        ["Player", "Piloto", "飞行员", "Pilote", "Pilot"],
+        ["New player name", "Nombre del nuevo piloto", "新飞行员名称", "Nom du nouveau pilote", "Name des neuen Piloten"],
+        ["Active player", "Piloto activo", "当前飞行员", "Pilote actif", "Aktiver Pilot"],
+        ["FLIGHT DECK", "CUBIERTA DE VUELO", "飞行甲板", "PONT DE VOL", "FLUGDECK"],
+        ["FLIGHT RECORDS", "REGISTROS DE VUELO", "飞行记录", "JOURNAUX DE VOL", "FLUGAUFZEICHNUNGEN"],
+        ["WAYLINE", "RUTA ESTELAR", "星际航道", "VOIE STELLAIRE", "STERNENROUTE"],
+        [" OF ", " DE ", " 的 ", " SUR ", " VON "],
+        ["PILOT / ASSIGNED CRAFT", "PILOTO / NAVE ASIGNADA", "飞行员 / 指派飞船", "PILOTE / VAISSEAU ASSIGNÉ", "PILOT / ZUGEWIESENES SCHIFF"],
+        ["PLAYER", "JUGADOR", "玩家", "JOUEUR", "SPIELER"],
+        ["SCRAP", "CHATARRA", "废料", "FERRAILLE", "SCHROTT"],
+        ["Standing by for launch clearance.", "A la espera de autorización para despegar.", "等待起飞许可。", "En attente de l'autorisation de décollage.", "Wartet auf Startfreigabe."],
+        ["Your flight is ready when you are.", "Tu vuelo está listo cuando tú lo estés.", "准备就绪，等你出发。", "Votre vol est prêt quand vous l'êtes.", "Dein Flug ist bereit, sobald du es bist."],
+        ["The parts counter", "Mostrador de piezas", "零件柜台", "Comptoir des pièces", "Teiletheke"],
+        ["Inspect a part on the shelves to see its design, specifications and installation price. Purchases improve your ship permanently; the same hardware appears on your hull in Hangar.",
+          "Examina las piezas de las estanterías para ver su diseño, características y precio. Las compras mejoran tu nave de forma permanente; los componentes instalados también aparecen en el hangar.",
+          "检查货架上的零件，查看设计、规格和安装价格。购买后会永久强化飞船；安装的部件也会显示在机库中的飞船上。",
+          "Examinez les pièces en rayon pour découvrir leur conception, leurs caractéristiques et leur prix. Les achats améliorent définitivement votre vaisseau ; les pièces installées apparaissent aussi dans le hangar.",
+          "Untersuche die Teile in den Regalen, um Design, Werte und Preis zu sehen. Käufe verbessern dein Schiff dauerhaft; eingebaute Teile sind auch im Hangar sichtbar."],
+        ["Parts shop pauses flight.", "La tienda de piezas pausa el vuelo.", "零件商店会暂停飞行。", "L'atelier met le vol en pause.", "Der Teileladen pausiert den Flug."],
+        ["Inspect shelf items and spend scrap on permanent ship parts. Leveling up adds hull.",
+          "Examina las piezas y gasta chatarra en mejoras permanentes. Subir de nivel aumenta la integridad del casco.",
+          "检查货架上的零件，并用废料购买永久强化。升级会提升船体耐久。",
+          "Examinez les pièces et dépensez de la ferraille pour améliorer durablement votre vaisseau. Gagner un niveau augmente la coque.",
+          "Untersuche die Teile und gib Schrott für dauerhafte Verbesserungen aus. Ein Levelaufstieg erhöht die Hüllenstärke."],
+        ["Seven sectors each. Defeat bosses to advance; continue or refit between universes.",
+          "Siete sectores por universo. Derrota a los jefes para avanzar; continúa o reacondiciona la nave entre universos.",
+          "每个宇宙有七个扇区。击败首领即可推进；在宇宙之间继续前进或整备飞船。",
+          "Sept secteurs par univers. Vainquez les boss pour avancer ; continuez ou rééquipez votre vaisseau entre les univers.",
+          "Jedes Universum umfasst sieben Sektoren. Besiege Bosse, um weiterzukommen; zwischen den Universen kannst du fortsetzen oder umrüsten."],
+        ["Players & saves: separate pilots, download backups, or load a flight paused. Download again to update your file.",
+          "Pilotos y partidas: crea perfiles separados, descarga copias de seguridad o carga un vuelo en pausa. Descarga de nuevo para actualizar el archivo.",
+          "飞行员与存档：可创建独立档案、下载备份，或加载暂停中的飞行记录。再次下载即可更新文件。",
+          "Pilotes et sauvegardes : séparez les profils, téléchargez des copies de sauvegarde ou chargez un vol en pause. Téléchargez à nouveau pour mettre le fichier à jour.",
+          "Piloten und Spielstände: Lege getrennte Profile an, lade Sicherungen herunter oder lade einen pausierten Flug. Lade die Datei erneut herunter, um sie zu aktualisieren."],
+        ["Dodge rocks, shots, and marked UFO laser lanes. Collect amber-marked salvage and weapon pods.",
+          "Esquiva rocas, proyectiles y los carriles láser señalados de los ovnis. Recoge chatarra y cápsulas de armas marcadas en ámbar.",
+          "躲避陨石、炮弹和标记出的飞碟激光路径。收集带琥珀色标记的残骸与武器舱。",
+          "Évitez les rochers, les tirs et les couloirs laser des ovnis signalés. Récupérez les débris et capsules d'armes marqués en ambre.",
+          "Weiche Felsen, Schüssen und markierten UFO-Laserbahnen aus. Sammle bernsteinfarben markierte Wrackteile und Waffenmodule ein."],
+        ["← → or A / D to move · drag to steer · auto-fire",
+          "← → o A / D para moverte · arrastra para dirigir · disparo automático",
+          "← → 或 A / D 移动 · 拖动转向 · 自动开火",
+          "← → ou A / D pour bouger · glissez pour diriger · tir automatique",
+          "← → oder A / D zum Bewegen · ziehen zum Steuern · Dauerfeuer"],
+        ["Sort by", "Ordenar por", "排序方式", "Trier par", "Sortieren nach"],
+        ["Search", "Buscar", "搜索", "Rechercher", "Suchen"],
+        ["All", "Todo", "全部", "Tout", "Alle"],
+        ["Locked", "Bloqueado", "未解锁", "Verrouillé", "Gesperrt"],
+        ["BUY", "COMPRAR", "购买", "ACHETER", "KAUFEN"],
+        ["Install", "Instalar", "安装", "Installer", "Einbauen"],
+        ["Repair", "Reparar", "修理", "Réparer", "Reparieren"],
+        ["Not fitted", "No instalado", "未安装", "Non équipé", "Nicht eingebaut"],
+        ["Built-in", "Integrado", "内置", "Intégré", "Eingebaut"],
+        ["unlimited ammo", "munición ilimitada", "无限弹药", "munitions illimitées", "unbegrenzte Munition"],
+        ["hull", "casco", "船体", "coque", "Rumpf"],
+        ["SHIELD", "ESCUDO", "护盾", "BOUCLIER", "SCHILD"],
+        ["ESCORT", "ESCOLTA", "护航舰", "ESCORTE", "ESKORTE"],
+        ["BOSS", "JEFE", "首领", "BOSS", "BOSS"],
+        ["START", "INICIO", "起点", "DÉPART", "START"],
+        ["SECTOR", "SECTOR", "扇区", "SECTEUR", "SEKTOR"],
+        ["UNIVERSE", "UNIVERSO", "宇宙", "UNIVERS", "UNIVERSUM"],
+        ["REPLAY", "REPETIR", "重播", "REJOUER", "WIEDERHOLEN"],
+        ["Exit fullscreen", "Salir de pantalla completa", "退出全屏", "Quitter le plein écran", "Vollbild beenden"],
+        ["Starfall — Meteor Dodge", "Starfall — Evasión de meteoritos", "Starfall — 陨石闪避", "Starfall — Esquive de météorites", "Starfall — Meteoriten ausweichen"]
+      ];
+      /* LOCALE-EXTRA-ROWS */
+      const localeExtraRows = [];
+      /* END-LOCALE-EXTRA-ROWS */
+      const localeAllRows = [...localeExtraRows.filter(row => !localeRows.some(base => base[0] === row[0])), ...localeRows];
+      const localeCatalog = Object.fromEntries(supportedLanguages.map((language, index) =>
+        [language, new Map(localeAllRows.map(row => [row[0], row[index] || row[0]]))]));
+      const escapeLocalePattern = text => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const localePhrasePattern = new RegExp("(?<![\\p{L}\\p{N}])(?:" + [...localeCatalog.en.keys()]
+        .filter(phrase => phrase.length > 3 && !/\{\d+\}/.test(phrase))
+        .sort((a, b) => b.length - a.length)
+        .map(escapeLocalePattern).join("|") + ")(?![\\p{L}\\p{N}])", "gu");
+      // Strings built from templates ("{0} scrap") are matched with their dynamic parts captured.
+      const localeTemplates = localeAllRows.filter(row => /\{\d+\}/.test(row[0])).map(row => {
+        const pieces = row[0].split(/(\{\d+\})/);
+        const literal = pieces.filter((piece, index) => index % 2 === 0);
+        if (literal.join("").replace(/[^\p{L}]/gu, "").length < 2) return null;
+        const order = pieces.filter((piece, index) => index % 2 === 1);
+        return {
+          row, order,
+          anchor: literal.reduce((best, piece) => piece.length > best.length ? piece : best, ""),
+          pattern: new RegExp("^" + pieces.map((piece, index) => index % 2 ? "([\\s\\S]+?)" : escapeLocalePattern(piece)).join("") + "$")
+        };
+      }).filter(Boolean).sort((a, b) => b.row[0].length - a.row[0].length);
+      const localeCache = new Map();
+      let currentLanguage = supportedLanguages.includes(profileStorage.getItem("starfall-language"))
+        ? profileStorage.getItem("starfall-language") : "en";
+      const localizedTextNodes = new WeakMap();
+      const localizedAttributes = new WeakMap();
+      function localizeSegment(text, catalog, column, depth) {
+        const exact = catalog.get(text);
+        if (exact) return exact;
+        if (depth < 3) {
+          for (const template of localeTemplates) {
+            if (template.anchor && !text.includes(template.anchor)) continue;
+            const match = template.pattern.exec(text);
+            if (!match) continue;
+            const values = Object.fromEntries(template.order.map((key, index) => [key, match[index + 1]]));
+            return (template.row[column] || template.row[0]).replace(/\{\d+\}/g, key =>
+              key in values ? localizeCore(values[key], catalog, column, depth + 1) : key);
+          }
+        }
+        return null;
+      }
+      function localizeCore(value, catalog, column, depth = 0) {
+        const trimmed = value.trim();
+        if (!trimmed || !/\p{L}/u.test(trimmed)) return value;
+        const whole = localizeSegment(trimmed, catalog, column, depth);
+        if (whole !== null) return value.replace(trimmed, () => whole);
+        const separator = [" / ", " · ", " — ", ": "].find(mark => trimmed.includes(mark));
+        if (separator) {
+          return value.replace(trimmed, () => trimmed.split(separator)
+            .map(part => localizeCore(part, catalog, column, depth)).join(separator));
+        }
+        return value.replace(localePhrasePattern, english => catalog.get(english) || english);
+      }
+      function localizeText(value) {
+        const catalog = localeCatalog[currentLanguage];
+        if (!catalog || currentLanguage === "en" || !value) return value;
+        const key = currentLanguage + "\u0000" + value;
+        const cached = localeCache.get(key);
+        if (cached !== undefined) return cached;
+        const output = localizeCore(value, catalog, supportedLanguages.indexOf(currentLanguage));
+        if (localeCache.size > 6000) localeCache.clear();
+        localeCache.set(key, output);
+        return output;
+      }
+      function localizeTextNode(node) {
+        const old = localizedTextNodes.get(node);
+        const state = old && node.nodeValue === old.output ? old : { source: node.nodeValue, output: "" };
+        const output = localizeText(state.source);
+        state.output = output;
+        localizedTextNodes.set(node, state);
+        if (node.nodeValue !== output) node.nodeValue = output;
+      }
+      function localizeAttribute(element, attribute) {
+        const old = localizedAttributes.get(element) || {};
+        const current = element.getAttribute(attribute);
+        const state = old[attribute] && current === old[attribute].output
+          ? old[attribute] : { source: current, output: "" };
+        const output = localizeText(state.source);
+        state.output = output;
+        old[attribute] = state;
+        localizedAttributes.set(element, old);
+        if (current !== output) element.setAttribute(attribute, output);
+      }
+      const localizableAttributes = ["aria-label", "aria-description", "title", "placeholder", "alt"];
+      function localizeNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          localizeTextNode(node);
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        for (const attribute of localizableAttributes) {
+          if (node.hasAttribute(attribute)) localizeAttribute(node, attribute);
+        }
+        for (const child of node.childNodes) localizeNode(child);
+      }
+      function applyLanguage(language) {
+        currentLanguage = supportedLanguages.includes(language) ? language : "en";
+        languageSelect.value = currentLanguage;
+        document.documentElement.lang = currentLanguage;
+        document.title = localizeText("Starfall — Meteor Dodge");
+        localizeNode(document.body);
+        draw();
+      }
+      const languageObserver = new MutationObserver(records => {
+        for (const record of records) {
+          if (record.type === "attributes") localizeAttribute(record.target, record.attributeName);
+          else if (record.type === "characterData") localizeTextNode(record.target);
+          else for (const node of record.addedNodes) localizeNode(node);
+        }
+      });
+      languageObserver.observe(document.body, {
+        subtree: true, childList: true, characterData: true, attributes: true,
+        attributeFilter: localizableAttributes
+      });
+      const canvasFillText = CanvasRenderingContext2D.prototype.fillText;
+      CanvasRenderingContext2D.prototype.fillText = function(text, ...args) {
+        return canvasFillText.call(this, localizeText(String(text)), ...args);
+      };
       const canvas = document.querySelector("#canvas");
       let ctx = canvas.getContext("2d");
       const overlay = document.querySelector("#overlay");
@@ -1569,6 +1855,7 @@
       const bossHealthPanel = document.querySelector("#boss-health");
       const bossHealthName = document.querySelector("#boss-health-name");
       const bossHealthValue = document.querySelector("#boss-health-value");
+      const bossHealthShield = document.querySelector("#boss-health-shield");
       const bossHealthTrack = document.querySelector("#boss-health-track");
       const bossHealthFill = document.querySelector("#boss-health-fill");
       const bossHealthLag = document.querySelector("#boss-health-lag");
@@ -2311,6 +2598,7 @@
       let selectedDifficulty = Object.hasOwn(difficultyModes, savedDifficulty) ? savedDifficulty : "hard";
       const difficultySelect = document.querySelector("#difficulty-select");
       const difficultyNote = document.querySelector("#difficulty-note");
+      const languageSelect = document.querySelector("#language-select");
       let levelToastTimer;
       let best = Number(localStorage.getItem("starfall-best") || 0);
       let scrap = Number(localStorage.getItem("starfall-scrap") || 0);
@@ -2361,7 +2649,9 @@
       let finaleScene = null;
       let finaleFirstRescue = false;
       const HARBINGER_INDEX = 28;
-      const finaleSceneDurations = { signal: 14, approach: 8.5, phase: 3.8, rescue: 31, credits: 30 };
+      const HARBINGER_SHIELD_CAPACITY = 200;
+      const HARBINGER_SHIELD_RECHARGE = 12;
+      const finaleSceneDurations = { signal: 14, approach: 8.5, phase: 5.8, rescue: 31, credits: 30 };
       const harbingerStages = [
         { name: "PERIMETER DEFENSE", hull: .38, interval: 1.35, color: "#a8d6ef" },
         { name: "SIEGE ARRAY", hull: .48, interval: 1.1, color: "#ffd19b" },
@@ -2741,6 +3031,7 @@
             || number(enemy.shieldHp, 0, 3) && number(enemy.shieldClock, 0, 8))
           && chargedBeam(enemy) && allyBeamHits(enemy)
           && (enemy.launchDrift === undefined || number(enemy.launchDrift, -100, 100))
+          && (enemy.supportDamage === undefined || number(enemy.supportDamage, 1, 3))
           && (!enemy.supportVariant || stationSupportTypes.some(type => type.id === enemy.supportVariant))), "enemies");
         require(list(r.meteors, meteor => numericFields(meteor, ["x", "y", "radius", "hp", "maxHp", "speed", "drift", "rotation", "spin"])
           && meteor.radius > 0 && typeof meteor.color === "string"
@@ -2776,7 +3067,11 @@
         const capital = value => numericFields(value, ["x", "y", "radius", "hp", "maxHp", "speed", "direction",
           "shotClock", "auxShotClock", "supportClock", "supportCount", "attackCount"])
           && integer(value.typeIndex, 0, bossTypes.length - 1) && value.maxHp > 0 && chargedBeam(value) && allyBeamHits(value)
-          && (value.typeIndex !== HARBINGER_INDEX || integer(value.stage, 1, 3))
+          && (value.typeIndex !== HARBINGER_INDEX || integer(value.stage, 1, 3)
+            && (value.shieldHp === undefined && value.shieldMaxHp === undefined && value.shieldClock === undefined
+              || number(value.shieldHp, 0, HARBINGER_SHIELD_CAPACITY)
+                && value.shieldMaxHp === HARBINGER_SHIELD_CAPACITY
+                && number(value.shieldClock, 0, HARBINGER_SHIELD_RECHARGE)))
           && list(value.dockingBays, bay => numericFields(bay, ["side", "elapsed", "open"])
             && ["closed", "opening", "launching", "closing"].includes(bay.phase)
             && (bay.variant === null || stationSupportTypes.some(type => type.id === bay.variant?.id)), 2)
@@ -2847,7 +3142,16 @@
           }
           for (const capital of [boss, bossCinematic?.boss]) {
             if (capital?.typeIndex === 27) capital.radius = 70;
-            if (capital?.typeIndex === HARBINGER_INDEX) Object.assign(capital, harbingerGeometry());
+            if (capital?.typeIndex === HARBINGER_INDEX) {
+              Object.assign(capital, harbingerGeometry());
+              capital.shieldHp ??= HARBINGER_SHIELD_CAPACITY;
+              capital.shieldMaxHp ??= HARBINGER_SHIELD_CAPACITY;
+              capital.shieldClock ??= 0;
+              if (!capital.dockingBays.length) {
+                capital.dockingBays = [-1, 1].map(side =>
+                  ({ side, phase: "closed", elapsed: 0, open: 0, variant: null }));
+              }
+            }
             if (capital) for (const bay of capital.dockingBays) {
               if (bay.variant) bay.variant = stationSupportTypes.find(type => type.id === bay.variant.id);
             }
@@ -3670,7 +3974,7 @@
       }
 
       function universePressure(index = universeIndex()) {
-        return 1 + index * .2 + index ** 2 * .05;
+        return 1 + index * .45 + index ** 2 * .12;
       }
 
       function hostileShotRate() {
@@ -3678,8 +3982,14 @@
       }
 
       function bossFiringRate() {
-        return bossBalance.firingRate * Math.sqrt(universePressure(Math.min(3, Math.floor(boss.typeIndex / 7))))
+        const harbingerTempo = boss.typeIndex === HARBINGER_INDEX ? 1.3 : 1;
+        return bossBalance.firingRate * harbingerTempo
+          * Math.sqrt(universePressure(Math.min(3, Math.floor(boss.typeIndex / 7))))
           * (boss.hp < boss.maxHp * .4 ? bossBalance.overdriveRate : 1);
+      }
+
+      function harbingerProjectileSpeed() {
+        return bossBalance.projectileSpeed * 1.18;
       }
 
       function updateDifficultySelection() {
@@ -8877,6 +9187,90 @@
         ctx.fillRect(0, 0, width, height);
       }
 
+      function drawHarbingerArenaBackground() {
+        ctx.save();
+        const sky = ctx.createLinearGradient(0, 0, width * .8, height);
+        sky.addColorStop(0, "#091729");
+        sky.addColorStop(.48, "#101b2c");
+        sky.addColorStop(1, "#030811");
+        ctx.fillStyle = sky;
+        ctx.fillRect(0, 0, width, height);
+        const haze = ctx.createRadialGradient(width * .71, height * .37, 8, width * .71, height * .37, width * .65);
+        haze.addColorStop(0, "#7b476f45");
+        haze.addColorStop(.55, "#29466e26");
+        haze.addColorStop(1, "#07101b00");
+        ctx.fillStyle = haze;
+        ctx.fillRect(0, 0, width, height);
+
+        const planetX = width * .16, planetY = height * .53, planetRadius = Math.min(width, height) * .27;
+        const planet = ctx.createRadialGradient(planetX - planetRadius * .35, planetY - planetRadius * .42,
+          planetRadius * .08, planetX, planetY, planetRadius);
+        planet.addColorStop(0, "#bdc4cb");
+        planet.addColorStop(.18, "#627b90");
+        planet.addColorStop(.55, "#263e57");
+        planet.addColorStop(.82, "#14263d");
+        planet.addColorStop(1, "#0b1729");
+        ctx.fillStyle = planet;
+        ctx.beginPath(); ctx.arc(planetX, planetY, planetRadius, 0, Math.PI * 2); ctx.fill();
+        ctx.save();
+        ctx.beginPath(); ctx.arc(planetX, planetY, planetRadius - 2, 0, Math.PI * 2); ctx.clip();
+        for (let i = 0; i < 13; i++) {
+          const bandY = planetY - planetRadius + i * planetRadius * .16;
+          ctx.globalAlpha = .08 + sceneryRand(i, 318) * .13;
+          ctx.strokeStyle = i % 2 ? "#c4d2d7" : "#121f35";
+          ctx.lineWidth = 3 + sceneryRand(i, 319) * 8;
+          ctx.beginPath(); ctx.moveTo(planetX - planetRadius, bandY);
+          ctx.bezierCurveTo(planetX - planetRadius * .3, bandY - 12, planetX + planetRadius * .35, bandY + 9,
+            planetX + planetRadius, bandY - 4); ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+        const night = ctx.createLinearGradient(planetX - planetRadius * .1, planetY, planetX + planetRadius, planetY);
+        night.addColorStop(0, "#050a15a8"); night.addColorStop(1, "#050a1500");
+        ctx.fillStyle = night; ctx.fillRect(planetX - planetRadius, planetY - planetRadius, planetRadius * 2, planetRadius * 2);
+        ctx.restore();
+        ctx.strokeStyle = "#83b4ca35"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.ellipse(planetX, planetY + 5, planetRadius * 1.26, planetRadius * .25, -.18, Math.PI * 1.04, Math.PI * 1.94); ctx.stroke();
+
+        ctx.save();
+        ctx.lineCap = "square";
+        const drawTruss = (points, color, lineWidth) => {
+          ctx.beginPath();
+          points.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+          ctx.strokeStyle = color; ctx.lineWidth = lineWidth; ctx.stroke();
+        };
+        drawTruss([[0, height * .05], [width * .22, height * .12], [width * .4, height * .34],
+          [width * .53, height * .41]], "#182c40", 18);
+        drawTruss([[width, height * .02], [width * .81, height * .13], [width * .66, height * .29],
+          [width * .53, height * .41]], "#1a2e42", 20);
+        drawTruss([[0, height * .05], [width * .24, height * .11], [width * .4, height * .34],
+          [width * .53, height * .41]], "#95b2bd38", 2);
+        drawTruss([[width, height * .02], [width * .81, height * .13], [width * .66, height * .29],
+          [width * .53, height * .41]], "#95b2bd38", 2);
+        for (let i = 0; i < 7; i++) {
+          const y = height * (.08 + i * .075);
+          const side = i % 2 ? -1 : 1;
+          ctx.fillStyle = "#233b51";
+          ctx.fillRect(side < 0 ? 0 : width - 18, y, 18, 7);
+          ctx.fillStyle = i % 3 ? "#91c4d099" : "#ffbc8066";
+          ctx.fillRect(side < 0 ? 9 : width - 12, y + 2, 3, 2);
+        }
+        ctx.restore();
+
+        for (let i = 0; i < 100; i++) {
+          const x = sceneryRand(i, 321) * width, y = sceneryRand(i, 322) * height;
+          const twinkle = reducedMotion.matches ? .7 : .5 + Math.sin(ambientTime * (1 + i % 3) + i) * .2;
+          ctx.globalAlpha = twinkle;
+          ctx.fillStyle = i % 9 === 0 ? "#ffc991" : "#d5e8ff";
+          ctx.fillRect(x, y, i % 9 === 0 ? 1.7 : 1, i % 9 === 0 ? 1.7 : 1);
+        }
+        ctx.globalAlpha = 1;
+        const shade = ctx.createLinearGradient(0, 0, 0, height);
+        shade.addColorStop(0, "#02071112");
+        shade.addColorStop(1, "#02071180");
+        ctx.fillStyle = shade; ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+      }
+
       function drawParticles() {
         for (const particle of particles) {
           ctx.save();
@@ -12817,6 +13211,18 @@
         bossHealthFill.style.width = `${share * 100}%`;
         bossHealthLag.style.width = `${share * 100}%`;
         bossHealthPanel.dataset.critical = String(boss.typeIndex === HARBINGER_INDEX && share < .25);
+        if (boss.typeIndex === HARBINGER_INDEX) {
+          const shieldHp = Math.ceil(boss.shieldHp || 0);
+          const shieldClock = Math.ceil(boss.shieldClock || 0);
+          const active = shieldHp > 0;
+          bossHealthPanel.dataset.shield = active ? "active" : "offline";
+          bossHealthShield.textContent = active
+            ? `SHIELD GENERATOR · ${shieldHp} / ${HARBINGER_SHIELD_CAPACITY}`
+            : `GENERATOR OFFLINE · RECHARGING ${shieldClock}s`;
+        } else {
+          delete bossHealthPanel.dataset.shield;
+          bossHealthShield.textContent = "";
+        }
       }
 
       function drawBoss(bossToDraw = boss, drawingContext = ctx) {
@@ -12829,22 +13235,77 @@
       }
 
       function harbingerHullSprite() {
-        return nacreSprite("harbinger-armored-shell", 256, 208, (data, w, h) => {
+        return nacreSprite("harbinger-hull-v2", 416, 344, (data, w, h) => {
+          const tilt = .62, ay = -Math.sin(tilt), az = Math.cos(tilt);
+          const cy = Math.cos(tilt), cz = Math.sin(tilt);
+          const light = [-.52, -.6, .6], lightLength = Math.hypot(...light);
+          const [lx, ly, lz] = light.map(value => value / lightLength);
+          const halfLength = Math.hypot(lx, ly, lz + 1);
+          const [hx, hy, hz] = [lx / halfLength, ly / halfLength, (lz + 1) / halfLength];
+          const hash = (a, b, seed) => {
+            const value = Math.sin(a * 127.1 + b * 311.7 + seed * 74.7) * 43758.5453;
+            return value - Math.floor(value);
+          };
+          const rows = 58;
           for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
             const nx = (x - w / 2) / (w * .48), ny = (y - h / 2) / (h * .48);
             const q = nx * nx + ny * ny;
             if (q >= 1) continue;
             const z = Math.sqrt(1 - q);
-            const light = Math.max(0, nx * -.42 + ny * -.53 + z * .73);
-            const grain = nacreFbm(nx * 27, ny * 27, 712, 2);
-            const angle = Math.atan2(ny, nx), radius = Math.sqrt(q);
-            const panel = Math.abs(Math.sin(angle * 15 + radius * .3)) < .035
-              || Math.abs(Math.sin(radius * 34)) < .07 ? .55 : 1;
-            const shine = Math.max(0, nx * -.2 + ny * -.3 + z * .93) ** 35;
-            const shade = (.14 + light * .86) * (.86 + grain * .23) * panel;
+            const lat = Math.asin(Math.max(-1, Math.min(1, ny * ay + z * az)));
+            const lon = Math.atan2(nx, ny * cy + z * cz);
+            const u = (lat / Math.PI + .5) * rows;
+            const row = Math.floor(u), fu = u - row;
+            const rowLat = ((row + .5) / rows - .5) * Math.PI;
+            const tiles = Math.max(8, Math.round(128 * Math.cos(rowLat)));
+            const v = (lon / (Math.PI * 2) + .5) * tiles;
+            const col = Math.floor(v), fv = v - col;
+            const tileHash = hash(row, col, 1), detailHash = hash(row, col, 2);
+            const trench = Math.abs(lat + .16) < .04;
+            const meridian = Math.abs(((lon / (Math.PI * 2) + .5) * 16 + .5) % 1 - .5) < .035;
+            const band = row % 7 === 0;
+            const groove = fu < .1 || fv < .08 || meridian;
+            const block = hash(Math.floor(row / 3), Math.floor(col / 4), 5);
+            let albedo = .84 + tileHash * .12 + (block - .5) * .14;
+            let bevel = 0, emissive = 0, recess = 1;
+            if (trench) {
+              albedo = .3;
+              recess = .55;
+              const lamp = hash(Math.floor(lon * 90), 7, 3);
+              if (Math.abs(lat + .16) < .012 && lamp < .55) emissive = .45 + lamp * .4;
+            } else if (groove) {
+              albedo *= meridian ? .45 : .62;
+            } else if (band) {
+              albedo *= .55;
+              recess = .8;
+              if (fu > .4 && fu < .6 && hash(Math.floor(v * 3), row, 6) < .25) emissive = .3;
+            } else {
+              if (fu < .24) bevel = .12; else if (fu > .86) bevel = -.12;
+              if (block < .1) {
+                recess = .7;
+                albedo *= .82;
+              }
+              if (block > .7 && detailHash > .45) {
+                const inset = fv > .3 && fv < .75 && fu > .4 && fu < .7;
+                if (inset && detailHash > .72) emissive = .22 + (detailHash - .72) * 2.2;
+              }
+            }
+            const streak = nacreFbm(lon * 6, lat * 46, 712, 3);
+            const grime = nacreFbm(nx * 9, ny * 9, 733, 3);
+            albedo *= .82 + streak * .26 - Math.max(0, grime - .55) * .5;
+            const diffuse = Math.max(0, nx * lx + ny * ly + z * lz);
+            const wrap = Math.max(0, (nx * lx + ny * ly + z * lz + .25) / 1.25);
+            const lit = (diffuse * .78 + wrap * .22) * (1 + bevel) * recess;
+            const specular = groove || trench ? 0 : Math.max(0, nx * hx + ny * hy + z * hz) ** 46 * (.55 + tileHash * .15);
+            const rim = (1 - z) ** 3 * Math.max(0, nx * .75 + ny * .15 + .3);
+            const occlusion = .55 + .45 * Math.min(1, z * 2.4);
+            const tone = tileHash < .18 ? [112, 116, 118] : tileHash > .85 ? [96, 112, 128] : [104, 117, 130];
             const i = (y * w + x) * 4;
-            [99, 119, 138].forEach((color, channel) => data[i + channel] = color * shade + shine * 67);
-            data[i + 3] = Math.min(1, (1 - q) * w * .6) * 255;
+            const glow = emissive * (1.15 - diffuse * .5);
+            data[i] = Math.min(255, (tone[0] * albedo * (.06 + lit) + specular * 210 + rim * 40) * occlusion + glow * 255);
+            data[i + 1] = Math.min(255, (tone[1] * albedo * (.07 + lit) + specular * 220 + rim * 92) * occlusion + glow * 196);
+            data[i + 2] = Math.min(255, (tone[2] * albedo * (.1 + lit) + specular * 230 + rim * 128) * occlusion + glow * 128);
+            data[i + 3] = Math.min(1, (1 - q) * w * .5) * 255;
           }
         });
       }
@@ -12863,76 +13324,527 @@
         const metal = drawing.createLinearGradient(-130, -80, 130, 90);
         metal.addColorStop(0, "#c1cbd2"); metal.addColorStop(.24, "#758b9a");
         metal.addColorStop(.55, "#394e61"); metal.addColorStop(1, "#101d2b");
+        const shieldRatio = subject.shieldMaxHp ? Math.max(0, subject.shieldHp / subject.shieldMaxHp) : 0;
+        if (shieldRatio > 0) {
+          drawing.save();
+          drawing.globalAlpha = .08 + shieldRatio * .08;
+          const field = drawing.createRadialGradient(0, 0, 58, 0, 0, 152);
+          field.addColorStop(0, "#61dfff00");
+          field.addColorStop(.72, "#6adfff10");
+          field.addColorStop(1, "#9ef3ff55");
+          drawing.fillStyle = field;
+          drawing.beginPath(); drawing.ellipse(0, 0, 151, 87, -.08, 0, Math.PI * 2); drawing.fill();
+          drawing.globalAlpha = .22 + shieldRatio * .28;
+          drawing.strokeStyle = "#8eeeff";
+          drawing.lineWidth = 1.4;
+          drawing.setLineDash([8, 7]);
+          drawing.lineDashOffset = reducedMotion.matches ? 0 : -time * 18;
+          drawing.beginPath(); drawing.ellipse(0, 0, 151, 87, -.08, 0, Math.PI * 2); drawing.stroke();
+          drawing.setLineDash([]);
+          drawing.restore();
+        }
+        // Layer 1 = perimeter armor (ring, rim plates, flank batteries); layer 2 = siege array; the heart is the core.
+        const layerBreak = subject.layerBreak;
+        const showLayer = layer => stage <= layer || layerBreak?.layer === layer;
+        const layerTint = layer => harbingerStages[layer - 1].color;
+        const pulse = .5 + .5 * Math.sin(time * 3.2);
+        const piece = (layer, cx, cy, seed, render) => {
+          const progress = layerBreak?.layer === layer ? Math.max(0, Math.min(1, layerBreak.progress)) : 0;
+          const loose = Math.max(0, (progress - .32) / .68);
+          const alpha = 1 - Math.max(0, (loose - .5) / .5);
+          if (alpha <= 0) return;
+          drawing.save();
+          if (progress > 0) {
+            const quake = progress < .32 && !reducedMotion.matches ? Math.sin(progress * 140 + seed * 2.3) * progress * 4 : 0;
+            const heading = Math.atan2(cy + 4, cx || .01) + (sceneryRand(seed, 951) - .5) * .8;
+            const fly = loose ** 1.35 * (120 + sceneryRand(seed, 952) * 150);
+            drawing.globalAlpha *= alpha;
+            drawing.translate(cx + Math.cos(heading) * fly + quake, cy + Math.sin(heading) * fly * .75 + loose * loose * 70 + quake * .5);
+            drawing.rotate(loose * (sceneryRand(seed, 953) - .5) * 3.4);
+            drawing.translate(-cx, -cy);
+          }
+          render();
+          if (progress > 0) {
+            const heat = Math.min(1, progress / .32) * (1 - loose * .8);
+            const glow = drawing.createRadialGradient(cx, cy, 0, cx, cy, 24);
+            glow.addColorStop(0, `rgba(255,236,190,${.8 * heat})`);
+            glow.addColorStop(.4, `rgba(255,128,52,${.5 * heat})`);
+            glow.addColorStop(1, "rgba(255,70,30,0)");
+            drawing.globalCompositeOperation = "lighter";
+            drawing.fillStyle = glow; drawing.beginPath(); drawing.arc(cx, cy, 24, 0, Math.PI * 2); drawing.fill();
+          }
+          drawing.restore();
+        };
+        const steel = facing => interpolateColor("#22303b", "#c7d1d6", Math.max(0, Math.min(1, facing)));
+        const ringSegments = 12;
         const ring = (front) => {
+          if (!showLayer(1)) return;
           drawing.save(); drawing.rotate(-.16);
-          drawing.strokeStyle = "#07111c"; drawing.lineWidth = 15;
-          drawing.beginPath(); drawing.ellipse(0, 6, 128, 52, 0, front ? 0 : Math.PI, front ? Math.PI : Math.PI * 2); drawing.stroke();
-          drawing.strokeStyle = metal; drawing.lineWidth = stage === 1 ? 11 : 7;
-          drawing.beginPath(); drawing.ellipse(0, 3, 128, 52, 0, front ? 0 : Math.PI, front ? Math.PI : Math.PI * 2); drawing.stroke();
-          drawing.strokeStyle = tint; drawing.globalAlpha = .7; drawing.lineWidth = 1.2;
-          drawing.beginPath(); drawing.ellipse(0, 3, 130, 52, 0, front ? 0 : Math.PI, front ? Math.PI : Math.PI * 2); drawing.stroke();
-          drawing.globalAlpha = 1;
-          for (let i = 0; i < 24; i++) {
-            const a = i / 24 * Math.PI * 2 + (stage > 1 ? time * .065 : 0);
-            if ((Math.sin(a) >= 0) !== front) continue;
-            drawing.save(); drawing.translate(Math.cos(a) * 128, Math.sin(a) * 52 + 3); drawing.rotate(a);
-            drawing.fillStyle = "#b2c3cc"; drawing.fillRect(-1.5, -5, 3, 10);
-            drawing.fillStyle = tint; drawing.fillRect(-1, -3, 2, 2);
-            drawing.restore();
+          const edge = (a, rx, ry, dy) => [Math.cos(a) * rx, Math.sin(a) * ry + dy];
+          const band = (a0, a1, outerA, outerB, dyA, dyB) => {
+            drawing.beginPath();
+            for (let s = 0; s <= 6; s++) drawing.lineTo(...edge(a0 + (a1 - a0) * s / 6, outerA[0], outerA[1], dyA));
+            for (let s = 6; s >= 0; s--) drawing.lineTo(...edge(a0 + (a1 - a0) * s / 6, outerB[0], outerB[1], dyB));
+            drawing.closePath();
+          };
+          for (let index = 0; index < ringSegments; index++) {
+            const a0 = index / ringSegments * Math.PI * 2 + .012, a1 = (index + 1) / ringSegments * Math.PI * 2 - .012;
+            const mid = (a0 + a1) / 2;
+            if ((Math.sin(mid) >= 0) !== front) continue;
+            const facing = -(Math.cos(mid) * .55 + Math.sin(mid) * .4);
+            piece(1, Math.cos(mid) * 128, Math.sin(mid) * 52 + 3, 300 + index, () => {
+              if (front) band(a0, a1, [134, 57], [134, 57], 3, 12);
+              else band(a0, a1, [121, 46], [121, 46], 3, 11);
+              const wall = drawing.createLinearGradient(0, Math.sin(mid) * 50, 0, Math.sin(mid) * 50 + 14);
+              wall.addColorStop(0, steel(.18 + facing * .15)); wall.addColorStop(1, "#05090f");
+              drawing.fillStyle = wall; drawing.fill();
+              drawing.strokeStyle = "#04080d"; drawing.lineWidth = .8; drawing.stroke();
+              if (front) {
+                drawing.strokeStyle = "rgba(160,182,194,.22)"; drawing.lineWidth = .7;
+                for (let rib = 1; rib < 6; rib++) {
+                  const a = a0 + (a1 - a0) * rib / 6;
+                  drawing.beginPath(); drawing.moveTo(...edge(a, 134, 57, 4)); drawing.lineTo(...edge(a, 134, 57, 11)); drawing.stroke();
+                }
+              }
+              band(a0, a1, [134, 57], [121, 46], 3, 3);
+              const [ox, oy] = edge(mid, 134, 57, 3), [ix, iy] = edge(mid, 121, 46, 3);
+              const deck = drawing.createLinearGradient(ix, iy, ox, oy);
+              deck.addColorStop(0, steel(.3 + facing * .3));
+              deck.addColorStop(.55, steel(.48 + facing * .4));
+              deck.addColorStop(.9, steel(.62 + facing * .38));
+              deck.addColorStop(1, steel(.25 + facing * .2));
+              drawing.fillStyle = deck; drawing.fill();
+              drawing.strokeStyle = "#060b11"; drawing.lineWidth = 1; drawing.stroke();
+              drawing.strokeStyle = "rgba(10,18,26,.65)"; drawing.lineWidth = .7;
+              drawing.beginPath(); drawing.ellipse(0, 3, 127.5, 51.5, 0, a0, a1); drawing.stroke();
+              drawing.save();
+              drawing.strokeStyle = layerTint(1); drawing.globalAlpha *= .22; drawing.lineWidth = .8;
+              drawing.beginPath(); drawing.ellipse(0, 3, 131, 54.5, 0, a0 + .03, a1 - .03); drawing.stroke();
+              drawing.restore();
+              for (const step of [.3, .7]) {
+                const a = a0 + (a1 - a0) * step;
+                const [px, py] = edge(a, 125, 49.5, 3);
+                drawing.save(); drawing.translate(px, py); drawing.rotate(a + Math.PI / 2);
+                drawing.fillStyle = "#0b131b"; drawing.fillRect(-3.2, -1.8, 6.4, 3.6);
+                drawing.fillStyle = steel(.4 + facing * .3); drawing.fillRect(-2.6, -1.2, 5.2, 2.4);
+                drawing.restore();
+              }
+              for (let lamp = 0; lamp < 3; lamp++) {
+                const a = a0 + (a1 - a0) * (lamp + .5) / 3;
+                const [px, py] = edge(a, 132.6, 55.6, 3);
+                const flicker = live ? .55 + .45 * Math.sin(time * 1.7 + index * 1.3 + lamp) : .8;
+                drawing.fillStyle = `rgba(255,214,160,${.35 + flicker * .45})`;
+                drawing.fillRect(px - .6, py - .6, 1.2, 1.2);
+              }
+            });
           }
           drawing.restore();
         };
         ring(false);
-        for (const side of [-1, 1]) {
-          drawing.save(); drawing.translate(side * 108, -12); drawing.rotate(side * .13);
-          drawWeaponHousing(drawing, 19, 40, "#526a7c");
-          drawing.fillStyle = "#0b1a27"; drawing.fillRect(-12, -26, 24, 46);
-          for (let deck = 0; deck < 7; deck++) {
-            drawing.fillStyle = deck % 3 ? "#a7d4dd" : tint; drawing.fillRect(-9, -22 + deck * 6, 18, 1.2);
+        if (showLayer(1)) for (const side of [-1, 1]) {
+          piece(1, side * 108, -12, 320 + side, () => {
+            drawing.save(); drawing.translate(side * 108, -12); drawing.rotate(side * .13);
+            drawing.fillStyle = "rgba(0,0,0,.4)";
+            drawing.beginPath(); drawing.ellipse(5, 26, 22, 7, 0, 0, Math.PI * 2); drawing.fill();
+            const lit = side < 0 ? .75 : .4;
+            drawing.beginPath();
+            drawing.moveTo(-17, -36); drawing.lineTo(17, -36); drawing.lineTo(21, -28); drawing.lineTo(21, 24);
+            drawing.lineTo(15, 30); drawing.lineTo(-15, 30); drawing.lineTo(-21, 24); drawing.lineTo(-21, -28); drawing.closePath();
+            const casemate = drawing.createLinearGradient(-21, 0, 21, 0);
+            casemate.addColorStop(0, steel(lit)); casemate.addColorStop(.18, steel(lit * .8));
+            casemate.addColorStop(.82, steel(lit * .45)); casemate.addColorStop(1, steel(.08));
+            drawing.fillStyle = casemate; drawing.fill();
+            drawing.strokeStyle = "#04080d"; drawing.lineWidth = 1.2; drawing.stroke();
+            const roof = drawing.createLinearGradient(0, -36, 0, -22);
+            roof.addColorStop(0, steel(lit + .2)); roof.addColorStop(1, steel(lit * .55));
+            drawing.fillStyle = roof;
+            drawing.beginPath(); drawing.moveTo(-17, -36); drawing.lineTo(17, -36); drawing.lineTo(14, -24); drawing.lineTo(-14, -24); drawing.closePath(); drawing.fill();
+            drawing.fillStyle = "#081018"; drawing.fillRect(-13, -19, 26, 38);
+            for (let vent = 0; vent < 9; vent++) {
+              const vy = -17 + vent * 4;
+              drawing.fillStyle = steel(.32 + (vent % 3 === 0 ? .1 : 0)); drawing.fillRect(-12, vy, 24, 1.6);
+              drawing.fillStyle = "rgba(255,150,80,.16)"; drawing.fillRect(-11, vy + 1.6, 22, .8);
+            }
+            drawing.fillStyle = "rgba(200,220,230,.25)"; drawing.fillRect(-20.4, -27, .9, 50);
+            for (const barrel of [-6, 6]) {
+              const tube = drawing.createLinearGradient(barrel - 2.4, 0, barrel + 2.4, 0);
+              tube.addColorStop(0, "#9aabb4"); tube.addColorStop(.45, "#3e4f5b"); tube.addColorStop(1, "#0b131a");
+              drawing.fillStyle = tube; drawing.fillRect(barrel - 2.4, 26, 4.8, 15);
+              drawing.fillStyle = "#05090d"; drawing.fillRect(barrel - 1.4, 39, 2.8, 2);
+            }
+            const warn = live ? Math.max(0, Math.sin(time * 3.1 + side)) ** 12 : .3;
+            drawing.fillStyle = `rgba(255,70,50,${.4 + warn * .6})`; drawing.fillRect(-1.2, -34, 2.4, 2.4);
+            drawing.fillStyle = layerTint(1); drawing.globalAlpha *= .5; drawing.fillRect(-14, -23, 28, .9);
+            drawing.restore();
+          });
+        }
+        if (stage > 1) {
+          for (const side of [-1, 1]) {
+            drawing.save(); drawing.translate(side * 108, 16);
+            drawing.fillStyle = "#1a2a37"; drawing.fillRect(-side * 18 - 4, -3, 22, 6);
+            drawing.fillStyle = "#6f8593"; drawing.fillRect(-side * 18 - 4, -3, 22, 1.4);
+            drawing.restore();
           }
-          drawing.fillStyle = "#859eaa"; drawing.fillRect(-16, 22, 32, 4);
-          drawing.restore();
         }
         drawing.drawImage(harbingerHullSprite(), -96, -79, 192, 158);
         drawing.save();
-        drawing.beginPath(); drawing.ellipse(0, 0, 91, 76, 0, 0, Math.PI * 2); drawing.clip();
-        for (let row = 0; row < 10; row++) for (let col = 0; col < 15; col++) {
-          const x = (col - 7) * 10.5, y = (row - 4.5) * 12;
-          if (x * x / 7000 + y * y / 3900 > .83 || sceneryRand(row * 15 + col, 81) < .24) continue;
-          drawing.fillStyle = sceneryRand(row * 15 + col, 82) < .2 ? tint : "#bddeea";
-          drawing.globalAlpha = .25 + sceneryRand(row * 15 + col, 83) * .4;
-          drawing.fillRect(x, y, 2.2, .8);
+        drawing.beginPath(); drawing.ellipse(0, 0, 95, 78, 0, 0, Math.PI * 2); drawing.clip();
+        if (showLayer(1)) {
+          drawing.strokeStyle = "rgba(2,6,12,.2)";
+          for (const lineWidth of [18, 11, 6]) {
+            drawing.lineWidth = lineWidth;
+            drawing.beginPath(); drawing.ellipse(0, 0, 90, 75, 0, 0, Math.PI * 2); drawing.stroke();
+          }
         }
-        drawing.globalAlpha = 1;
+        drawing.strokeStyle = "rgba(2,6,12,.18)";
+        for (const lineWidth of [26, 15, 7]) {
+          drawing.lineWidth = lineWidth;
+          drawing.beginPath(); drawing.ellipse(0, -2, 128, 52, -.16, .15, Math.PI - .15); drawing.stroke();
+        }
+        drawing.restore();
         if (stage > 1) {
-          drawing.strokeStyle = "#080f1b"; drawing.lineWidth = 7;
+          for (const [x, y, angle] of [[-90, -10, Math.PI + .1], [90, -10, -.1], [-84, 26, Math.PI - .35], [84, 26, .35],
+            ...(stage > 2 ? [[-34, -46, -2.24], [34, -46, -.9]] : [])]) {
+            drawing.save(); drawing.translate(x, y); drawing.rotate(angle);
+            const stub = drawing.createLinearGradient(0, -5, 0, 5);
+            stub.addColorStop(0, "#6b7a84"); stub.addColorStop(.5, "#26323b"); stub.addColorStop(1, "#090e13");
+            drawing.fillStyle = stub;
+            drawing.beginPath(); drawing.moveTo(-3, -5); drawing.lineTo(9, -4); drawing.lineTo(13, -1); drawing.lineTo(8, 1);
+            drawing.lineTo(12, 4); drawing.lineTo(-3, 5); drawing.closePath(); drawing.fill();
+            drawing.strokeStyle = "rgba(30,18,10,.8)"; drawing.lineWidth = 1.6;
+            drawing.beginPath(); drawing.moveTo(9, -4); drawing.lineTo(13, -1); drawing.lineTo(8, 1); drawing.lineTo(12, 4); drawing.stroke();
+            drawing.globalCompositeOperation = "lighter";
+            const ember = drawing.createRadialGradient(11, 0, 0, 11, 0, 9);
+            ember.addColorStop(0, `rgba(255,170,90,${.3 + pulse * .25})`); ember.addColorStop(1, "rgba(255,90,30,0)");
+            drawing.fillStyle = ember; drawing.beginPath(); drawing.arc(11, 0, 9, 0, Math.PI * 2); drawing.fill();
+            drawing.strokeStyle = `rgba(255,${170 + pulse * 50},110,${.45 + pulse * .3})`; drawing.lineWidth = .7;
+            drawing.beginPath(); drawing.moveTo(9, -4); drawing.lineTo(13, -1); drawing.lineTo(8, 1); drawing.lineTo(12, 4); drawing.stroke();
+            drawing.restore();
+          }
+        }
+        if (showLayer(1)) for (let k = 0; k < 10; k++) {
+          const a = k / 10 * Math.PI * 2 + .31;
+          if (Math.sin(a) > .9 || Math.sin(a) < -.9) continue;
+          const span = .27, cx = Math.cos(a) * 84, cy = Math.sin(a) * 69;
+          piece(1, cx, cy, 340 + k, () => {
+            drawing.beginPath();
+            for (let s = 0; s <= 6; s++) {
+              const b = a - span + s / 6 * span * 2;
+              s ? drawing.lineTo(Math.cos(b) * 95, Math.sin(b) * 79) : drawing.moveTo(Math.cos(b) * 95, Math.sin(b) * 79);
+            }
+            for (let s = 6; s >= 0; s--) {
+              const b = a - span + s / 6 * span * 2;
+              drawing.lineTo(Math.cos(b) * 73, Math.sin(b) * 60);
+            }
+            drawing.closePath();
+            const facing = -(Math.cos(a) * .6 + Math.sin(a) * .7);
+            const plate = drawing.createLinearGradient(Math.cos(a) * 95, Math.sin(a) * 79, Math.cos(a) * 73, Math.sin(a) * 60);
+            plate.addColorStop(0, steel(.42 + facing * .45));
+            plate.addColorStop(.18, steel(.56 + facing * .4));
+            plate.addColorStop(1, steel(.2 + facing * .22));
+            drawing.fillStyle = plate; drawing.fill();
+            drawing.strokeStyle = "#05090e"; drawing.lineWidth = 1.4; drawing.stroke();
+            drawing.save(); drawing.clip();
+            drawing.strokeStyle = "rgba(6,12,18,.7)"; drawing.lineWidth = .8;
+            for (const cut of [-.36, .36]) {
+              const b = a + cut * span;
+              drawing.beginPath(); drawing.moveTo(Math.cos(b) * 96, Math.sin(b) * 80); drawing.lineTo(Math.cos(b) * 72, Math.sin(b) * 59); drawing.stroke();
+            }
+            drawing.strokeStyle = `rgba(225,236,240,${.12 + Math.max(0, facing) * .4})`; drawing.lineWidth = 1;
+            drawing.beginPath(); drawing.ellipse(0, 0, 94, 78, 0, a - span, a + span); drawing.stroke();
+            const wear = drawing.createRadialGradient(Math.cos(a + .1) * 84, Math.sin(a + .1) * 69, 0, Math.cos(a + .1) * 84, Math.sin(a + .1) * 69, 14);
+            wear.addColorStop(0, "rgba(20,14,10,.3)"); wear.addColorStop(1, "rgba(20,14,10,0)");
+            drawing.fillStyle = wear; drawing.fillRect(cx - 30, cy - 30, 60, 60);
+            drawing.restore();
+            drawing.save();
+            drawing.strokeStyle = layerTint(1); drawing.globalAlpha *= .2; drawing.lineWidth = .8;
+            drawing.beginPath(); drawing.ellipse(0, 0, 80, 66, 0, a - span * .7, a + span * .7); drawing.stroke();
+            drawing.restore();
+            for (const r of [-.7, -.2, .2, .7]) {
+              const bx = Math.cos(a + r * span) * 90, by = Math.sin(a + r * span) * 75;
+              drawing.fillStyle = "#070d13"; drawing.fillRect(bx - .9, by - .9, 1.8, 1.8);
+              drawing.fillStyle = "rgba(210,224,230,.35)"; drawing.fillRect(bx - .9, by - .9, .9, .9);
+            }
+          });
+        }
+        for (const [index, side] of [-1, 1].entries()) {
+          const bay = subject.dockingBays?.[index];
+          const opening = bay?.open || 0;
+          drawing.save();
+          drawing.translate(side * 77, 51);
+          const mouth = drawing.createLinearGradient(0, -14, 0, 16);
+          mouth.addColorStop(0, "#36464f"); mouth.addColorStop(.25, "#121d26"); mouth.addColorStop(1, "#04080d");
+          drawing.fillStyle = mouth;
+          drawing.beginPath(); drawing.moveTo(-12, -14); drawing.lineTo(12, -14); drawing.lineTo(11, 16); drawing.lineTo(-11, 16); drawing.closePath(); drawing.fill();
+          drawing.strokeStyle = "#04080c"; drawing.lineWidth = 1.2; drawing.stroke();
+          drawing.fillStyle = "rgba(205,220,228,.45)"; drawing.fillRect(-12, -14, 24, 1);
+          const phase = bay?.phase || "closed", elapsed = bay?.elapsed || 0;
+          const active = phase !== "closed";
+          const launch = phase === "launching" ? Math.min(1, elapsed / 1.1) : 0;
+          drawing.save();
+          drawing.beginPath(); drawing.rect(-8, -11, 16, 24); drawing.clip();
+          const interior = drawing.createLinearGradient(0, -11, 0, 13);
+          interior.addColorStop(0, "#0d1820"); interior.addColorStop(1, "#050a10");
+          drawing.fillStyle = interior; drawing.fillRect(-8, -11, 16, 24);
+          if (opening > 0) {
+            const lit = drawing.createLinearGradient(0, -11, 0, 13);
+            lit.addColorStop(0, `rgba(190,240,240,${.85 * opening})`); lit.addColorStop(.55, `rgba(80,170,185,${.6 * opening})`);
+            lit.addColorStop(1, `rgba(20,60,75,${.8 * opening})`);
+            drawing.fillStyle = lit; drawing.fillRect(-8, -11, 16, 24);
+            drawing.fillStyle = `rgba(6,14,20,${.7 * opening})`;
+            for (let rib = 0; rib < 5; rib++) drawing.fillRect(-8, -10 + rib * 5, 16, .8);
+            // Catapult rails with chase lights that race toward the bay mouth.
+            drawing.fillStyle = `rgba(30,44,54,${opening})`; drawing.fillRect(-4.6, -11, 1.4, 24); drawing.fillRect(3.2, -11, 1.4, 24);
+            const speed = phase === "launching" ? 46 : 9, chase = (time * speed) % 6;
+            for (let light = -2; light < 5; light++) {
+              const ly = -11 + light * 6 + chase;
+              const glow = phase === "launching" ? 1 : .55;
+              drawing.fillStyle = `rgba(120,255,235,${glow * opening})`;
+              drawing.fillRect(-4.4, ly, 1, 1.6); drawing.fillRect(3.4, ly, 1, 1.6);
+            }
+          }
+          if (phase === "opening" && bay?.variant) {
+            // Support craft rising on the lift, silhouetted against the bay lights.
+            const lift = Math.min(1, elapsed / (bay.duration || .9));
+            const cy = 9 - lift * 12, size = .6 + lift * .4;
+            drawing.save(); drawing.translate(0, cy); drawing.scale(size, size);
+            drawing.fillStyle = "rgba(0,0,0,.45)"; drawing.beginPath(); drawing.ellipse(0, 6, 6, 2, 0, 0, Math.PI * 2); drawing.fill();
+            drawing.fillStyle = "#121a22";
+            drawing.beginPath(); drawing.moveTo(0, 7); drawing.lineTo(5.5, -1); drawing.lineTo(4, -5); drawing.lineTo(-4, -5); drawing.lineTo(-5.5, -1); drawing.closePath(); drawing.fill();
+            drawing.strokeStyle = "rgba(200,235,240,.55)"; drawing.lineWidth = .6; drawing.stroke();
+            const idle = .45 + Math.sin(time * 30) * .15 + lift * .3;
+            drawing.fillStyle = `rgba(255,170,90,${idle})`; drawing.fillRect(-3, -6.2, 1.6, 1.4); drawing.fillRect(1.4, -6.2, 1.6, 1.4);
+            drawing.fillStyle = `rgba(150,240,255,${.5 + lift * .4})`; drawing.fillRect(-.7, 1, 1.4, 2);
+            drawing.restore();
+          }
+          if (launch > 0) {
+            drawing.globalCompositeOperation = "lighter";
+            const fade = 1 - launch;
+            const trail = drawing.createLinearGradient(0, -11, 0, 13);
+            trail.addColorStop(0, `rgba(255,150,70,${.15 * fade})`); trail.addColorStop(.6, `rgba(255,210,150,${.75 * fade})`);
+            trail.addColorStop(1, `rgba(255,250,230,${fade})`);
+            drawing.fillStyle = trail; drawing.fillRect(-2.6 - fade, -11, 5.2 + fade * 2, 24);
+            drawing.globalCompositeOperation = "source-over";
+          }
+          drawing.restore();
+          for (let lamp = 0; lamp < 4; lamp++) {
+            const on = active ? .55 + .45 * Math.max(0, Math.sin(time * 9 - lamp * 1.3)) : .3;
+            drawing.fillStyle = `rgba(255,206,140,${on})`; drawing.fillRect(-7, -9 + lamp * 6, 1, 1); drawing.fillRect(6, -9 + lamp * 6, 1, 1);
+          }
+          // Doors slide back into hull pockets on either side of the mouth.
+          drawing.save();
+          drawing.beginPath(); drawing.rect(-8, -11, 16, 24); drawing.clip();
+          const door = drawing.createLinearGradient(-8, 0, 8, 0);
+          door.addColorStop(0, "#3c4c57"); door.addColorStop(.5, "#1b2731"); door.addColorStop(1, "#0b1218");
+          for (const leaf of [-1, 1]) {
+            const x0 = leaf < 0 ? -8 - opening * 8 : opening * 8;
+            drawing.fillStyle = door; drawing.fillRect(x0, -11, 8, 24);
+            drawing.fillStyle = "rgba(5,9,13,.8)";
+            for (let seam = 0; seam < 3; seam++) drawing.fillRect(x0, -5 + seam * 7, 8, .6);
+            const edge = leaf < 0 ? x0 + 6.6 : x0;
+            drawing.fillStyle = "#e1a43a"; drawing.fillRect(edge, -11, 1.4, 24);
+            drawing.fillStyle = "#14100a";
+            for (let chevron = 0; chevron < 6; chevron++) drawing.fillRect(edge, -10 + chevron * 4, 1.4, 1.6);
+          }
+          if (opening < .05) { drawing.fillStyle = "#05090d"; drawing.fillRect(-.4, -11, .8, 24); }
+          drawing.restore();
+          drawing.fillStyle = "rgba(255,190,90,.6)";
+          for (let stripe = 0; stripe < 4; stripe++) drawing.fillRect(-10 + stripe * 6, 14, 3, 1.2);
+          if (active) {
+            // Rotating amber warning beacons on the bay lintel.
+            for (const bx of [-11, 11]) {
+              const sweep = Math.max(0, Math.sin(time * 8 + bx)) ** 3;
+              drawing.fillStyle = `rgba(255,${150 + sweep * 60},40,${.5 + sweep * .5})`;
+              drawing.fillRect(bx - 1.2, -16.4, 2.4, 2);
+              drawing.globalCompositeOperation = "lighter";
+              const halo = drawing.createRadialGradient(bx, -15.4, 0, bx, -15.4, 8);
+              halo.addColorStop(0, `rgba(255,170,60,${.55 * sweep})`); halo.addColorStop(1, "rgba(255,120,30,0)");
+              drawing.fillStyle = halo; drawing.beginPath(); drawing.arc(bx, -15.4, 8, 0, Math.PI * 2); drawing.fill();
+              drawing.globalCompositeOperation = "source-over";
+            }
+          }
+          if (launch > 0 && launch < .7) {
+            // Catapult flash and venting vapour as the craft clears the mouth.
+            const burst = 1 - launch / .7;
+            drawing.globalCompositeOperation = "lighter";
+            const flash = drawing.createRadialGradient(0, 15, 0, 0, 15, 32);
+            flash.addColorStop(0, `rgba(255,245,215,${.9 * burst})`); flash.addColorStop(.35, `rgba(255,170,80,${.45 * burst})`);
+            flash.addColorStop(1, "rgba(255,110,40,0)");
+            drawing.fillStyle = flash; drawing.beginPath(); drawing.arc(0, 15, 32, 0, Math.PI * 2); drawing.fill();
+            const plume = drawing.createLinearGradient(0, 14, 0, 34 + 80 * launch);
+            plume.addColorStop(0, `rgba(255,220,170,${.8 * burst})`); plume.addColorStop(1, "rgba(255,120,50,0)");
+            drawing.fillStyle = plume;
+            drawing.beginPath(); drawing.moveTo(-4, 14); drawing.lineTo(4, 14); drawing.lineTo(1.6, 34 + 80 * launch); drawing.lineTo(-1.6, 34 + 80 * launch); drawing.closePath(); drawing.fill();
+            drawing.globalCompositeOperation = "source-over";
+            for (const vx of [-1, 1]) for (let puff = 0; puff < 3; puff++) {
+              const drift = launch * (10 + puff * 5);
+              drawing.fillStyle = `rgba(200,215,225,${.32 * burst})`;
+              drawing.beginPath(); drawing.arc(vx * (11 + drift), 10 + puff * 3 + drift * .3, 2.5 + drift * .35, 0, Math.PI * 2); drawing.fill();
+            }
+          }
+          drawing.restore();
+        }
+        const fissure = (points, seed, width, core, heat) => {
+          const path = [];
+          for (let k = 0; k < points.length - 1; k++) {
+            const [x0, y0] = points[k], [x1, y1] = points[k + 1];
+            const length = Math.hypot(x1 - x0, y1 - y0), steps = Math.max(2, Math.round(length / 5));
+            for (let s = 0; s < steps; s++) {
+              const f = s / steps, jitter = (sceneryRand(seed * 31 + k * 13 + s, 961) - .5) * 5.5;
+              path.push([x0 + (x1 - x0) * f - (y1 - y0) / length * jitter, y0 + (y1 - y0) * f + (x1 - x0) / length * jitter]);
+            }
+          }
+          path.push(points[points.length - 1]);
+          const trace = () => { drawing.beginPath(); path.forEach(([x, y], k) => k ? drawing.lineTo(x, y) : drawing.moveTo(x, y)); };
+          drawing.save();
+          drawing.lineCap = "round"; drawing.lineJoin = "round";
+          trace();
+          drawing.strokeStyle = "rgba(14,9,6,.42)"; drawing.lineWidth = width * 2.6; drawing.stroke();
+          drawing.strokeStyle = "rgba(3,4,7,.92)"; drawing.lineWidth = width; drawing.stroke();
+          drawing.globalCompositeOperation = "lighter";
+          drawing.strokeStyle = `rgba(${core},${.16 * heat})`; drawing.lineWidth = width * 1.8; drawing.stroke();
+          drawing.strokeStyle = `rgba(${core},${.85 * heat})`; drawing.lineWidth = Math.max(.8, width * .22); drawing.stroke();
+          drawing.restore();
+        };
+        drawing.save();
+        drawing.beginPath(); drawing.ellipse(0, 0, 91, 76, 0, 0, Math.PI * 2); drawing.clip();
+        if (stage > 1) {
+          const molten = .7 + pulse * .3;
           for (const side of [-1, 1]) {
-            drawing.beginPath(); drawing.moveTo(side * 18, -65); drawing.lineTo(side * 48, -17); drawing.lineTo(side * 30, 27); drawing.stroke();
-            drawing.strokeStyle = tint; drawing.lineWidth = .7; drawing.stroke();
-            drawing.strokeStyle = "#080f1b"; drawing.lineWidth = 7;
+            fissure([[side * 18, -65], [side * 48, -17], [side * 30, 27]], 40 + side, 5.5, "255,150,72", molten);
+            fissure([[side * 48, -17], [side * 70, -4]], 44 + side, 3, "255,150,72", molten * .8);
           }
         }
         drawing.restore();
-        const iris = drawing.createRadialGradient(-7, -24, 0, 0, -16, stage === 3 ? 34 : 24);
+        if (stage === 3) {
+          drawing.save();
+          drawing.globalCompositeOperation = "lighter";
+          const corona = drawing.createRadialGradient(0, -16, 6, 0, -16, 62);
+          corona.addColorStop(0, `rgba(255,190,160,${.28 + pulse * .2})`);
+          corona.addColorStop(.45, `rgba(255,90,110,${.1 + pulse * .08})`);
+          corona.addColorStop(1, "rgba(120,20,60,0)");
+          drawing.fillStyle = corona; drawing.beginPath(); drawing.arc(0, -16, 62, 0, Math.PI * 2); drawing.fill();
+          drawing.restore();
+          drawing.save();
+          drawing.beginPath(); drawing.ellipse(0, 0, 91, 76, 0, 0, Math.PI * 2); drawing.clip();
+          for (let i = 0; i < 6; i++) {
+            const a = i / 6 * Math.PI * 2 + .5;
+            fissure([[Math.cos(a) * 34, -16 + Math.sin(a) * 30], [Math.cos(a + .12) * 52, -16 + Math.sin(a + .12) * 44],
+              [Math.cos(a - .05) * 72, -16 + Math.sin(a - .05) * 56]], 60 + i, 4, `255,${150 + Math.round(pulse * 60)},140`, .65 + pulse * .35);
+          }
+          drawing.restore();
+          const housing = drawing.createLinearGradient(-36, -48, 30, 18);
+          housing.addColorStop(0, "#8f8a8e"); housing.addColorStop(.35, "#3a3236"); housing.addColorStop(1, "#0b080b");
+          drawing.strokeStyle = housing; drawing.lineWidth = 8;
+          drawing.beginPath(); drawing.ellipse(0, -16, 36, 32, 0, 0, Math.PI * 2); drawing.stroke();
+          drawing.strokeStyle = "#050306"; drawing.lineWidth = 1;
+          drawing.beginPath(); drawing.ellipse(0, -16, 40, 36, 0, 0, Math.PI * 2); drawing.stroke();
+          for (let clamp = 0; clamp < 8; clamp++) {
+            const a = clamp / 8 * Math.PI * 2 + Math.PI / 8;
+            drawing.save(); drawing.translate(Math.cos(a) * 36, -16 + Math.sin(a) * 32); drawing.rotate(a);
+            drawing.fillStyle = "#1a1418"; drawing.fillRect(-3, -3.2, 6, 6.4);
+            drawing.fillStyle = "rgba(220,200,205,.35)"; drawing.fillRect(-3, -3.2, 6, .8);
+            drawing.restore();
+          }
+          drawing.save(); drawing.globalCompositeOperation = "lighter";
+          drawing.strokeStyle = `rgba(255,${130 + pulse * 70},90,${.35 + pulse * .3})`; drawing.lineWidth = 1.4;
+          drawing.beginPath(); drawing.ellipse(0, -16, 32, 28.5, 0, 0, Math.PI * 2); drawing.stroke();
+          drawing.restore();
+        }
+        if (showLayer(2)) for (const side of [-1, 1]) {
+          piece(2, side * 56, -70, 360 + side, () => {
+            drawing.save(); drawing.translate(side * 34, -46); drawing.rotate(Math.atan2(-50, side * 40));
+            const barrel = drawing.createLinearGradient(0, -6, 0, 6);
+            barrel.addColorStop(0, "#a9b8c0"); barrel.addColorStop(.5, "#4b6070"); barrel.addColorStop(1, "#132230");
+            drawing.fillStyle = "#0a131d"; drawing.fillRect(-2, -7, 62, 14);
+            drawing.fillStyle = barrel; drawing.fillRect(2, -5, 56, 10);
+            drawing.fillStyle = "rgba(230,240,245,.35)"; drawing.fillRect(2, -4.2, 56, .8);
+            for (const coil of [12, 22, 32, 42]) {
+              const ring = drawing.createLinearGradient(0, -7, 0, 7);
+              ring.addColorStop(0, "#8c9ca5"); ring.addColorStop(.5, "#2b3944"); ring.addColorStop(1, "#070c11");
+              drawing.fillStyle = ring; drawing.fillRect(coil - 1.5, -7.5, 5, 15);
+              drawing.save(); drawing.globalAlpha *= .45 + pulse * .25;
+              drawing.fillStyle = layerTint(2); drawing.fillRect(coil + 3.5, -5, 1, 10);
+              drawing.restore();
+            }
+            drawing.fillStyle = "#1b252e"; drawing.fillRect(50, -6.5, 10, 13);
+            drawing.fillStyle = "#05080c"; drawing.beginPath(); drawing.ellipse(60, 0, 2, 4.5, 0, 0, Math.PI * 2); drawing.fill();
+            const muzzle = drawing.createRadialGradient(61, 0, 0, 61, 0, 6);
+            muzzle.addColorStop(0, `rgba(255,240,214,${.35 + pulse * .35})`); muzzle.addColorStop(.4, "rgba(255,190,120,.25)"); muzzle.addColorStop(1, "rgba(255,190,120,0)");
+            drawing.fillStyle = muzzle; drawing.beginPath(); drawing.arc(61, 0, 6, 0, Math.PI * 2); drawing.fill();
+            drawing.restore();
+          });
+        }
+        const heartScale = stage === 3 ? 1 : .72;
+        const iris = drawing.createRadialGradient(-7, -24, 0, 0, -16, 34 * heartScale);
         iris.addColorStop(0, stage === 3 ? "#fff1d5" : "#a3c6dc");
         iris.addColorStop(.28, stage === 3 ? "#ffb69b" : "#405d72");
         iris.addColorStop(.65, stage === 3 ? "#813047" : "#182b40"); iris.addColorStop(1, "#070e19");
         drawing.fillStyle = iris; drawing.beginPath(); drawing.ellipse(0, -16, stage === 3 ? 30 : 21, stage === 3 ? 27 : 19, 0, 0, Math.PI * 2); drawing.fill();
-        drawing.strokeStyle = "#92a8b4"; drawing.lineWidth = 3; drawing.stroke();
-        for (let i = 0; i < 8; i++) {
-          const a = i * Math.PI / 4 + (stage === 3 ? time * .12 : 0);
-          drawing.save(); drawing.translate(Math.cos(a) * (stage === 3 ? 39 : 30), -16 + Math.sin(a) * (stage === 3 ? 35 : 27)); drawing.rotate(a);
-          drawWeaponHousing(drawing, 6, 12, stage === 3 ? "#6d5464" : "#657c8f");
-          drawing.restore();
+        const bezel = drawing.createLinearGradient(-30, -44, 26, 12);
+        bezel.addColorStop(0, "#dce5e9"); bezel.addColorStop(.4, "#76899a"); bezel.addColorStop(1, "#18232e");
+        drawing.strokeStyle = bezel; drawing.lineWidth = 3; drawing.stroke();
+        drawing.save();
+        drawing.globalAlpha *= stage === 3 ? .35 : .55;
+        drawing.strokeStyle = "#f2fbff"; drawing.lineWidth = 1.6; drawing.lineCap = "round";
+        drawing.beginPath(); drawing.ellipse(0, -16, stage === 3 ? 22 : 15, stage === 3 ? 19 : 13, 0, Math.PI * 1.08, Math.PI * 1.42); drawing.stroke();
+        drawing.restore();
+        if (showLayer(2)) for (let quarter = 0; quarter < 4; quarter++) {
+          const from = quarter * Math.PI / 2 - Math.PI / 8, to = from + Math.PI / 2, mid = (from + to) / 2;
+          piece(2, Math.cos(mid) * 31, -16 + Math.sin(mid) * 28, 370 + quarter, () => {
+            drawing.beginPath();
+            drawing.ellipse(0, -16, 37, 33, 0, from + .03, to - .03);
+            drawing.ellipse(0, -16, 24, 22, 0, to - .03, from + .03, true);
+            drawing.closePath();
+            const collar = drawing.createLinearGradient(-30, -46, 30, 14);
+            collar.addColorStop(0, "#b7c5cc"); collar.addColorStop(.5, "#53687a"); collar.addColorStop(1, "#16222f");
+            drawing.fillStyle = collar; drawing.fill();
+            drawing.strokeStyle = "#0b141e"; drawing.lineWidth = 1.4; drawing.stroke();
+            for (const i of [quarter * 2, quarter * 2 + 1]) {
+              const a = i * Math.PI / 4;
+              drawing.save(); drawing.translate(Math.cos(a) * 30, -16 + Math.sin(a) * 27); drawing.rotate(a);
+              drawWeaponHousing(drawing, 6, 12, "#657c8f");
+              drawing.fillStyle = layerTint(2); drawing.fillRect(-1.5, 4, 3, 2);
+              drawing.restore();
+            }
+          });
         }
         ring(true);
+        if (subject.shieldMaxHp) {
+          drawing.save();
+          drawing.translate(0, -72);
+          drawing.rotate(reducedMotion.matches ? 0 : time * .24);
+          drawing.shadowColor = shieldRatio > 0 ? "#65eaff" : "#ff825d";
+          drawing.shadowBlur = shieldRatio > 0 ? 13 : 4;
+          drawing.fillStyle = shieldRatio > 0 ? "#8deeff" : "#a64f42";
+          drawing.beginPath();
+          for (let i = 0; i < 6; i++) {
+            const angle = i * Math.PI / 3;
+            const x = Math.cos(angle) * 9, y = Math.sin(angle) * 8;
+            if (i === 0) drawing.moveTo(x, y); else drawing.lineTo(x, y);
+          }
+          drawing.closePath(); drawing.fill();
+          drawing.shadowBlur = 0;
+          drawing.strokeStyle = "#d9fbff"; drawing.lineWidth = 1;
+          drawing.beginPath(); drawing.arc(0, 0, 13, 0, Math.PI * 2); drawing.stroke();
+          drawing.restore();
+        }
+        drawing.fillStyle = "rgba(0,0,0,.35)"; drawing.beginPath(); drawing.ellipse(3, 54, 40, 18, 0, 0, Math.PI * 2); drawing.fill();
         drawing.fillStyle = "#080e19"; drawing.beginPath(); drawing.ellipse(0, 51, 36, 16, 0, 0, Math.PI * 2); drawing.fill();
-        drawing.strokeStyle = "#879eac"; drawing.lineWidth = 3; drawing.stroke();
+        const lip = drawing.createLinearGradient(-36, 36, 30, 66);
+        lip.addColorStop(0, "#d3dde2"); lip.addColorStop(.35, "#6a7d89"); lip.addColorStop(1, "#141e27");
+        drawing.strokeStyle = lip; drawing.lineWidth = 3.4; drawing.stroke();
         drawing.save();
         drawing.beginPath(); drawing.ellipse(0, 51, 33, 13, 0, 0, Math.PI * 2); drawing.clip();
-        drawing.fillStyle = opening > 0 ? "#71d4d6" : "#203b4b"; drawing.fillRect(-35, 38, 70, 27);
-        drawing.fillStyle = "#101a29"; drawing.fillRect(-32 - opening * 30, 39, 30, 26); drawing.fillRect(2 + opening * 30, 39, 30, 26);
-        drawing.fillStyle = "#d4ac71"; drawing.fillRect(-31, 42, 2, 19); drawing.fillRect(29, 42, 2, 19);
+        const bay = drawing.createLinearGradient(0, 38, 0, 64);
+        bay.addColorStop(0, opening > 0 ? "#d6fbf6" : "#2a4050"); bay.addColorStop(1, opening > 0 ? "#3c9da2" : "#0a1620");
+        drawing.fillStyle = bay; drawing.fillRect(-35, 38, 70, 27);
+        const leaf = drawing.createLinearGradient(-32, 39, 32, 64);
+        leaf.addColorStop(0, "#3d4d58"); leaf.addColorStop(1, "#0b131b");
+        drawing.fillStyle = leaf; drawing.fillRect(-32 - opening * 30, 39, 30, 26); drawing.fillRect(2 + opening * 30, 39, 30, 26);
+        drawing.fillStyle = "rgba(170,190,200,.18)";
+        for (let rib = 0; rib < 5; rib++) { drawing.fillRect(-30 - opening * 30, 42 + rib * 4.5, 27, .7); drawing.fillRect(4 + opening * 30, 42 + rib * 4.5, 27, .7); }
+        drawing.fillStyle = "rgba(230,176,96,.75)"; drawing.fillRect(-31, 42, 1.4, 19); drawing.fillRect(29.6, 42, 1.4, 19);
         drawing.restore();
         const since = elapsed - (weaponFireTimes.get(subject)?.primary ?? -Infinity);
         const charge = isLiveHullContext(drawing) && playing && subject === boss && !finaleScene ? weaponChargeProgress(subject) : 0;
@@ -13742,7 +14654,7 @@
           auxShotClock: (3 - difficulty()) * (typeIndex === 6 ? 1.2 : 1) / (bossBalance.firingRate * bossTempo),
           supportClock: typeIndex === 6 ? 6.2 : typeIndex === 27 ? 8.5 : 5.5,
           supportCount: 0,
-          dockingBays: type.pattern === "station"
+          dockingBays: type.pattern === "station" || typeIndex === HARBINGER_INDEX
             ? [-1, 1].map(side => ({ side, phase: "closed", elapsed: 0, open: 0, variant: null })) : [],
           attackCount: 0
         };
@@ -13761,13 +14673,17 @@
         Object.assign(boss, harbingerGeometry());
         boss.x = width / 2;
         boss.maxHp = Math.round((33 + 28 * 16 + 28 ** 2 * .85) * phase.hull
-          * difficultyModes[selectedDifficulty].hull * bossBalance.hull * universePressure(3));
+          * difficultyModes[selectedDifficulty].hull * bossBalance.hull * universePressure(3) * 1.4);
         boss.hp = boss.maxHp;
+        boss.shieldHp = HARBINGER_SHIELD_CAPACITY;
+        boss.shieldMaxHp = HARBINGER_SHIELD_CAPACITY;
+        boss.shieldClock = 0;
         boss.shotClock = 1.8;
         boss.auxShotClock = 3.4;
         boss.supportClock = 6;
         boss.attackCount = 0;
         boss.supportCount = 0;
+        boss.dockingBays = [-1, 1].map(side => ({ side, phase: "closed", elapsed: 0, open: 0, variant: null }));
         boss.beamPhase = "idle";
         boss.beamClock = 0;
         boss.beamAngle = Math.PI / 2;
@@ -14514,6 +15430,7 @@
           shake = t < 5 ? Math.max(0, t - 2) * .8 : t < 13 ? Math.max(0, (t - 5.6) / 7.4) * 7 + (t > 8.6 && t < 9.4 || t > 10.9 && t < 11.7 ? 6 : 0)
             : t < 18.5 ? 6 : Math.max(0, 1 - Math.abs(t - 25.6) / 2.2) * 14 + (t < 22 ? 2 : 0);
         } else if (!calm && scene.kind === "signal" && t > 9.4 && t < 12) shake = 2.5;
+        else if (!calm && scene.kind === "phase") shake = t < 1.5 ? 1 + t * 2.2 : t < 2.6 ? 9 * (1 - (t - 1.5) / 1.1) + 1 : 0;
         if (shake) ctx.translate(Math.sin(t * 83) * shake, Math.cos(t * 97) * shake * .6);
         if (scene.kind === "signal") {
           drawFinaleSignal(t, pilot);
@@ -14545,17 +15462,50 @@
           subtitle = t < 3 ? "CONVOY IDENT MATCH / UNCHARTED COORDINATES"
             : t < 6 ? "An Aurelian Throne fortress. The convoy is trapped inside." : `STAGE ${scene.stage} OF 3 / ${harbingerStages[scene.stage - 1].name}`;
         } else if (scene.kind === "phase") {
-          drawHarbinger({ x: width / 2, y: stationY, radius, stage: scene.stage, typeIndex: HARBINGER_INDEX });
-          if (!calm) for (let i = 0; i < 18; i++) {
-            const angle = sceneryRand(i, 731) * Math.PI * 2;
-            const distance = radius * (.6 + t * (.2 + sceneryRand(i, 732) * .22));
-            ctx.save(); ctx.translate(width / 2 + Math.cos(angle) * distance, stationY + Math.sin(angle) * distance * .7);
-            ctx.rotate(angle + t * .7); ctx.globalAlpha = Math.max(0, 1 - t / 3.8);
-            drawWeaponHousing(ctx, 3 + sceneryRand(i, 733) * 4, 6, "#637988"); ctx.restore();
+          const layer = scene.stage - 1, scale = radius / 92, cx = width / 2;
+          const breakAt = 1.5, progress = Math.min(1, t / 4.6);
+          const layerPoints = layer === 1
+            ? [[-128, 10], [118, -18], [-108, -12], [108, -12], [-60, 62], [70, 56], [0, -78], [-92, 40], [96, 30], [30, 68]]
+            : [[-56, -70], [56, -70], [-30, -40], [30, -40], [-34, 8], [34, 8], [0, -50], [0, 16]];
+          drawHarbinger({ x: cx, y: stationY, radius, stage: scene.stage, typeIndex: HARBINGER_INDEX,
+            shieldHp: 0, shieldMaxHp: HARBINGER_SHIELD_CAPACITY, layerBreak: { layer, progress } });
+          for (let i = 0; i < layerPoints.length; i++) {
+            const [px, py] = layerPoints[i];
+            finaleBlast(cx + px * scale, stationY + py * scale, radius * (.26 + sceneryRand(i, 761) * .14), (t - i * .13) / .9);
+          }
+          if (!calm) for (let i = 0; i < 6; i++) {
+            const [px, py] = layerPoints[(i * 3) % layerPoints.length];
+            drawSparkShower(cx + px * scale, stationY + py * scale, t, 770 + i * 9, 7, .8);
+          }
+          if (t > breakAt) {
+            const wave = (t - breakAt) / 1.4;
+            if (wave < 1) {
+              ctx.save();
+              ctx.globalAlpha = (1 - wave) * .8;
+              ctx.strokeStyle = layer === 1 ? "#cdeeff" : "#ffe1b8"; ctx.lineWidth = 3 + (1 - wave) * 6;
+              ctx.beginPath(); ctx.ellipse(cx, stationY, radius * (.7 + wave * 2.1), radius * (.32 + wave * 1.1), -.16, 0, Math.PI * 2); ctx.stroke();
+              ctx.restore();
+              finaleBlast(cx, stationY - 6 * scale, radius * 1.15, wave);
+            }
+            const flash = 1 - (t - breakAt) / .45;
+            if (flash > 0) { ctx.fillStyle = `rgba(255,244,226,${flash * .75})`; ctx.fillRect(0, 0, width, height); }
+          }
+          if (t > 3.9) {
+            const power = Math.min(1, (t - 3.9) / 1.2);
+            ctx.save();
+            ctx.globalCompositeOperation = "lighter";
+            ctx.globalAlpha = (1 - Math.abs(power * 2 - 1)) * .55;
+            const glow = ctx.createRadialGradient(cx, stationY - 16 * scale, 0, cx, stationY - 16 * scale, radius * 1.1);
+            glow.addColorStop(0, harbingerStages[scene.stage - 1].color); glow.addColorStop(1, "#00000000");
+            ctx.fillStyle = glow; ctx.fillRect(0, 0, width, height);
+            ctx.restore();
           }
           pilot(ship.x, height - 110);
-          title = scene.stage === 2 ? "PERIMETER ARMOR / BREACHED" : "SIEGE ARRAY / DISABLED";
-          subtitle = `STAGE ${scene.stage} OF 3 / ${harbingerStages[scene.stage - 1].name} / PHASE CHECKPOINT`;
+          const fallen = harbingerStages[layer - 1].name;
+          title = t < breakAt ? `${fallen} / CRITICAL` : t < 3.9 ? `${fallen} / DESTROYED` : `${harbingerStages[scene.stage - 1].name} / ONLINE`;
+          subtitle = t < breakAt ? (layer === 1 ? "Armor plating buckling. Perimeter batteries going up in a chain." : "Siege emitters overloading. The collar is cracking open.")
+            : t < 3.9 ? (layer === 1 ? "The outer armor shell is tearing away from the station." : "The siege array is shearing off. The command heart is exposed.")
+            : `STAGE ${scene.stage} OF 3 / PHASE CHECKPOINT`;
         } else if (t < 5) {
           const boarding = ease((t - 1.7) / 3.2), zoom = calm ? 1 : 1 + boarding * .55;
           const r = radius * zoom, portalY = stationY + r * .55;
@@ -14624,7 +15574,7 @@
         const count = stage === 1 ? 5 : stage === 2 ? 7 : 9;
         const scale = boss.radius / 92;
         const mounts = bossWeaponMounts(boss, bossTypes[HARBINGER_INDEX]);
-        const speed = (170 + stage * 15) * bossBalance.projectileSpeed;
+        const speed = (170 + stage * 15) * harbingerProjectileSpeed();
         recordWeaponFire(boss);
         for (let i = 0; i < count; i++) {
           const mount = volleyWeaponMount(mounts, i, count, aim, scale, scale);
@@ -14645,7 +15595,7 @@
             const mount = harbingerPorts[side < 0 ? 0 : 1], scale = boss.radius / 92;
             const x = boss.x + mount[0] * scale, y = boss.y + (mount[1] + 13) * scale;
             const angle = Math.atan2(ship.y - y, ship.x - x);
-            const speed = 145 * bossBalance.projectileSpeed;
+            const speed = 145 * harbingerProjectileSpeed();
             enemyShots.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
               radius: 5, type: "boss", color, glow: color, homing: true, speed, turnRate: .42,
               hp: 3, maxHp: 3, damage: 2 });
@@ -14661,7 +15611,7 @@
           for (let i = 0; i < count; i++) {
             if (i === Math.round(count / 4)) continue;
             const angle = i / count * Math.PI * 2 + rotation;
-            const speed = (stage === 3 ? 150 : 125) * bossBalance.projectileSpeed;
+            const speed = (stage === 3 ? 150 : 125) * harbingerProjectileSpeed();
             enemyShots.push({ x: boss.x + Math.cos(angle) * boss.radius * .4,
               y: boss.y - boss.radius * 16 / 92 + Math.sin(angle) * boss.radius * .4,
               vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
@@ -14677,6 +15627,20 @@
         const sway = reducedMotion.matches ? 0 : Math.sin(elapsed * .27) * Math.min(18, width * .025);
         boss.x += (width / 2 + sway - boss.x) * Math.min(1, dt * 2);
         boss.y += (targetY - boss.y) * Math.min(1, dt * 2);
+        if (boss.layerBreak) {
+          boss.layerBreak.progress += dt / 2.6;
+          if (boss.layerBreak.progress >= 1) delete boss.layerBreak;
+        }
+        if (boss.shieldHp > 0) {
+          boss.shieldClock = 0;
+        } else if (boss.shieldClock > 0) {
+          boss.shieldClock = Math.max(0, boss.shieldClock - dt);
+          if (boss.shieldClock === 0) {
+            boss.shieldHp = HARBINGER_SHIELD_CAPACITY;
+            burst(boss.x, boss.y, "#87eaff", 26, 160);
+            transmitRadio("harbinger-shield-restored", "Harbinger shield generator is back online. Strip its charge before the next recharge.", 2);
+          }
+        }
         if (!updateChargedBeam(boss, dt)) return false;
         if (boss.shotClock <= -WEAPON_CHARGE_TIME) {
           fireHarbingerFan();
@@ -14687,15 +15651,7 @@
           boss.auxShotClock = boss.stage === 1 ? 4 : boss.stage === 2 ? 6 : 3.8;
         }
         if (boss.stage > 1 && boss.supportClock <= 0) {
-          if (enemies.length < 3) {
-            const roster = worldEnemies.filter(type => type.universe === 3);
-            const type = roster[boss.supportCount % 3];
-            const enemy = spawnEnemy(type.id);
-            const side = boss.supportCount++ % 2 ? -1 : 1;
-            enemy.x = Math.max(enemy.radius, Math.min(width - enemy.radius, boss.x + side * boss.radius));
-            enemy.y = boss.y + boss.radius * .5;
-            enemy.shotClock = 2; enemy.launchClock = 1.2; enemy.launchDrift = side * 35;
-          }
+          spawnBossSupport();
           boss.supportClock = boss.stage === 2 ? 7 : 5.5;
         }
         return true;
@@ -14753,6 +15709,8 @@
             if (sandboxActive) {
               const stage = boss.stage + 1;
               configureHarbingerStage(stage);
+              boss.layerBreak = { layer: stage - 1, progress: 0 };
+              burst(boss.x, boss.y, harbingerStages[stage - 2].color, 40, 220);
               enemyShots = []; laserTarget = null; laserBeam = null; laserClock = 0;
               reportSandbox(`Galactic Harbinger / stage ${stage} of 3 engaged.`);
             } else beginFinaleScene("phase", boss.stage + 1);
@@ -15875,6 +16833,22 @@
         return ((x - boss.x) / radiusX) ** 2 + ((y - boss.y) / radiusY) ** 2 < 1;
       }
 
+      function damageBoss(damage) {
+        if (!boss || damage <= 0) return;
+        let hullDamage = damage;
+        if (boss.typeIndex === HARBINGER_INDEX && boss.shieldHp > 0) {
+          const absorbed = Math.min(boss.shieldHp, hullDamage);
+          boss.shieldHp -= absorbed;
+          hullDamage -= absorbed;
+          if (boss.shieldHp === 0) {
+            boss.shieldClock = HARBINGER_SHIELD_RECHARGE;
+            transmitRadio("harbinger-shield-down", "Shield generator down. Keep pressure on the hull before it recharges.", 2);
+          }
+          if (absorbed > 0 && Math.random() < .35) burst(boss.x, boss.y, "#87eaff", 4, 65);
+        }
+        if (hullDamage > 0) boss.hp = Math.max(0, boss.hp - hullDamage);
+      }
+
       function fireBossAuxiliary(type) {
         recordWeaponFire(boss, true);
         if (type.auxiliary === "broadside") {
@@ -15947,7 +16921,8 @@
       }
 
       function spawnBossSupport() {
-        if (!boss || boss.typeIndex !== 6) return;
+        if (!boss || boss.typeIndex !== 6
+          && !(boss.typeIndex === HARBINGER_INDEX && boss.stage >= 2)) return;
         const reserved = boss.dockingBays.filter(bay => bay.variant).length;
         let available = Math.max(0, 3 - enemies.length - reserved);
         for (const bay of boss.dockingBays) {
@@ -15957,6 +16932,7 @@
           boss.supportCount++;
           bay.phase = "opening";
           bay.elapsed = 0;
+          bay.duration = boss.typeIndex === HARBINGER_INDEX ? 1.6 : .9;
           available--;
         }
       }
@@ -16005,13 +16981,21 @@
         if (type) boss.aeonLaunch = { side: Math.random() < .5 ? -1 : 1, enemy: type.id, phase: "opening", elapsed: 0 };
       }
 
-      function configureStationSupport(support, variant) {
+      function configureStationSupport(support, variant, fortified = false) {
         support.supportVariant = variant.id;
         support.hp++;
         support.maxHp++;
         support.speed *= variant.id === "raider" ? 1.3 : variant.id === "barrage" ? .9 : 1;
         support.shotInterval *= variant.id === "raider" ? .75 : 1;
         support.shotClock = .65;
+        if (fortified) {
+          const armor = Math.max(3, Math.ceil(support.maxHp * .75));
+          support.hp += armor;
+          support.maxHp += armor;
+          support.speed *= 1.18;
+          support.shotInterval *= .72;
+          support.supportDamage = variant.id === "hunter" ? 3 : 2;
+        }
       }
 
       function updateDockingBays(dt) {
@@ -16019,7 +17003,7 @@
           if (bay.phase === "closed") continue;
           bay.elapsed += dt;
           if (bay.phase === "opening") {
-            const progress = Math.min(1, bay.elapsed / .9);
+            const progress = Math.min(1, bay.elapsed / (bay.duration || .9));
             bay.open = progress * progress * (3 - 2 * progress);
             if (progress < 1) continue;
             const variant = bay.variant;
@@ -16029,9 +17013,15 @@
             if (enemies.length >= 3) continue;
             spawnEnemy(variant.type);
             const support = enemies[enemies.length - 1];
-            configureStationSupport(support, variant);
-            support.x = boss.x + bay.side * 50;
-            support.y = boss.y + 8;
+            configureStationSupport(support, variant, boss.typeIndex === HARBINGER_INDEX);
+            if (boss.typeIndex === HARBINGER_INDEX) {
+              const scale = boss.radius / 92;
+              support.x = boss.x + bay.side * 77 * scale;
+              support.y = boss.y + 60 * scale;
+            } else {
+              support.x = boss.x + bay.side * 50;
+              support.y = boss.y + 8;
+            }
             support.launchClock = .9;
           } else if (bay.phase === "launching" && bay.elapsed >= 1.1) {
             bay.phase = "closing";
@@ -16669,7 +17659,7 @@
             radius: 7,
             hp: 2,
             maxHp: 2,
-            damage: 2,
+            damage: enemy.supportDamage || 2,
             type: "seeker"
           });
           return;
@@ -16750,6 +17740,7 @@
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
             radius: enemy.type === "tank" || enemy.type === "volley" ? 5 : 4,
+            damage: enemy.supportDamage || 1,
             type: enemy.type
           });
         }
@@ -17784,7 +18775,7 @@
           boss.shotClock -= dt;
           boss.auxShotClock -= dt;
           boss.supportClock -= dt;
-          if (boss.typeIndex === 6) updateDockingBays(dt);
+          if (boss.typeIndex === 6 || boss.typeIndex === HARBINGER_INDEX && boss.stage > 1) updateDockingBays(dt);
           const type = bossTypes[boss.typeIndex];
           for (const ally of imperialAllies) {
             if (ally.hp > 0 && hitsBoss(ally.x, ally.y)) damageImperialAlly(ally, 4);
@@ -17842,7 +18833,7 @@
           }
           if (type.pattern === "station" && boss.supportClock <= 0 && boss.y > 55) {
             spawnBossSupport();
-            boss.supportClock = boss.typeIndex === 6 ? 6.2 : 5.2;
+            boss.supportClock = 6.2;
           }
           if (boss.typeIndex === 27) updateAeonLaunch(dt);
         }
@@ -17873,7 +18864,7 @@
               maxLife: .2
             };
             if (laserTarget === boss) {
-              boss.hp -= laserLevel + (loadout.laserDamage || 0);
+              damageBoss(laserLevel + (loadout.laserDamage || 0));
               gainExperience(2);
               if (boss.hp <= 0) {
                 defeatBoss();
@@ -17971,7 +18962,7 @@
           }
           if (!hit && hitsBoss(shot.x, shot.y)) {
             playerShots.splice(i, 1);
-            boss.hp -= shot.damage;
+            damageBoss(shot.damage);
             gainExperience(2);
             if (Math.random() < .28) burst(shot.x, shot.y, "#ff9ad0", 3, 45);
             if (boss.hp <= 0) {
@@ -18144,6 +19135,7 @@
           ctx.translate(Math.sin(ambientTime * 83) * shake, Math.cos(ambientTime * 97) * shake * .6);
         }
         drawBackground();
+        if (boss?.typeIndex === HARBINGER_INDEX) drawHarbingerArenaBackground();
         if (finaleScene || finaleVictory.open) {
           drawFinaleScene(finaleScene || { kind: "credits", stage: 3, time: finaleSceneDurations.credits });
           ctx.restore();
@@ -18260,6 +19252,11 @@
         localStorage.setItem("starfall-difficulty", selectedDifficulty);
         updateDifficultySelection();
         updateSectorLabel();
+      });
+      languageSelect.value = currentLanguage;
+      languageSelect.addEventListener("change", () => {
+        profileStorage.setItem("starfall-language", languageSelect.value);
+        applyLanguage(languageSelect.value);
       });
       for (const button of shipChoiceButtons) {
         button.addEventListener("click", () => {
@@ -18477,8 +19474,17 @@
         if (ship) { ship.vx = 0; ship.bank = 0; }
         draw();
       }
+      // The game frame is locked to 700x900 and only scales uniformly to fit the window.
+      const GAME_FRAME_WIDTH = 700, GAME_FRAME_HEIGHT = 900;
+      function fitGameFrame() {
+        const fit = Math.min(innerWidth / GAME_FRAME_WIDTH, innerHeight / GAME_FRAME_HEIGHT);
+        const scale = document.fullscreenElement ? fit : Math.min(1, fit);
+        document.querySelector(".game").style.setProperty("--game-scale", Math.max(.1, scale).toFixed(4));
+      }
+      fitGameFrame();
       new ResizeObserver(resizeArena).observe(arena);
-      window.addEventListener("resize", resizeArena);
+      window.addEventListener("resize", () => { fitGameFrame(); resizeArena(); });
+      document.addEventListener("fullscreenchange", () => { fitGameFrame(); resizeArena(); });
       const fullscreenButton = document.querySelector("#fullscreen");
       const fullscreenStatus = document.querySelector("#fullscreen-status");
       fullscreenButton.disabled = !document.fullscreenEnabled;
@@ -18502,6 +19508,7 @@
       updateLevelBar();
       draw();
       drawSandboxPreviews();
+      applyLanguage(currentLanguage);
       // Pre-generate each sector's backdrop textures, one per idle slice, so sector changes never hitch.
       const backdropWarmTasks = sectors.flatMap((theme, scenery) => [
         () => nacreNebula(scenery),
