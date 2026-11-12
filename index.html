@@ -664,7 +664,8 @@
     .help b { color: #dce1f6; }
 
     body { width: 100%; height: 100dvh; min-height: 0; padding: 0; }
-    .game { position: fixed; left: 50%; top: 50%; width: 700px; height: 900px; max-width: none; transform: translate(-50%, -50%) scale(var(--game-scale, 1)); transform-origin: 50% 50%; --dock-height: 188px; background: linear-gradient(110deg, #0d1929, #14172e); }
+    .game { position: fixed; left: 50%; top: 50%; width: min(100vw, 82dvh); height: 100dvh; max-width: none; transform: translate(-50%, -50%); --dock-height: clamp(150px, 20vh, 188px); background: linear-gradient(110deg, #0d1929, #14172e); }
+    .game.pc-mode { width: 100vw; height: 100dvh; }
     .game::after { content: ""; position: absolute; z-index: 1; bottom: 0; left: 0; right: 0; height: var(--dock-height); border-top: 1px solid #8ccbe64d; background: linear-gradient(180deg, #82bcff0c, transparent 35%), repeating-linear-gradient(90deg, transparent 0 79px, #8ccbe605 79px 80px); box-shadow: 0 -8px 32px #0005, inset 0 1px #e1f3ff0d; pointer-events: none; }
     .game > .eyebrow, .game > .subtitle, .game > h1 { display: none; }
     .arena { position: absolute; inset: 0 0 var(--dock-height); border: 0; border-radius: 0; box-shadow: none; }
@@ -1059,6 +1060,12 @@
               <option value="extreme">Extreme</option>
             </select>
             <p class="difficulty-note" id="difficulty-note"></p>
+            <label class="shop-title" for="flight-mode-select">Flight mode</label>
+            <select class="difficulty-select" id="flight-mode-select" aria-describedby="flight-mode-note">
+              <option value="classic">Classic</option>
+              <option value="pc">PC flight</option>
+            </select>
+            <p class="difficulty-note" id="flight-mode-note">PC flight widens the arena, adds forward/backward movement, and slightly increases enemy arrivals.</p>
             <label class="shop-title" for="language-select">Language</label>
             <select class="difficulty-select" id="language-select" aria-label="Game language">
               <option value="en">English</option>
@@ -1068,7 +1075,7 @@
               <option value="de">Deutsch</option>
             </select>
             <p class="shop-title">Choose your ship</p>
-            <p class="difficulty-note">Each craft has its own guns and built-in equipment. Open Installed fittings above for its perks. U2 and U3 designs are available for scrap requisition; all purchases stay with this pilot.</p>
+            <p class="difficulty-note">Each craft has its own guns and built-in equipment. Open Installed fittings above for its perks. U2 and U3 ships unlock when you enter those universes; all purchases stay with this pilot.</p>
             <div class="hangar" role="group" aria-label="Available ships">
               <button class="ship-choice" type="button" data-ship="comet" aria-pressed="true">
                 <canvas class="ship-icon" width="64" height="64" aria-hidden="true"></canvas>
@@ -1119,6 +1126,26 @@
                 <canvas class="ship-icon" width="64" height="64" aria-hidden="true"></canvas>
                 <span class="ship-name">Vesper / U3</span>
                 <span class="ship-stats">Locked · ✦ 390</span>
+              </button>
+              <button class="ship-choice" type="button" data-ship="crownfire" aria-pressed="false" hidden>
+                <canvas class="ship-icon" width="64" height="64" aria-hidden="true"></canvas>
+                <span class="ship-name">Crownfire / U2</span>
+                <span class="ship-stats">Locked · ✦ 430</span>
+              </button>
+              <button class="ship-choice" type="button" data-ship="glasswing" aria-pressed="false" hidden>
+                <canvas class="ship-icon" width="64" height="64" aria-hidden="true"></canvas>
+                <span class="ship-name">Glasswing / U2</span>
+                <span class="ship-stats">Locked · ✦ 470</span>
+              </button>
+              <button class="ship-choice" type="button" data-ship="tidecaller" aria-pressed="false" hidden>
+                <canvas class="ship-icon" width="64" height="64" aria-hidden="true"></canvas>
+                <span class="ship-name">Tidecaller / U3</span>
+                <span class="ship-stats">Locked · ✦ 520</span>
+              </button>
+              <button class="ship-choice" type="button" data-ship="starweaver" aria-pressed="false" hidden>
+                <canvas class="ship-icon" width="64" height="64" aria-hidden="true"></canvas>
+                <span class="ship-name">Starweaver / U3</span>
+                <span class="ship-stats">Locked · ✦ 570</span>
               </button>
             </div>
           </div>
@@ -1341,7 +1368,7 @@
       <div class="guide-grid">
         <section class="guide-card">
           <h3><span class="guide-icon" aria-hidden="true">&harr;</span>1. Steer</h3>
-          <p><kbd>A</kbd> <kbd>D</kbd> or <kbd>&larr;</kbd> <kbd>&rarr;</kbd><br>Touch: drag across the flight area.<br>Your ship fires automatically.</p>
+          <p><kbd>A</kbd> <kbd>D</kbd> or <kbd>&larr;</kbd> <kbd>&rarr;</kbd><br>PC flight adds <kbd>W</kbd> <kbd>S</kbd> or <kbd>&uarr;</kbd> <kbd>&darr;</kbd> for forward/backward movement.<br>Touch: drag across the flight area. Your ship fires automatically.</p>
         </section>
         <section class="guide-card">
           <h3><span class="guide-icon" aria-hidden="true">!</span>2. Stay alive</h3>
@@ -1379,7 +1406,7 @@
       <details class="guide-details">
         <summary>Field notes / difficulty, instruments &amp; threats</summary>
         <ul>
-          <li><strong>Difficulty:</strong> choose before launch; locked for the run. Progress is shared across modes. Each new universe brings a sharper jump in hostile hulls, wave density and firing tempo, plus faster ships and projectiles. Universe hull multipliers are U1 1x, U2 1.25x, U3 1.6x and U4 2.05x, on top of sector progression and the selected mode. Almanac hull stats use Hard.</li>
+          <li><strong>Difficulty:</strong> choose before launch; locked for the run. Progress is shared across modes, and the sector ramp is gentler across every mode. Later universes still increase hostile hulls, wave density, firing tempo, and ship and projectile speed. Universe hull multipliers are U1 1x, U2 1.25x, U3 1.6x and U4 2.05x, on top of sector progression and the selected mode. Almanac hull stats use Hard.</li>
           <li><strong>Instruments:</strong> terminal colors and the Wayline map show your assigned universe; header readouts show your pilot, craft, and scrap. In flight: top = boss hull; right = sector progress. MET = mission time. Menus pause flight.</li>
           <li><strong>Late carriers:</strong> Crown mothership bay doors slide open before launching drones, then close after launch; Nacre Cradle Saucers launch Observers. Destroy the carrier to stop launches. Ships already in flight keep fighting.</li>
           <li><strong>Nacre Continuum:</strong> the fourth universe is home to the UFO pilots. Seven alien sectors follow Obsidian Crown. Adv. UFO shields absorb 3 damage and return 8 seconds after breaking. All new ships, bosses, and backdrops are also available in Sandbox.</li>
@@ -1387,7 +1414,7 @@
           <li><strong>Alien weapons:</strong> plasma mines split after arming; curved bolts and guided torpedoes need room to dodge. Thin lance sights track you, then turn amber when locked. The Aeon Devourer's siege beam fires from the parabolic dish under its hull and deals 4 damage. The dish can only swivel so far, so watch where it points and move off the locked line before it fires. Amber warning lights on a flank hangar mean an escort is about to launch from that side.</li>
           <li><strong>Ship armament:</strong> enemy and boss ships retain their original silhouettes, cockpits, armor and signature features. Their weapons sit in recessed openings in the existing plating, not in external housings. Guns run inside hull channels, missile launchers and bomb racks sit behind flush sliding doors, beam coils occupy internal focusing slots, and alien emitters sit behind inset irises. Weapon details stay within the original hull, including moving wings and tendrils, and leave bridges, reactors and hangars clear. The Aeon Devourer is an armored sphere: a gate engine sits on top, the bridge sits below it, and twin beam batteries line an equatorial trench. A gimballed siege dish is recessed into its underside, and its beam fires from the dish's focal emitter. Two hangars at the ends of the trench open their doors before each escort launches. Player ships use their exact original models, gun fittings and upgrade fittings. Enemy and boss guns, rails, emitters and organic ports follow the same fitting style as the Comet, Wisp and Bulwark guns: a dark socket, a tapered barrel laid along the plating and a muzzle band at the hull edge. Bomb and missile ships keep flush bay doors. Weapon fittings are not separate damageable targets.</li>
           <li><strong>Weapon motion:</strong> enemy and boss weapons visibly charge, fire and recover without changing the ship's shape. Barrels recoil inside their channels, bay doors slide into the surrounding plating to expose ordnance, focusing coils brighten, and emitter irises open within their recesses. These animations do not change attack timing or damage. Fanned volleys use guns ordered across the firing direction and compensate for off-center barrels, so their lanes stay centered rather than swapping sides or wrapping back across the fan. Radial fire and deliberately curved or homing attacks keep their own patterns. Menu previews stay still; reduced-motion mode disables mechanical movement and muzzle flashes.</li>
-          <li><strong>Capital ships:</strong> bosses carry 75% more hull, fire 50% more often, and launch 25% faster projectiles than the original fleet. Below 40% hull, their firing rate rises another 25%. Your selected difficulty still applies.</li>
+          <li><strong>Capital ships:</strong> bosses carry 55% more hull, fire 30% more often, and launch 12% faster projectiles than the original fleet. Below 40% hull, their firing rate rises another 18%. Your selected difficulty still applies.</li>
           <li><strong>Hull lost:</strong> your ship breaks apart before the recovered flight recorder returns you to the hangar. Purchases and collected scrap stay safe.</li>
           <li><strong>Flight motion:</strong> planets, moons, relays, and ruins drift downward as you fly past. These distant landmarks are scenery, not obstacles. Reduced-motion mode disables their movement.</li>
           <li><strong>Citadel approach:</strong> distant friendly gunfire rises from below the view. It's background traffic only and cannot hit anything.</li>
@@ -1421,6 +1448,8 @@
         <button class="book-bookmark" type="button" data-section="Enemy ships" style="--ribbon: #99604d" aria-label="Jump to enemy ships">Enemies</button>
         <button class="book-bookmark" type="button" data-section="Station support" style="--ribbon: #536f86" aria-label="Jump to station support">Support</button>
         <button class="book-bookmark" type="button" data-section="Bosses" style="--ribbon: #796080" aria-label="Jump to bosses">Bosses</button>
+        <button class="book-bookmark" type="button" data-section="Universes" style="--ribbon: #4c8586" aria-label="Jump to universes">Universes</button>
+        <button class="book-bookmark" type="button" data-section="Sectors" style="--ribbon: #73824d" aria-label="Jump to sectors">Sectors</button>
       </nav>
       <div class="book-leaf" id="almanac-book-leaf">
       <div class="book-page" id="almanac-book-page">
@@ -1450,7 +1479,7 @@
       </footer>
       </div>
     </dialog>
-    <p class="help"><b>← →</b> or <b>A / D</b> to move <span aria-hidden="true">·</span> drag to steer <span aria-hidden="true">·</span> auto-fire</p>
+    <p class="help"><b>← →</b> or <b>A / D</b> to move <span aria-hidden="true">·</span> drag to steer <span id="pc-controls" hidden> · <b>W / S</b> or <b>↑ / ↓</b> to move forward / back</span> <span aria-hidden="true">·</span> auto-fire</p>
   </main>
 
   <script>
@@ -1479,6 +1508,14 @@
         ["Scrap", "Chatarra", "废料", "Ferraille", "Schrott"],
         ["Hull", "Casco", "船体", "Coque", "Rumpf"],
         ["Flight difficulty", "Dificultad de vuelo", "飞行难度", "Difficulté de vol", "Flugschwierigkeit"],
+        ["Flight mode", "Modo de vuelo", "飞行模式", "Mode de vol", "Flugmodus"],
+        ["Classic", "Clásico", "经典", "Classique", "Klassisch"],
+        ["PC flight", "Vuelo en PC", "PC飞行", "Vol PC", "PC-Flug"],
+        ["PC flight widens the arena, adds forward/backward movement, and slightly increases enemy arrivals.",
+          "El modo PC amplía la arena, permite avanzar y retroceder y aumenta ligeramente la frecuencia de enemigos.",
+          "PC模式会扩大竞技场，加入前后移动，并略微增加敌人出现频率。",
+          "Le mode PC élargit l'arène, ajoute le mouvement avant/arrière et augmente légèrement l'arrivée des ennemis.",
+          "Der PC-Modus erweitert die Arena, ergänzt Vor-/Rückwärtsbewegung und lässt Gegner etwas häufiger erscheinen."],
         ["Language", "Idioma", "语言", "Langue", "Sprache"],
         ["Choose your ship", "Elige tu nave", "选择飞船", "Choisissez votre vaisseau", "Schiff auswählen"],
         ["Ready, pilot?", "¿Listo, piloto?", "准备好了吗，飞行员？", "Prêt, pilote ?", "Bereit, Pilot?"],
@@ -1603,11 +1640,11 @@
           "La douane aurélienne exige la saisie de votre cargaison. Mara intervient : « Tu transportais des lettres dans cette ceinture. Maintenant, l'Empire traite les médicaments comme de la contrebande. Suis la balise du convoi. Je te garderai hors de leurs cartes. »",
           "Der Aurelianische Zoll fordert die Beschlagnahmung deiner Fracht. Mara schaltet sich ein: „Früher hast du Briefe durch diesen Gürtel gebracht. Jetzt nennt das Imperium Medizin Schmuggelware. Folge dem Konvoisignal. Ich halte dich von ihren Karten fern.“"],
         ["Game language", "Idioma del juego", "游戏语言", "Langue du jeu", "Spielsprache"],
-        ["Each craft has its own guns and built-in equipment. Open Installed fittings above for its perks. U2 and U3 designs are available for scrap requisition; all purchases stay with this pilot.",
-          "Cada nave tiene armas y equipo propios. Abre Componentes instalados para consultar sus ventajas. Los diseños de U2 y U3 se pueden comprar con chatarra; todo lo adquirido queda vinculado a este piloto.",
-          "每艘飞船都有专属武器和内置装备。打开上方的“已安装配件”查看特性。宇宙二和宇宙三的飞船可用废料购买；所有购买内容均属于当前飞行员。",
-          "Chaque vaisseau possède ses armes et équipements intégrés. Consultez les équipements installés ci-dessus pour découvrir ses avantages. Les modèles des univers 2 et 3 s'achètent avec de la ferraille ; les achats restent à ce pilote.",
-          "Jedes Schiff hat eigene Waffen und eingebaute Ausrüstung. Unter Installierte Ausrüstung findest du seine Vorteile. Schiffe aus U2 und U3 sind gegen Schrott erhältlich; alle Käufe bleiben diesem Piloten zugeordnet."],
+        ["Each craft has its own guns and built-in equipment. Open Installed fittings above for its perks. U2 and U3 ships unlock when you enter those universes; all purchases stay with this pilot.",
+          "Cada nave tiene armas y equipo propios. Abre Componentes instalados para consultar sus ventajas. Las naves de U2 y U3 se desbloquean al entrar en esos universos; todo lo adquirido queda vinculado a este piloto.",
+          "每艘飞船都有专属武器和内置装备。打开上方的“已安装配件”查看特性。进入宇宙二和宇宙三后即可解锁相应飞船；所有购买内容均属于当前飞行员。",
+          "Chaque vaisseau possède ses armes et équipements intégrés. Consultez les équipements installés ci-dessus pour découvrir ses avantages. Les vaisseaux des univers 2 et 3 se débloquent en entrant dans ces univers ; les achats restent à ce pilote.",
+          "Jedes Schiff hat eigene Waffen und eingebaute Ausrüstung. Unter Installierte Ausrüstung findest du seine Vorteile. U2- und U3-Schiffe werden beim Eintritt in diese Universen freigeschaltet; alle Käufe bleiben diesem Piloten zugeordnet."],
         ["Select a ship", "Selecciona una nave", "选择飞船", "Choisissez un vaisseau", "Schiff auswählen"],
         ["Ship", "Nave", "飞船", "Vaisseau", "Schiff"],
         ["Player", "Piloto", "飞行员", "Pilote", "Pilot"],
@@ -1654,6 +1691,13 @@
           "← → 或 A / D 移动 · 拖动转向 · 自动开火",
           "← → ou A / D pour bouger · glissez pour diriger · tir automatique",
           "← → oder A / D zum Bewegen · ziehen zum Steuern · Dauerfeuer"],
+        ["PC flight adds", "El vuelo en PC añade", "PC 飞行增加", "Le vol PC ajoute", "PC-Flug ergänzt"],
+        ["for forward/backward movement.", "para avanzar o retroceder.", "用于前进或后退。", "pour avancer ou reculer.", "für die Vorwärts-/Rückwärtsbewegung."],
+        ["Touch: drag across the flight area. Your ship fires automatically.",
+          "Toca y arrastra por la zona de vuelo. Tu nave dispara automáticamente.",
+          "在飞行区域内触摸并拖动。飞船会自动开火。",
+          "Touchez et faites glisser dans la zone de vol. Votre vaisseau tire automatiquement.",
+          "Zum Steuern im Flugbereich ziehen. Dein Schiff feuert automatisch."],
         ["Sort by", "Ordenar por", "排序方式", "Trier par", "Sortieren nach"],
         ["Search", "Buscar", "搜索", "Rechercher", "Suchen"],
         ["All", "Todo", "全部", "Tout", "Alle"],
@@ -1906,6 +1950,8 @@
       resizeDrawingSurface(initialBounds);
       const sectorDuration = 60;
       const sectorTransitionDuration = 2.4;
+      const bossArrivalDuration = 6.2;
+      const bossDefeatDuration = 8.2;
       const keys = new Set();
       const stars = Array.from({ length: 85 }, () => ({
         x: Math.random() * width,
@@ -2288,7 +2334,7 @@
         "Looks like someone armed an engine room. The wavering volleys keep me busy, then those heavy missiles start eating into my escape space. I shoot the missiles before they box me in. Sector 6, 134 hull on the recorder. Nothing small about this machine.",
         "Much bigger up close. I was watching the guns and nearly missed the docking bays opening. It launches Raiders, Barrages and Hunters, up to three at a time. Need to keep an eye on those doors. The homing missiles take two hits to break. Recorder says 160 hull on the station itself. This could take a while."
       ];
-      const bossBalance = { hull: 1.75, firingRate: 1.5, projectileSpeed: 1.25, overdriveRate: 1.25 };
+      const bossBalance = { hull: 1.55, firingRate: 1.3, projectileSpeed: 1.12, overdriveRate: 1.18 };
       const catalog = [
         ...worldEnemies.map(type => ({ id: `enemy:${type.id}`, name: type.name, group: "Enemy ships",
           info: `${type.note} First saw one in ${universes[type.universe].name}, Sector ${type.unlock}.` })),
@@ -2302,14 +2348,23 @@
           info: `${(type.info || bossDescriptions[index]).replace(/\b\d+ hull\b/g,
             `${Math.round((33 + index * 16 + index ** 2 * .85) * bossBalance.hull * universePressure(Math.floor(index / 7)))} hull before difficulty adjustments`)}${index % 7 === 6
             ? " Mara says I can stop at the hangar after this."
-            : ""}` }))
+            : ""}` })),
+        ...universes.map((universe, index) => ({ id: `universe:${index}`, name: universe.name, group: "Universes",
+          info: `${universe.name} is universe ${index + 1} of the Wayline expedition. Its seven sectors lead to ${bossTypes[index * 7 + 6].name}.` })),
+        ...sectors.map((theme, index) => ({ id: `sector:${index}`, name: theme.name, group: "Sectors",
+          info: `${theme.name} is Sector ${index % 7 + 1} of ${universes[Math.floor(index / 7)].name}. ${bossTypes[index].name} guards the end of this route.` }))
       ];
       for (const entry of catalog) {
         const [category, id] = entry.id.split(":");
         const worldEnemy = category === "enemy" ? worldEnemies.find(type => type.id === id) : null;
-        const universe = category === "boss" ? bossTypes[Number(id)].final ? 3 : Math.floor(Number(id) / 7) : worldEnemy?.universe;
+        const universe = category === "universe" ? Number(id)
+          : category === "sector" ? Math.floor(Number(id) / 7)
+            : category === "boss" ? bossTypes[Number(id)].final ? 3 : Math.floor(Number(id) / 7)
+              : worldEnemy?.universe;
         entry.affiliation = category === "escort" ? "Independent Relief Network / escort wing"
           : category === "support" ? "Aurelian Empire / Citadel garrison"
+          : category === "universe" ? `${universes[universe].name} / expedition chart`
+          : category === "sector" ? `${universes[universe].name} / route chart`
           : category === "boss" && bossTypes[Number(id)].final ? "Aurelian Empire / Throne Directorate detention command"
           : universe === 3 || ["ufo", "advancedUfo"].includes(id) ? "Nacre Confluence / multiverse invasion fleet"
           : universe === 1 ? "Verdant Echo / Crown-controlled garden defenders"
@@ -2317,6 +2372,7 @@
           : "Aurelian Empire / Orion blockade fleet";
         entry.affiliationInk = category === "escort" ? "#315d67"
           : category === "boss" && bossTypes[Number(id)].final ? "#6b4a2c"
+          : ["universe", "sector"].includes(category) ? universes[universe].color
           : universe === 3 || ["ufo", "advancedUfo"].includes(id) ? "#286568" : universe === 1 ? "#426042"
           : universe === 2 || ["mothership", "drone"].includes(id) ? "#754b39"
           : "#4c5274";
@@ -2370,6 +2426,26 @@
           name: "Vesper", universe: 2, cost: 390, speed: 325, health: 10, fireRate: 1.12, damage: 2, attack: "trident",
           stats: "U3 · 10 hull · five-gun crown battery",
           body: "#b5a5cc", glow: "#c79ee8", projectile: "#edddff", projectileGlow: "#b88de1"
+        },
+        crownfire: {
+          name: "Crownfire", universe: 1, cost: 430, speed: 340, health: 9, fireRate: .94, damage: 2, attack: "pulse",
+          stats: "U2 · 9 hull · twin siege emitters",
+          body: "#d69b72", glow: "#ff9f61", projectile: "#ffe0ae", projectileGlow: "#ff9f61"
+        },
+        glasswing: {
+          name: "Glasswing", universe: 1, cost: 470, speed: 440, health: 6, fireRate: .76, damage: 1, attack: "spread",
+          stats: "U2 · 6 hull · refracted spread guns",
+          body: "#9bc5e4", glow: "#75d8ff", projectile: "#d7f4ff", projectileGlow: "#75d8ff"
+        },
+        tidecaller: {
+          name: "Tidecaller", universe: 2, cost: 520, speed: 365, health: 9, fireRate: .88, damage: 2, attack: "twin",
+          stats: "U3 · 9 hull · paired resonance lances",
+          body: "#70cbb9", glow: "#5affd6", projectile: "#cbfff2", projectileGlow: "#5affd6"
+        },
+        starweaver: {
+          name: "Starweaver", universe: 2, cost: 570, speed: 310, health: 12, fireRate: 1.16, damage: 3, attack: "pulse",
+          stats: "U3 · 12 hull · heavy gravity pulse",
+          body: "#b69acb", glow: "#d69bff", projectile: "#f0d8ff", projectileGlow: "#d69bff"
         }
       };
       const shipLoadouts = {
@@ -2426,6 +2502,30 @@
             [9, -15, .09], [18, -9, .18]], mountSpacing: 1.8, speed: 430, radius: 3, visual: "prism",
           equipment: "Siege designator", info: "Targeting Laser deals one extra damage when fitted.", laserDamage: 1,
           thrusters: [-16, 16]
+        },
+        crownfire: {
+          name: "Twin siege emitters", mounts: [[-10, -15, -.04], [10, -15, .04]], mountSpacing: 3,
+          speed: 470, radius: 4, visual: "slug",
+          equipment: "Reinforced reactor", info: "Heavy twin emitters trade some fire rate for harder-hitting shots.",
+          thrusters: [-11, 11]
+        },
+        glasswing: {
+          name: "Refracted spread guns", mounts: [[-14, -10, -.16], [0, -21, 0], [14, -10, .16]],
+          mountSpacing: 2.2, speed: 540, radius: 2.5, visual: "prism",
+          equipment: "Prismatic lens", info: "Wide wings give the three-gun volley extra lateral reach.",
+          thrusters: [-14, 14]
+        },
+        tidecaller: {
+          name: "Paired resonance lances", mounts: [[-12, -16, -.03], [12, -16, .03]],
+          mountSpacing: 2.4, speed: 510, radius: 3, visual: "rail",
+          equipment: "Resonance stabilizer", info: "A stable frame keeps the paired lances aligned while turning.",
+          thrusters: [-12, 12]
+        },
+        starweaver: {
+          name: "Gravity pulse", mounts: [[-13, -11, -.08], [0, -20, 0], [13, -11, .08]],
+          mountSpacing: 2.5, speed: 370, radius: 5, visual: "prism",
+          equipment: "Gravitic capacitor", info: "A dense pulse core adds hull strength and a slower, heavier volley.",
+          thrusters: [-15, 15]
         }
       };
       const singleGunArrays = {
@@ -2505,7 +2605,11 @@
         mycelium: { type: "fan", step: .22, max: .45 },
         vesper: { type: "fan", step: .09, max: .36 },
         sylph: { type: "converge", focus: 260 },
-        halcyon: { type: "parallel" }
+        halcyon: { type: "parallel" },
+        crownfire: { type: "parallel" },
+        glasswing: { type: "fan", step: .16, max: .38 },
+        tidecaller: { type: "converge", focus: 300 },
+        starweaver: { type: "fan", step: .07, max: .18 }
       };
       function evenShotAngles(modelId, ports) {
         const pattern = playerShotPatterns[modelId] || { type: "parallel" };
@@ -2583,21 +2687,29 @@
       let level = 1;
       let experience = 0;
       let sector = 1;
+      const savedHighestSector = Number(localStorage.getItem("starfall-highest-sector"));
+      let highestSectorReached = Number.isInteger(savedHighestSector)
+        && savedHighestSector >= 1 && savedHighestSector <= sectors.length ? savedHighestSector : 1;
       let sectorElapsed = 0;
       let sectorTransitionFrom = null;
       let sectorTransitionElapsed = sectorTransitionDuration;
       let selectedShipId = localStorage.getItem("starfall-ship");
-      if (!ownedShips.has(selectedShipId)) selectedShipId = "comet";
+      if (!ownedShips.has(selectedShipId) || !shipAvailableByProgress(selectedShipId)) selectedShipId = "comet";
+      const flightModes = ["classic", "pc"];
+      let selectedFlightMode = flightModes.includes(localStorage.getItem("starfall-flight-mode"))
+        ? localStorage.getItem("starfall-flight-mode") : "classic";
       const difficultyModes = {
         easy: { name: "Easy", offset: -.3, curve: .6, hull: .7, note: "Room to breathe: lighter hulls, slower hostiles, and fewer waves." },
-        normal: { name: "Normal", offset: -.15, curve: .8, hull: .85, note: "A balanced expedition with a gentler climb than Hard." },
-        hard: { name: "Hard", offset: 0, curve: 1, hull: 1, note: "Dense waves, steep sector pressure, and a sharper escalation at each new universe." },
-        extreme: { name: "Extreme", offset: .12, curve: 1.05, hull: 1.2, note: "Tougher hulls, faster fire, and relentless late-sector waves." }
+        normal: { name: "Normal", offset: -.15, curve: .8, hull: .85, note: "A balanced expedition with a forgiving sector ramp." },
+        hard: { name: "Hard", offset: 0, curve: 1, hull: 1, note: "Dense waves and stronger hostiles, with a more forgiving climb." },
+        extreme: { name: "Extreme", offset: .12, curve: 1.05, hull: 1.2, note: "The toughest setting, now with a gentler sector ramp." }
       };
       const savedDifficulty = localStorage.getItem("starfall-difficulty");
-      let selectedDifficulty = Object.hasOwn(difficultyModes, savedDifficulty) ? savedDifficulty : "hard";
+      let selectedDifficulty = Object.hasOwn(difficultyModes, savedDifficulty) ? savedDifficulty : "normal";
       const difficultySelect = document.querySelector("#difficulty-select");
       const difficultyNote = document.querySelector("#difficulty-note");
+      const flightModeSelect = document.querySelector("#flight-mode-select");
+      const pcControls = document.querySelector("#pc-controls");
       const languageSelect = document.querySelector("#language-select");
       let levelToastTimer;
       let best = Number(localStorage.getItem("starfall-best") || 0);
@@ -2662,6 +2774,7 @@
       let lastTime = 0;
       let pointerDown = false;
       let pointerX = width / 2;
+      let pointerY = height - 110;
       const radioEvents = new Set();
       let radioTime = 0;
       let radioPriority = -1;
@@ -2934,7 +3047,7 @@
         return JSON.parse(JSON.stringify({
           game: "starfall", version: 1, playerName: activePlayer.name,
           progress: {
-            scrap, best, selectedShipId, selectedDifficulty,
+            scrap, best, selectedShipId, selectedDifficulty, selectedFlightMode, highestSectorReached,
             beaconUnlocked, convoyRescued,
             ownedShips: [...ownedShips], encounters: [...encounters],
             upgrades: [engineLevel, shieldLevel, weaponLevel, multiShotLevel, wingmanLevel, escortLevel, laserLevel, regenLevel]
@@ -2980,6 +3093,8 @@
         require(list(p.ownedShips, id => Object.hasOwn(shipModels, id), Object.keys(shipModels).length)
           && starterShips.every(id => p.ownedShips.includes(id)) && p.ownedShips.includes(p.selectedShipId), "ships");
         require(Object.hasOwn(difficultyModes, p.selectedDifficulty), "difficulty");
+        require(p.selectedFlightMode === undefined || flightModes.includes(p.selectedFlightMode), "flight mode");
+        require(p.highestSectorReached === undefined || integer(p.highestSectorReached, 1, sectors.length), "unlocked sector");
         require((p.beaconUnlocked === undefined || typeof p.beaconUnlocked === "boolean")
           && (p.convoyRescued === undefined || typeof p.convoyRescued === "boolean")
           && (!p.convoyRescued || p.beaconUnlocked), "finale progress");
@@ -3109,6 +3224,18 @@
         best = p.best;
         selectedShipId = p.selectedShipId;
         selectedDifficulty = p.selectedDifficulty;
+        const savedMode = localStorage.getItem("starfall-flight-mode");
+        const savedProgressSector = Number(localStorage.getItem("starfall-highest-sector"));
+        selectedFlightMode = flightModes.includes(p.selectedFlightMode) ? p.selectedFlightMode
+          : flightModes.includes(savedMode) ? savedMode : "classic";
+        highestSectorReached = Math.max(p.highestSectorReached || 1, data.run?.sector || 1,
+          Number.isInteger(savedProgressSector) && savedProgressSector >= 1 && savedProgressSector <= sectors.length
+            ? savedProgressSector : 1);
+        if (!shipAvailableByProgress(selectedShipId)) selectedShipId = "comet";
+        localStorage.setItem("starfall-highest-sector", String(highestSectorReached));
+        localStorage.setItem("starfall-flight-mode", selectedFlightMode);
+        updateFlightModeSelection();
+        resizeArena();
         beaconUnlocked = p.beaconUnlocked === true || data.run?.pendingUniverse === sectors.length + 1;
         convoyRescued = p.convoyRescued === true;
         if (beaconUnlocked) localStorage.setItem("starfall-beacon", "true");
@@ -3182,6 +3309,7 @@
         updateHealthBar();
         updateLevelBar();
         selectMenuPanel(r ? "upgrades" : "hangar");
+        updateFlightModeSelection();
         if (pendingUniverse > sectors.length && beaconUnlocked) selectShopPart("beacon");
         draw();
         lastTime = performance.now();
@@ -3189,9 +3317,12 @@
 
       function storeSave(data) {
         const p = data.progress;
+        p.highestSectorReached = highestSectorReached;
+        p.selectedFlightMode = selectedFlightMode;
         localStorage.setItem("starfall-save", JSON.stringify(data));
         for (const [key, value] of Object.entries({
           scrap: p.scrap, best: p.best, ship: p.selectedShipId, difficulty: p.selectedDifficulty,
+          "flight-mode": p.selectedFlightMode || "classic", "highest-sector": p.highestSectorReached || 1,
           beacon: p.beaconUnlocked === true, "convoy-rescued": p.convoyRescued === true,
           "owned-ships": p.ownedShips.join(","), encounters: p.encounters.join(",")
         })) localStorage.setItem(`starfall-${key}`, String(value));
@@ -3663,7 +3794,8 @@
       }
 
       function updateAlmanac() {
-        almanacPages = ["Friendly escorts", "Enemy ships", "Station support", "Bosses"]
+        const groups = ["Friendly escorts", "Enemy ships", "Station support", "Bosses", "Universes", "Sectors"];
+        almanacPages = groups
           .flatMap(group => catalog.filter(entry => entry.group === group && encounters.has(entry.id)));
         almanacDetail.hidden = true;
         almanacEntries.hidden = false;
@@ -3675,8 +3807,8 @@
         updateAlmanacNavigation();
         almanacBookPage.scrollTop = 0;
         almanacEntries.replaceChildren();
-        almanacProgress.textContent = `${encounters.size} / ${catalog.length} entries discovered. Select a discovered ship for its drawing and field notes. Page turns browse unlocked entries only. Encounter more ships to unlock the rest.`;
-        for (const group of ["Friendly escorts", "Enemy ships", "Station support", "Bosses"]) {
+        almanacProgress.textContent = `${encounters.size} / ${catalog.length} entries discovered. Select a discovered entry for its drawing and field notes. Page turns browse unlocked entries only.`;
+        for (const group of groups) {
           const heading = document.createElement("h3");
           heading.textContent = group;
           almanacEntries.append(heading);
@@ -3691,10 +3823,11 @@
             const title = document.createElement("strong");
             const info = document.createElement("small");
             const discovered = encounters.has(entry.id);
-            title.textContent = discovered ? entry.name : "Unknown ship";
-            info.textContent = discovered ? `Page ${almanacPages.indexOf(entry) + 1} / sketch & field notes` : "Not encountered yet";
+            const location = ["Universes", "Sectors"].includes(group);
+            title.textContent = discovered ? entry.name : location ? "Unknown location" : "Unknown ship";
+            info.textContent = discovered ? `Page ${almanacPages.indexOf(entry) + 1} / sketch & field notes` : location ? "Not visited yet" : "Not encountered yet";
             button.disabled = !discovered;
-            if (!discovered) button.setAttribute("aria-label", `Unknown ship, ${group}, entry ${catalog.indexOf(entry) + 1}`);
+            if (!discovered) button.setAttribute("aria-label", `Unknown ${location ? "location" : "ship"}, ${group}, entry ${catalog.indexOf(entry) + 1}`);
             button.addEventListener("click", () => openAlmanacEntry(entry, button));
             button.append(title, info);
             article.append(button);
@@ -3713,12 +3846,15 @@
         almanacEntries.hidden = true;
         almanacProgress.hidden = true;
         almanacDetail.hidden = false;
-        almanacHeading.textContent = discovered ? entry.name : "Unknown ship";
+        const location = ["Universes", "Sectors"].includes(entry.group);
+        almanacHeading.textContent = discovered ? entry.name : location ? "Unknown location" : "Unknown ship";
         almanacDetailGroup.textContent = entry.group;
         const affiliation = document.querySelector("#almanac-affiliation");
         affiliation.textContent = discovered ? `AFFILIATION / ${entry.affiliation}` : "AFFILIATION / UNCONFIRMED";
         affiliation.style.setProperty("--affiliation-ink", discovered ? entry.affiliationInk : "#62576b");
-        const notes = discovered ? entry.info : "Encounter this ship during a flight to unlock its drawing and field notes.";
+        const notes = discovered ? entry.info : location
+          ? "Visit this location during the expedition to unlock its chart and field notes."
+          : "Encounter this ship during a flight to unlock its drawing and field notes.";
         almanacDetailCopy.replaceChildren();
         for (const sentence of notes.match(/.*?[.!?](?:\s+|$)|.+$/g) || [notes]) {
           const note = document.createElement("span");
@@ -3777,12 +3913,49 @@
         const drawing = reference.getContext("2d");
         const [category, id] = entry.id.split(":");
         drawing.translate(reference.width / 2, reference.height / 2);
-        const scale = category === "boss" ? Number(id) === HARBINGER_INDEX ? .95 : 1.65 : category === "escort" ? 4.5 : 3.2;
+        const scale = ["universe", "sector"].includes(category) ? .9
+          : category === "boss" ? Number(id) === HARBINGER_INDEX ? .95 : 1.65
+            : category === "escort" ? 4.5 : 3.2;
         drawing.scale(scale, scale);
         if (category === "boss") {
           drawBoss({ x: 0, y: 0, typeIndex: Number(id) }, drawing);
         } else if (category === "escort") {
           drawWingman({ x: 0, y: 0, variant: id }, drawing);
+        } else if (category === "universe" || category === "sector") {
+          const index = Number(id);
+          const theme = sectors[category === "sector" ? index : index * 7];
+          const accent = theme.meteors[0];
+          const globe = drawing.createRadialGradient(-28, -35, 3, 0, 0, 76);
+          globe.addColorStop(0, "#e5f5ff");
+          globe.addColorStop(.24, accent);
+          globe.addColorStop(.74, theme.planet[1]);
+          globe.addColorStop(1, "#07111d");
+          drawing.fillStyle = globe;
+          drawing.beginPath();
+          drawing.arc(0, 0, 72, 0, Math.PI * 2);
+          drawing.fill();
+          drawing.save();
+          drawing.beginPath();
+          drawing.arc(0, 0, 72, 0, Math.PI * 2);
+          drawing.clip();
+          drawing.globalAlpha = .24;
+          drawing.strokeStyle = theme.nebula[0];
+          drawing.lineWidth = 9;
+          for (let band = -2; band <= 2; band++) {
+            drawing.beginPath();
+            drawing.ellipse(0, band * 24, 92, 12, -.18, 0, Math.PI * 2);
+            drawing.stroke();
+          }
+          drawing.restore();
+          drawing.strokeStyle = `${accent}bb`;
+          drawing.lineWidth = 2;
+          drawing.beginPath();
+          drawing.ellipse(0, 0, 104, 34, -.22, .1, Math.PI + .1);
+          drawing.stroke();
+          drawing.beginPath();
+          drawing.ellipse(0, 0, 104, 34, -.22, Math.PI + .1, Math.PI * 2 + .1);
+          drawing.globalAlpha = .4;
+          drawing.stroke();
         } else {
           const support = category === "support" ? stationSupportTypes.find(type => type.id === id) : null;
           drawEnemy({ x: 0, y: 0, type: support ? support.type : id, radius: 22,
@@ -3970,7 +4143,7 @@
         // Sector progression stays continuous; universePressure supplies the larger boundary jumps.
         const progress = Math.min(sector - 1, 20) / 20 + Math.max(0, sector - 21) / 70;
         const mode = difficultyModes[selectedDifficulty];
-        return mode.offset + (progress + .25 * progress ** 2) * mode.curve;
+        return mode.offset - .12 + (progress + .25 * progress ** 2) * mode.curve * .8;
       }
 
       function universePressure(index = universeIndex()) {
@@ -3996,6 +4169,19 @@
         difficultySelect.value = selectedDifficulty;
         difficultySelect.disabled = playing;
         difficultyNote.textContent = `${difficultyModes[selectedDifficulty].note} Locked after launch.`;
+      }
+
+      function updateFlightModeSelection() {
+        flightModeSelect.value = selectedFlightMode;
+        flightModeSelect.disabled = playing;
+        document.querySelector(".game").classList.toggle("pc-mode", selectedFlightMode === "pc");
+        arena.classList.toggle("pc-mode", selectedFlightMode === "pc");
+        pcControls.hidden = selectedFlightMode !== "pc";
+      }
+
+      function shipAvailableByProgress(shipId) {
+        const universe = shipModels[shipId].universe;
+        return universe === undefined || highestSectorReached >= universe * 7 + 1;
       }
 
       function updateSectorLabel() {
@@ -4044,6 +4230,9 @@
         if (next > sectors.length) {
           reset();
           playing = true;
+          recordEncounter(`sector:${sector - 1}`);
+          recordEncounter(`universe:${universeIndex()}`);
+          updateFlightModeSelection();
           beginBossCinematic("launch", null);
         } else {
           sector = next;
@@ -4122,6 +4311,8 @@
         if (howToPlay.open || deathScene && !deathScene.finished) return;
         if (Object.hasOwn(difficultyModes, checkpoint.difficulty)) selectedDifficulty = checkpoint.difficulty;
         reset();
+        highestSectorReached = Math.max(highestSectorReached, checkpoint.sector);
+        localStorage.setItem("starfall-highest-sector", String(highestSectorReached));
         score = checkpoint.score;
         bonusScore = checkpoint.bonusScore;
         level = checkpoint.level;
@@ -4150,6 +4341,7 @@
           transmitRadio("checkpoint", `Checkpoint restored. ${currentSector().name} ahead, hull fully repaired.`, 1);
         }
         updateDifficultySelection();
+        updateFlightModeSelection();
         keys.clear();
         pointerDown = false;
         updateHealthBar();
@@ -4205,21 +4397,28 @@
       }
 
       function updateSector() {
+        highestSectorReached = Math.max(highestSectorReached, sector);
+        localStorage.setItem("starfall-highest-sector", String(highestSectorReached));
         sectorTransitionFrom = sectors[((sector - 2) % sectors.length + sectors.length) % sectors.length];
         sectorTransitionElapsed = 0;
         const theme = currentSector();
         updateSectorLabel();
+        recordEncounter(`sector:${sector - 1}`);
+        recordEncounter(`universe:${universeIndex()}`);
         transmitRadio("sector-entry", `Navigation confirmed: ${theme.name}. Keep the corridor clear; we'll call the heavy contact.`);
-        if (sector > 1) {
-          const newEnemy = sectorEnemies.find(enemy => enemy.sector === sector);
-          levelToast.textContent = newEnemy
-            ? `SECTOR ${sector}  ·  NEW HOSTILE: ${newEnemy.type.toUpperCase()}`
-            : `ENTERING SECTOR ${sector}  ·  ${theme.name.toUpperCase()}`;
-          levelToast.classList.add("visible");
-          window.clearTimeout(levelToastTimer);
-          levelToastTimer = window.setTimeout(() => levelToast.classList.remove("visible"), 2200);
-          burst(width / 2, height / 2, theme.meteors[0], 24, 150);
-        }
+        if (sector > 1) showSectorToast();
+        if (sector > 1) burst(width / 2, height / 2, theme.meteors[0], 24, 150);
+      }
+
+      function showSectorToast() {
+        const theme = currentSector();
+        const newEnemy = sectorEnemies.find(enemy => enemy.sector === sector);
+        levelToast.textContent = newEnemy
+          ? `U${universeIndex() + 1} / SECTOR ${localSector()}  ·  ${theme.name.toUpperCase()}  ·  NEW HOSTILE: ${newEnemy.type.toUpperCase()}`
+          : `U${universeIndex() + 1} / SECTOR ${localSector()}  ·  ${theme.name.toUpperCase()}`;
+        levelToast.classList.add("visible");
+        window.clearTimeout(levelToastTimer);
+        levelToastTimer = window.setTimeout(() => levelToast.classList.remove("visible"), 3400);
       }
 
       function showLevelToast() {
@@ -4653,12 +4852,18 @@
       }
 
       function updateHangar() {
+        if (!playing && !shipAvailableByProgress(selectedShipId)) {
+          selectedShipId = "comet";
+          localStorage.setItem("starfall-ship", selectedShipId);
+        }
         for (const button of shipChoiceButtons) {
           const model = shipModels[button.dataset.ship];
           const owned = ownedShips.has(button.dataset.ship);
+          const available = shipAvailableByProgress(button.dataset.ship);
+          button.hidden = !available;
           const selected = owned && button.dataset.ship === selectedShipId;
           button.setAttribute("aria-pressed", String(selected));
-          button.disabled = levelShopOpen || (!owned && scrap < model.cost);
+          button.disabled = levelShopOpen || !available || (!owned && scrap < model.cost);
           const label = model.universe ? `${model.name} / U${model.universe + 1}` : model.name;
           button.querySelector(".ship-name").textContent = owned ? label : `${label} · BUY`;
           button.querySelector(".ship-stats").textContent = owned
@@ -6104,6 +6309,12 @@
         }
         ctx.save();
         ctx.globalAlpha *= .82;
+        if (scenery >= 7 && scenery <= 13 && width < 560) {
+          const fit = Math.max(.72, width / 560);
+          ctx.translate(width / 2, 0);
+          ctx.scale(fit, fit);
+          ctx.translate(-width / 2, 0);
+        }
         ctx.translate(parallax * 1.7, -24 + routeTravel * (height + 180) + Math.sin(time * .035) * 2);
         drawWorldScenery(scenery, time);
         ctx.restore();
@@ -8497,6 +8708,7 @@
           case 14: // Cinderglass Reach
             drawNacreStar(W * .1, 38, 2.2, "#fff0e6");
             planet(W * .6, 170, 104, { atmosphere: "#ff8a5c", haze: .55 });
+            hull("frigate", W * .82, 360, 15, -.3, 30, "#ff8a5c", false);
             drawDriftMotes(60, 24, time, { x: W * .3, y: 0, w: W * .6, h: 330, vy: -14, color: "255, 140, 80", alpha: .55, size: .8, sway: 5 });
             field(26, 31, 10, { glint: "prism", speed: .005 });
             break;
@@ -8519,12 +8731,16 @@
           case 17: // Broken Meridian
             drawNacreStar(W * .1, 42, 2.2, "#fff0f6");
             drawShatteredWorld(scenery, W * .56, 180, 92, time, "#ff9c6d", .32);
+            hull("platform", W * .18, 430, 14, .2, 32, "#ff9c6d", false);
+            hull("frigate", W * .84, 310, 12, -.6, 33, "#ff9c6d", false);
             drawNacreGalaxy(W * .2, 420, 50, .2, 29, .38);
             planet(W * .2, -170, 22, { variant: 1, atmosphere: false });
             break;
           case 18: // Copper Tempest
             drawNacreStar(W * .1, 34, 2, "#fff4ea");
             planet(W * .64, 180, 108, { ringed: true, atmosphere: "#ffbd82" });
+            hull("ark", W * .18, 410, 18, .35, 34, "#ffbd82", false);
+            hull("frigate", W * .83, -140, 13, -.2, 35, "#ffbd82", false);
             drawStormFlashes(W * .64, 180, 108, time, 18, "#ffe0c0");
             drawDriftMotes(70, 27, time, { vx: 20, vy: 30, color: "255, 189, 130", alpha: .18, size: .8, streak: .3 });
             break;
@@ -8547,6 +8763,7 @@
             hull("frigate", W * .72, 300, 15, .06, 15, "#f8d69c", false);
             hull("frigate", W * .58, 360, 11, .04, 16, "#f8d69c", false);
             hull("ark", W * .5, -160, 20, -.05, 17, "#f8d69c", false);
+            hull("platform", W * .86, 475, 15, -.1, 36, "#f8d69c", false);
             planet(W * .86, 420, 18, { variant: 1, atmosphere: false });
             drawNacreCluster(W * .14, 440, 26, 40, 20);
             break;
@@ -13235,7 +13452,7 @@
       }
 
       function harbingerHullSprite() {
-        return nacreSprite("harbinger-hull-v2", 416, 344, (data, w, h) => {
+        return nacreSprite("harbinger-hull-v3", 416, 344, (data, w, h) => {
           const tilt = .62, ay = -Math.sin(tilt), az = Math.cos(tilt);
           const cy = Math.cos(tilt), cz = Math.sin(tilt);
           const light = [-.52, -.6, .6], lightLength = Math.hypot(...light);
@@ -13246,7 +13463,6 @@
             const value = Math.sin(a * 127.1 + b * 311.7 + seed * 74.7) * 43758.5453;
             return value - Math.floor(value);
           };
-          const rows = 58;
           for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
             const nx = (x - w / 2) / (w * .48), ny = (y - h / 2) / (h * .48);
             const q = nx * nx + ny * ny;
@@ -13254,52 +13470,54 @@
             const z = Math.sqrt(1 - q);
             const lat = Math.asin(Math.max(-1, Math.min(1, ny * ay + z * az)));
             const lon = Math.atan2(nx, ny * cy + z * cz);
-            const u = (lat / Math.PI + .5) * rows;
-            const row = Math.floor(u), fu = u - row;
-            const rowLat = ((row + .5) / rows - .5) * Math.PI;
-            const tiles = Math.max(8, Math.round(128 * Math.cos(rowLat)));
-            const v = (lon / (Math.PI * 2) + .5) * tiles;
-            const col = Math.floor(v), fv = v - col;
-            const tileHash = hash(row, col, 1), detailHash = hash(row, col, 2);
-            const trench = Math.abs(lat + .16) < .04;
-            const meridian = Math.abs(((lon / (Math.PI * 2) + .5) * 16 + .5) % 1 - .5) < .035;
-            const band = row % 7 === 0;
-            const groove = fu < .1 || fv < .08 || meridian;
-            const block = hash(Math.floor(row / 3), Math.floor(col / 4), 5);
-            let albedo = .84 + tileHash * .12 + (block - .5) * .14;
-            let bevel = 0, emissive = 0, recess = 1;
-            if (trench) {
-              albedo = .3;
-              recess = .55;
-              const lamp = hash(Math.floor(lon * 90), 7, 3);
-              if (Math.abs(lat + .16) < .012 && lamp < .55) emissive = .45 + lamp * .4;
-            } else if (groove) {
-              albedo *= meridian ? .45 : .62;
-            } else if (band) {
-              albedo *= .55;
-              recess = .8;
-              if (fu > .4 && fu < .6 && hash(Math.floor(v * 3), row, 6) < .25) emissive = .3;
-            } else {
-              if (fu < .24) bevel = .12; else if (fu > .86) bevel = -.12;
-              if (block < .1) {
-                recess = .7;
-                albedo *= .82;
-              }
-              if (block > .7 && detailHash > .45) {
-                const inset = fv > .3 && fv < .75 && fu > .4 && fu < .7;
-                if (inset && detailHash > .72) emissive = .22 + (detailHash - .72) * 2.2;
-              }
+            const macro = nacreFbm(lon * 3.2, lat * 7.4, 712, 4);
+            const grit = nacreFbm(lon * 21, lat * 27, 733, 2);
+            const waviness = Math.sin(lon * 8 + Math.sin(lat * 11) * 1.7 + macro * 3);
+            const conduit = Math.abs(Math.sin(lon * 19 + Math.sin(lat * 9) * 1.4 + macro * 2.5)) < .07;
+            const serviceTrench = Math.abs(lat + .16 + Math.sin(lon * 4.5) * .035) < .018;
+            const maintenanceRing = Math.abs(lat - .56 + Math.sin(lon * 7) * .025) < .012;
+            const dishDistance = Math.hypot(lon + .34, lat - .08);
+            const dishRim = Math.abs(dishDistance - .21) < .018;
+            const dishBore = dishDistance < .17;
+            const node = hash(Math.floor(lon * 125), Math.floor(lat * 125), 8);
+            const vent = Math.abs(Math.sin(lon * 66 + lat * 41)) < .09 && node > .68;
+            const machinery = conduit || serviceTrench || maintenanceRing || dishRim || dishBore || vent;
+            let albedo = .64 + macro * .32 + (grit - .5) * .24 + (waviness > .65 ? .08 : 0);
+            let bevel = Math.max(-.12, Math.min(.13, waviness * .12));
+            let emissive = 0, recess = 1;
+            if (dishBore) {
+              const rimLight = Math.max(0, 1 - dishDistance / .21);
+              albedo *= .32 + rimLight * .2;
+              recess = .58 + rimLight * .28;
             }
-            const streak = nacreFbm(lon * 6, lat * 46, 712, 3);
-            const grime = nacreFbm(nx * 9, ny * 9, 733, 3);
-            albedo *= .82 + streak * .26 - Math.max(0, grime - .55) * .5;
+            if (dishRim) {
+              albedo *= .48;
+              if (node > .7) emissive = .18 + node * .22;
+            }
+            if (serviceTrench || maintenanceRing) {
+              albedo *= .44;
+              recess = .62;
+              if (node > .87) emissive = .22 + node * .24;
+            }
+            if (conduit) {
+              albedo *= .52;
+              if (node > .93) emissive = .2 + node * .3;
+            }
+            if (vent) {
+              albedo *= .35;
+              recess = .48;
+            }
+            if (!machinery && node > .988) {
+              albedo *= .68;
+              emissive = .18 + node * .16;
+            }
             const diffuse = Math.max(0, nx * lx + ny * ly + z * lz);
             const wrap = Math.max(0, (nx * lx + ny * ly + z * lz + .25) / 1.25);
             const lit = (diffuse * .78 + wrap * .22) * (1 + bevel) * recess;
-            const specular = groove || trench ? 0 : Math.max(0, nx * hx + ny * hy + z * hz) ** 46 * (.55 + tileHash * .15);
+            const specular = machinery ? 0 : Math.max(0, nx * hx + ny * hy + z * hz) ** 46 * (.5 + grit * .18);
             const rim = (1 - z) ** 3 * Math.max(0, nx * .75 + ny * .15 + .3);
             const occlusion = .55 + .45 * Math.min(1, z * 2.4);
-            const tone = tileHash < .18 ? [112, 116, 118] : tileHash > .85 ? [96, 112, 128] : [104, 117, 130];
+            const tone = grit < .35 ? [91, 103, 111] : grit > .72 ? [133, 144, 148] : [108, 121, 130];
             const i = (y * w + x) * 4;
             const glow = emissive * (1.15 - diffuse * .5);
             data[i] = Math.min(255, (tone[0] * albedo * (.06 + lit) + specular * 210 + rim * 40) * occlusion + glow * 255);
@@ -13459,6 +13677,26 @@
             roof.addColorStop(0, steel(lit + .2)); roof.addColorStop(1, steel(lit * .55));
             drawing.fillStyle = roof;
             drawing.beginPath(); drawing.moveTo(-17, -36); drawing.lineTo(17, -36); drawing.lineTo(14, -24); drawing.lineTo(-14, -24); drawing.closePath(); drawing.fill();
+            for (const flank of [-1, 1]) {
+              drawing.save(); drawing.translate(flank * 17, 0); drawing.scale(flank, 1);
+              drawing.beginPath();
+              drawing.moveTo(-4, -22); drawing.lineTo(2, -25); drawing.lineTo(4, -18);
+              drawing.lineTo(4, 17); drawing.lineTo(-1, 23); drawing.lineTo(-4, 19); drawing.closePath();
+              const cheek = drawing.createLinearGradient(-4, 0, 4, 0);
+              cheek.addColorStop(0, "#111b24"); cheek.addColorStop(.38, steel(lit * .48));
+              cheek.addColorStop(.72, steel(lit * .82)); cheek.addColorStop(1, "#101820");
+              drawing.fillStyle = cheek; drawing.fill();
+              drawing.strokeStyle = "#050b11"; drawing.lineWidth = .9; drawing.stroke();
+              drawing.strokeStyle = "rgba(224,236,242,.28)"; drawing.lineWidth = .65;
+              drawing.beginPath(); drawing.moveTo(2.6, -17); drawing.lineTo(2.6, 14); drawing.stroke();
+              drawing.strokeStyle = "rgba(5,10,15,.8)";
+              for (const grooveY of [-10, 0, 10]) {
+                drawing.beginPath(); drawing.moveTo(-2, grooveY + 1); drawing.lineTo(1, grooveY - 1); drawing.stroke();
+              }
+              drawing.fillStyle = "#d1dce0"; drawing.fillRect(-2.5, -20.5, 1.1, 1.1);
+              drawing.fillRect(-2.5, 17.8, 1.1, 1.1);
+              drawing.restore();
+            }
             drawing.fillStyle = "#081018"; drawing.fillRect(-13, -19, 26, 38);
             for (let vent = 0; vent < 9; vent++) {
               const vy = -17 + vent * 4;
@@ -13552,6 +13790,48 @@
             }
             drawing.strokeStyle = `rgba(225,236,240,${.12 + Math.max(0, facing) * .4})`; drawing.lineWidth = 1;
             drawing.beginPath(); drawing.ellipse(0, 0, 94, 78, 0, a - span, a + span); drawing.stroke();
+            const spineStart = [Math.cos(a) * 77, Math.sin(a) * 63];
+            const spineEnd = [Math.cos(a) * 92, Math.sin(a) * 76];
+            const spineLength = Math.hypot(spineEnd[0] - spineStart[0], spineEnd[1] - spineStart[1]);
+            const normalX = -(spineEnd[1] - spineStart[1]) / spineLength;
+            const normalY = (spineEnd[0] - spineStart[0]) / spineLength;
+            const spinePath = (offset, startWidth, endWidth) => {
+              drawing.beginPath();
+              drawing.moveTo(spineStart[0] + normalX * (offset + startWidth),
+                spineStart[1] + normalY * (offset + startWidth));
+              drawing.lineTo(spineEnd[0] + normalX * (offset + endWidth),
+                spineEnd[1] + normalY * (offset + endWidth));
+              drawing.lineTo(spineEnd[0] + normalX * (offset - endWidth),
+                spineEnd[1] + normalY * (offset - endWidth));
+              drawing.lineTo(spineStart[0] + normalX * (offset - startWidth),
+                spineStart[1] + normalY * (offset - startWidth));
+              drawing.closePath();
+            };
+            spinePath(1, 3.2, 2.4);
+            drawing.fillStyle = "rgba(2,7,12,.7)"; drawing.fill();
+            spinePath(0, 2.2, 1.6);
+            const spine = drawing.createLinearGradient(spineStart[0], spineStart[1] - 2,
+              spineEnd[0], spineEnd[1] + 2);
+            spine.addColorStop(0, steel(.48 + facing * .28));
+            spine.addColorStop(.45, steel(.68 + facing * .24));
+            spine.addColorStop(1, steel(.34 + facing * .22));
+            drawing.fillStyle = spine; drawing.fill();
+            drawing.strokeStyle = "rgba(4,9,15,.8)"; drawing.lineWidth = .75; drawing.stroke();
+            drawing.strokeStyle = `rgba(230,242,248,${.18 + Math.max(0, facing) * .28})`;
+            drawing.lineWidth = .65;
+            drawing.beginPath();
+            drawing.moveTo(spineStart[0] + normalX * .7, spineStart[1] + normalY * .7);
+            drawing.lineTo(spineEnd[0] + normalX * .5, spineEnd[1] + normalY * .5);
+            drawing.stroke();
+            drawing.strokeStyle = "rgba(5,11,17,.75)"; drawing.lineWidth = .7;
+            for (const fraction of [.36, .68]) {
+              const x = spineStart[0] + (spineEnd[0] - spineStart[0]) * fraction;
+              const y = spineStart[1] + (spineEnd[1] - spineStart[1]) * fraction;
+              drawing.beginPath();
+              drawing.moveTo(x - normalX * 1.5, y - normalY * 1.5);
+              drawing.lineTo(x + normalX * 1.5, y + normalY * 1.5);
+              drawing.stroke();
+            }
             const wear = drawing.createRadialGradient(Math.cos(a + .1) * 84, Math.sin(a + .1) * 69, 0, Math.cos(a + .1) * 84, Math.sin(a + .1) * 69, 14);
             wear.addColorStop(0, "rgba(20,14,10,.3)"); wear.addColorStop(1, "rgba(20,14,10,0)");
             drawing.fillStyle = wear; drawing.fillRect(cx - 30, cy - 30, 60, 60);
@@ -15793,6 +16073,7 @@
         arena.classList.remove("cinematic");
         levelToast.classList.remove("visible");
         updateUpgradeButton();
+        if (["defeat", "universe"].includes(completedKind) && localSector() !== 7) showSectorToast();
         if (completedKind === "launch" || completedKind === "universe") {
           transmitRadio("on-mission", `Signal reacquired. ${currentSector().name} ahead. Clear the capital ship to open the route.`, 1);
         }
@@ -15853,7 +16134,7 @@
             }
             scene.explosionClock = .05;
           }
-          if (t >= 3.4) finishBossCinematic();
+          if (t >= bossArrivalDuration) finishBossCinematic();
           return;
         }
         const index = scene.boss.typeIndex;
@@ -15991,7 +16272,7 @@
           wingman.x += (ship.x + side * (34 + row * 17) - wingman.x) * Math.min(1, dt * 7);
           wingman.y += (ship.y + 14 + row * 17 - wingman.y) * Math.min(1, dt * 10);
         }
-        if (t >= 6.2) finishBossCinematic();
+        if (t >= bossDefeatDuration) finishBossCinematic();
       }
 
       function cinematicEase(value) {
@@ -16657,41 +16938,92 @@
 
       function drawUniverseTransition() {
         const t = bossCinematic.time;
-        const destination = universes[universeIndex()].name;
-        const accent = universeIndex() === 1 ? "#9ff1ce" : "#ffd397";
+        const destinationUniverse = universeIndex();
+        const destination = universes[destinationUniverse].name;
+        const accent = universes[destinationUniverse].color;
         const transit = t >= 1.6 && t < 4.4;
+        const centerX = width / 2;
+        const centerY = height * .42;
+        const motion = reducedMotion.matches ? 0 : 1;
         ctx.save();
-        ctx.fillStyle = "#03091699";
+        const space = ctx.createLinearGradient(0, 0, width, height);
+        space.addColorStop(0, "#020711");
+        space.addColorStop(.52, "#0b172a");
+        space.addColorStop(1, "#020711");
+        ctx.fillStyle = space;
         ctx.fillRect(0, 0, width, height);
-        ctx.strokeStyle = accent;
-        ctx.lineWidth = 1;
-        ctx.globalAlpha = .3;
-        for (let i = 0; i < 48; i++) {
-          const angle = i * Math.PI * 2 / 48;
-          const phase = reducedMotion.matches ? .55 : (i * .137 + t * (transit ? .65 : .12)) % 1;
-          const radius = 30 + phase * Math.max(width, height) * .7;
-          const length = transit && !reducedMotion.matches ? 35 + phase * 90 : 5;
+        const haze = ctx.createRadialGradient(centerX, centerY, 8, centerX, centerY, Math.max(width, height) * .8);
+        haze.addColorStop(0, `${accent}35`);
+        haze.addColorStop(.35, `${accent}14`);
+        haze.addColorStop(1, "#02071100");
+        ctx.fillStyle = haze;
+        ctx.fillRect(0, 0, width, height);
+
+        const tunnelTravel = motion ? Math.max(0, Math.min(1, (t - 1.2) / 3.2)) : .45;
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(motion ? Math.sin(t * .55) * .025 : 0);
+        for (let i = 0; i < 15; i++) {
+          const phase = (i / 15 + tunnelTravel) % 1;
+          const depth = .035 + phase * phase * 1.5;
+          const rx = width * .035 + width * .66 * depth;
+          const ry = height * .018 + height * .34 * depth;
+          const yOffset = phase * height * .055;
+          ctx.globalAlpha = .12 + (1 - phase) * .34;
+          ctx.strokeStyle = i % 3 === 0 ? "#eff9ff" : accent;
+          ctx.lineWidth = .7 + phase * 2.4;
           ctx.beginPath();
-          ctx.moveTo(width / 2 + Math.cos(angle) * radius, height * .4 + Math.sin(angle) * radius);
-          ctx.lineTo(width / 2 + Math.cos(angle) * (radius + length), height * .4 + Math.sin(angle) * (radius + length));
+          ctx.ellipse(0, yOffset, rx, ry, Math.sin(i * .7 + t * motion) * .035, 0, Math.PI * 2);
           ctx.stroke();
         }
-        ctx.globalAlpha = .5;
-        ctx.lineWidth = 2;
-        const ring = reducedMotion.matches ? 85 : 65 + Math.min(t, 1.6) * 35 + (transit ? (t - 1.6) * 65 : 0);
-        ctx.beginPath();
-        ctx.ellipse(width / 2, height * .4, ring, ring * .38, 0, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha = .18;
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 1;
+        for (let rail = 0; rail < 12; rail++) {
+          const angle = rail / 12 * Math.PI * 2;
+          const edgeX = Math.cos(angle) * width * .9;
+          const edgeY = Math.sin(angle) * height * .62;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.quadraticCurveTo(edgeX * .16, edgeY * .16, edgeX, edgeY);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        const arrival = Math.max(0, Math.min(1, (t - 4.15) / 1.65));
+        if (arrival > 0) {
+          const portalScale = .3 + arrival * .7;
+          const planetRadius = Math.min(width, height) * (.035 + arrival * .11);
+          ctx.save();
+          ctx.globalAlpha = arrival;
+          ctx.translate(centerX, centerY - 5);
+          ctx.scale(portalScale, portalScale * .72);
+          ctx.strokeStyle = `${accent}99`;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, planetRadius * 1.9, planetRadius * .62, -.16, 0, Math.PI * 2);
+          ctx.stroke();
+          const world = ctx.createRadialGradient(-planetRadius * .35, -planetRadius * .42, 1, 0, 0, planetRadius);
+          world.addColorStop(0, "#f5fff8");
+          world.addColorStop(.22, accent);
+          world.addColorStop(1, "#091322");
+          ctx.fillStyle = world;
+          ctx.beginPath();
+          ctx.arc(0, 0, planetRadius, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
         ctx.save();
-        const arrival = Math.max(0, Math.min(1, (t - 4.4) / 1.6));
+        const shipArrival = Math.max(0, Math.min(1, (t - 4.4) / 1.6));
         const departure = Math.min(1, t / 1.6);
         const y = reducedMotion.matches ? height * .55 : t < 1.6
           ? height - 110 - departure * (height * .6 - 110)
-          : height * .4 + arrival * (height * .6 - 110);
-        const scale = reducedMotion.matches ? 1 : transit ? .35 : t < 1.6 ? 1 - departure * .65 : .35 + arrival * .65;
-        ctx.translate(width / 2, y);
-        ctx.scale(scale, scale);
+          : centerY + shipArrival * (height * .6 - 110);
+        const scale = reducedMotion.matches ? 1 : transit ? .23 : t < 1.6 ? 1 - departure * .77 : .23 + shipArrival * .77;
+        ctx.translate(centerX, y);
+        ctx.rotate(motion ? Math.sin(t * .7) * .04 : 0);
+        ctx.scale(scale, scale * (transit ? .8 : 1));
         drawShip({ ...ship, x: 0, y: 0, vx: 0, shields: 0 });
         ctx.restore();
         ctx.fillStyle = "#030916";
@@ -16705,7 +17037,7 @@
         ctx.fillText(destination.toUpperCase(), width / 2, 88);
         ctx.fillStyle = "#b9cddd";
         ctx.font = "11px system-ui";
-        ctx.fillText(t < 4.4 ? storyChapters[universeIndex()].title : "Navigation locked / prepare for entry", width / 2, 110);
+        ctx.fillText(t < 4.4 ? storyChapters[destinationUniverse].title : "Navigation locked / prepare for entry", width / 2, 110);
         ctx.restore();
       }
 
@@ -16773,12 +17105,12 @@
         ctx.fillStyle = "#050817";
         ctx.fillRect(0, 0, width, height);
         ctx.globalAlpha = 1;
-        const bars = Math.min(1, t / .35, ((arrival ? 3.4 : 6.2) - t) / .4);
+        const bars = Math.min(1, t / .35, ((arrival ? bossArrivalDuration : bossDefeatDuration) - t) / .5);
         ctx.fillStyle = "#030610";
         ctx.fillRect(0, 0, width, 45 * bars);
         ctx.fillRect(0, height - 50 * bars, width, 50 * bars);
         if (arrival) {
-          const fade = Math.max(0, Math.min(1, (3.4 - t) / .6));
+          const fade = Math.max(0, Math.min(1, (bossArrivalDuration - t) / .8));
           ctx.globalAlpha = fade * fade * (3 - 2 * fade);
         }
         ctx.textAlign = "center";
@@ -16805,8 +17137,8 @@
             ctx.fillStyle = type.glow;
             ctx.fillText(`INTERCEPTED / ${type.name}`, width / 2, height * .48 + 52 + lines * 17, width - 30);
           }
-        } else if (t >= 1.8 && t < 4.4) {
-          const fade = Math.min(1, (t - 1.8) / .4, (4.4 - t) / .5);
+        } else if (t >= 1.8 && t < bossDefeatDuration - .4) {
+          const fade = Math.min(1, (t - 1.8) / .4, (bossDefeatDuration - .4 - t) / .8);
           ctx.globalAlpha = fade * fade * (3 - 2 * fade);
           ctx.fillStyle = type.glow;
           ctx.font = "bold 10px system-ui, sans-serif";
@@ -18556,16 +18888,25 @@
 
         const direction = (keys.has("ArrowRight") || keys.has("d") || keys.has("D") ? 1 : 0)
           - (keys.has("ArrowLeft") || keys.has("a") || keys.has("A") ? 1 : 0);
+        const verticalDirection = (keys.has("ArrowDown") || keys.has("s") || keys.has("S") ? 1 : 0)
+          - (keys.has("ArrowUp") || keys.has("w") || keys.has("W") ? 1 : 0);
         const previousShipX = ship.x;
+        const previousShipY = ship.y;
         if (pointerDown) {
           ship.x += (pointerX - ship.x) * Math.min(1, dt * 12 * (loadout.steering || 1));
+          if (selectedFlightMode === "pc") ship.y += (pointerY - ship.y) * Math.min(1, dt * 12);
         } else {
           ship.x += direction * ship.speed * dt * (loadout.steering || 1);
+          if (selectedFlightMode === "pc") ship.y += verticalDirection * ship.speed * dt;
         }
         ship.x = Math.max(ship.radius + 3, Math.min(width - ship.radius - 3, ship.x));
+        ship.y = selectedFlightMode === "pc"
+          ? Math.max(70, Math.min(height - 70, ship.y))
+          : height - 110;
         ship.vx = dt > 0 ? (ship.x - previousShipX) / dt : 0;
         const bankTarget = reducedMotion.matches ? 0 : Math.max(-1, Math.min(1, ship.vx / ship.speed));
         ship.bank = (ship.bank || 0) + (bankTarget - (ship.bank || 0)) * (1 - Math.exp(-dt * 9));
+        ship.vy = dt > 0 ? (ship.y - previousShipY) / dt : 0;
         updateImperialAllies(dt);
 
         for (let i = 0; i < wingmen.length; i++) {
@@ -18654,7 +18995,8 @@
             spawnedMothershipSectors.add(sector);
           }
           enemySpawnClock += dt;
-          const enemySpawnInterval = (2.7 - difficulty() * 1.6) / Math.sqrt(universePressure());
+          const enemySpawnInterval = (2.7 - difficulty() * 1.6)
+            / Math.sqrt(universePressure()) * (selectedFlightMode === "pc" ? .93 : 1);
           if (enemySpawnClock >= enemySpawnInterval) {
             enemySpawnClock = 0;
             spawnEnemy();
@@ -19218,6 +19560,7 @@
         playing = true;
         beginBossCinematic("launch", null);
         updateDifficultySelection();
+        updateFlightModeSelection();
         updateUpgradeButton();
         keys.clear();
         pointerDown = false;
@@ -19231,6 +19574,7 @@
       function setPointer(event) {
         const rect = canvas.getBoundingClientRect();
         pointerX = (event.clientX - rect.left) * width / rect.width;
+        pointerY = (event.clientY - rect.top) * height / rect.height;
       }
 
       for (const [id, part] of Object.entries(shopParts)) part.button.addEventListener("click", () => selectShopPart(id));
@@ -19253,6 +19597,16 @@
         updateDifficultySelection();
         updateSectorLabel();
       });
+      flightModeSelect.addEventListener("change", () => {
+        if (playing) {
+          updateFlightModeSelection();
+          return;
+        }
+        selectedFlightMode = flightModes.includes(flightModeSelect.value) ? flightModeSelect.value : "classic";
+        localStorage.setItem("starfall-flight-mode", selectedFlightMode);
+        updateFlightModeSelection();
+        resizeArena();
+      });
       languageSelect.value = currentLanguage;
       languageSelect.addEventListener("change", () => {
         profileStorage.setItem("starfall-language", languageSelect.value);
@@ -19262,6 +19616,7 @@
         button.addEventListener("click", () => {
           if (playing) return;
           const shipId = button.dataset.ship;
+          if (!shipAvailableByProgress(shipId)) return;
           if (!ownedShips.has(shipId)) {
             const price = shipModels[shipId].cost;
             if (scrap < price) return;
@@ -19345,7 +19700,7 @@
         if (event.target instanceof HTMLElement && event.target.closest("input, select, textarea, [contenteditable='true']")) return;
         if (event.key === " " && event.target instanceof HTMLElement && event.target.closest("button, summary")) return;
         if (deathScene && !deathScene.finished) {
-          if (["ArrowLeft", "ArrowRight", " "].includes(event.key)) event.preventDefault();
+          if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " "].includes(event.key)) event.preventDefault();
           return;
         }
         if (levelShopOpen) {
@@ -19474,17 +19829,11 @@
         if (ship) { ship.vx = 0; ship.bank = 0; }
         draw();
       }
-      // The game frame is locked to 700x900 and only scales uniformly to fit the window.
-      const GAME_FRAME_WIDTH = 700, GAME_FRAME_HEIGHT = 900;
-      function fitGameFrame() {
-        const fit = Math.min(innerWidth / GAME_FRAME_WIDTH, innerHeight / GAME_FRAME_HEIGHT);
-        const scale = document.fullscreenElement ? fit : Math.min(1, fit);
-        document.querySelector(".game").style.setProperty("--game-scale", Math.max(.1, scale).toFixed(4));
-      }
-      fitGameFrame();
+      updateFlightModeSelection();
       new ResizeObserver(resizeArena).observe(arena);
-      window.addEventListener("resize", () => { fitGameFrame(); resizeArena(); });
-      document.addEventListener("fullscreenchange", () => { fitGameFrame(); resizeArena(); });
+      resizeArena();
+      window.addEventListener("resize", resizeArena);
+      document.addEventListener("fullscreenchange", resizeArena);
       const fullscreenButton = document.querySelector("#fullscreen");
       const fullscreenStatus = document.querySelector("#fullscreen-status");
       fullscreenButton.disabled = !document.fullscreenEnabled;
