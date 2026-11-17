@@ -1264,6 +1264,26 @@
     .distress-shelf[data-dormant="true"] .upgrade-cost { color: #8f9aa3; }
     .finale-victory { text-align: center; border-color: #a5eed0; background: radial-gradient(ellipse at top, #235653, #0a1828 70%); }
     .victory-emblem { margin: 10px auto 16px; color: #c8ffe3; font-size: 56px; text-shadow: 0 0 25px #8dffd488; }
+    .bonus-missions { border-color: #efd6a544; background: linear-gradient(110deg, #4a3a1c55, transparent); }
+    .bonus-missions[hidden] { display: none; }
+    .mission-briefing.bonus-missions .shop-title { color: #efd6a5; }
+    #bonus-intro { margin: 0 0 10px; color: #c9c3b0; font-size: 12px; line-height: 1.5; }
+    #bonus-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .bonus-mission { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; width: 100%; min-height: 0; padding: 10px 12px; border: 1px solid #efd6a540; border-radius: 6px; background: #1a2536cc; box-shadow: none; color: #f3ead6; text-align: left; text-shadow: none; }
+    .bonus-mission:disabled { cursor: default; filter: none; opacity: .55; }
+    .bonus-mission[data-state="cleared"] { border-color: #a5eed066; }
+    .bonus-mission[data-state="retry"] { border-color: #ffb183; box-shadow: inset 0 -2px #ffb183; }
+    .bonus-mission[data-rush="true"] { margin-top: 6px; border-color: #ff9d8a66; background: linear-gradient(110deg, #4a1f2a88, #1a2536cc 60%); }
+    .bonus-mission[data-rush="true"] .bonus-status { color: #ffb9a8; }
+    .bonus-name { font-size: 13px; font-weight: 800; }
+    .bonus-status { align-self: center; color: #efd6a5; font: 9px ui-monospace, monospace; letter-spacing: .08em; white-space: nowrap; }
+    .bonus-mission[data-state="cleared"] .bonus-status { color: #a5eed0; }
+    .bonus-brief { grid-column: 1 / -1; color: #b4c3d2; font-size: 11px; font-weight: 500; line-height: 1.5; }
+    #bonus-stand-down { width: 100%; min-height: 38px; margin-top: 10px; font-size: 12px; }
+    #bonus-stand-down[hidden] { display: none; }
+    #bonus-complete-copy, #bonus-complete-results { font-size: 14px; line-height: 1.6; }
+    #bonus-complete-results { color: #efd6a5; font-family: ui-monospace, monospace; font-size: 11px; }
+    #bonus-next[hidden] { display: none; }
     .gear-shelf { border-color: #7fb8d088; background: repeating-linear-gradient(90deg, #13283a 0, #13283a 1px, transparent 1px, transparent 90px), linear-gradient(#050e1b, #132b3f); }
     .gear-shelf .shelf-label { color: #a9e6f2; }
     #menu-upgrades .parts-shelf .upgrade[data-equipped="true"] { border-color: #7fe8ff66; background: #7fe8ff0f; box-shadow: inset 0 -2px #7fe8ff; }
@@ -1390,6 +1410,12 @@
               <div><dt>Primary target</dt><dd id="briefing-target"></dd></div>
               <div><dt>Systems check</dt><dd id="briefing-systems"></dd></div>
             </dl>
+          </section>
+          <section class="mission-briefing bonus-missions" id="bonus-missions" aria-labelledby="bonus-heading" hidden>
+            <p class="shop-title" id="bonus-heading">Bonus missions / Wayline patrol</p>
+            <p id="bonus-intro"></p>
+            <ol id="bonus-list"></ol>
+            <button class="secondary-button" id="bonus-stand-down" type="button" hidden>Return to campaign orders</button>
           </section>
           <figure class="hangar-preview" aria-label="Ship hangar and installed fittings">
             <p class="shop-title">Ship hangar</p>
@@ -1539,7 +1565,7 @@
             <p class="shelf-label">SHELF 02 / SUPPORT SYSTEMS</p>
             <button class="upgrade" id="wingman-upgrade" type="button">
               <canvas class="part-model" data-part="wingman" width="360" height="220" aria-hidden="true"></canvas>
-              <span class="upgrade-copy"><strong>Wingman</strong><small class="part-spec" id="wingman-description">Add Striker, Artillery, then Interceptor escorts</small></span>
+              <span class="upgrade-copy"><strong>Wingman</strong><small class="part-spec" id="wingman-description">Add Striker, Artillery, Interceptor, then Flak escorts</small></span>
               <span class="upgrade-cost" id="wingman-cost"></span>
             </button>
             <button class="upgrade" id="escort-upgrade" type="button">
@@ -1921,6 +1947,8 @@
           <li><strong>Flight gear:</strong> Shelf 03 sells four special attacks; you can own them all but equip only one. Press <kbd>E</kbd> or tap the round gear button above the instrument panel to fire it, then wait for the ring to refill. Nova Pulse damages everything around your ship and erases nearby enemy fire. Arc Coil chains lightning from the nearest threat to the targets behind it. Hornet Pod fires seeking micro-missiles. Solar Lance burns a wide beam straight ahead. Arc Coil and Hornet Pod stay charged when there is nothing to target. Each gear upgrades to Level 3 for more damage, reach and a shorter recharge. Swapping gear keeps the current charge.</li>
           <li><strong>Story &amp; discoveries:</strong> read Hangar dispatches, follow Mara's radio, and browse unlocked Ship Almanac entries.</li>
           <li><strong>Final contact:</strong> after securing all four universes, the parts shop receives a distress beacon claiming to locate the missing convoy. Tracing it plays the recovered message and launches you from the hangar toward the Galactic Harbinger, a three-stage Aurelian battle station run by the Emperor's Throne Directorate. Break its perimeter, disable the siege systems and destroy the command core to board the station, rescue the convoy and escape before it breaks apart. Phase checkpoints let you retry from the start of the latest stage.</li>
+          <li><strong>Bonus missions:</strong> once the convoy is rescued, five patrol contracts appear in the hangar. Clear each one to unlock the next. They use your current ship, parts and difficulty, pay scrap, and never change your campaign checkpoint.</li>
+          <li><strong>Boss Rush:</strong> unlocked with the bonus missions. Fight all 28 capital ships back to back with a small repair after each kill. The hangar keeps your best count and fastest clear.</li>
           <li><strong>Save safety:</strong> switching pilots saves the outgoing flight. Import replaces only the selected pilot; Continue saved run restores their last snapshot.</li>
           <li><strong>Motion:</strong> travel pauses with flight and respects your device's reduced-motion setting.</li>
           <li><strong>Music:</strong> original offline synth music adapts to the hangar, flight, bosses, and universe jumps. Use Music on the instrument panel to mute or adjust volume. Audio preferences apply to this browser, across pilots. Hidden tabs are silent.</li>
@@ -1941,7 +1969,15 @@
       <h2 id="finale-victory-heading">Convoy rescued / Mission accomplished</h2>
       <p>The Emperor's Harbinger is gone. You flew into its detention hangar, released the missing convoy, and outran the station as it tore itself apart. With the Throne Directorate's secret fortress exposed, High Admiral Veyr has ended the Aurelian blockade on every frequency. The relief network and the imperial escort now hold the Wayline open together, and families are finally on their way home.</p>
       <p id="finale-results"></p>
+      <p id="finale-bonus-note">Five bonus missions and a Boss Rush mode are now posted in the hangar.</p>
       <div class="menu-actions"><button id="finale-hangar" type="button">Return to parts shop</button><button id="finale-restart" class="secondary-button" type="button">New expedition</button></div>
+    </dialog>
+    <dialog class="how-to-play finale-victory" id="bonus-complete" aria-labelledby="bonus-complete-heading">
+      <div class="victory-emblem" aria-hidden="true">&#10022;</div>
+      <h2 id="bonus-complete-heading">Bonus mission complete</h2>
+      <p id="bonus-complete-copy"></p>
+      <p id="bonus-complete-results"></p>
+      <div class="menu-actions"><button id="bonus-next" type="button">Next bonus mission</button><button id="bonus-hangar" class="secondary-button" type="button">Return to hangar</button></div>
     </dialog>
     <dialog class="how-to-play" id="skin-unlock-dialog" aria-labelledby="skin-unlock-heading">
       <h2 id="skin-unlock-heading">Skin crate result</h2>
@@ -3071,6 +3107,9 @@
         ["TRIARCH NAVIGATOR","NAVEGANTE TRIARCA","三执政领航者","NAVIGATEUR TRIARQUE","TRIARCHEN-NAVIGATOR"],
         ["Watchlight Border","Frontera de las Luces Vigía","望灯边境","Lisière des Veilleuses","Wachlichtgrenze"],
         ["add Striker Escort","añadir Escolta de Asalto","加入突击护航舰","ajouter Escorte d\u0027assaut","Stürmer-Eskorte hinzufügen"],
+        ["add Flak Escort","añadir Escolta de Metralla","加入散射护航舰","ajouter Escorte de mitraille","Flak-Eskorte hinzufügen"],
+        ["Flak Escort","Escolta de Metralla","散射护航舰","Escorte de mitraille","Flak-Eskorte"],
+        ["Add Striker, Artillery, Interceptor, then Flak escorts","Añade escoltas de Asalto, Artillería, Interceptora y luego Metralla","依次加入突击、炮击、拦截、散射护航舰","Ajoute les escortes Assaut, Artillerie, Interception, puis Mitraille","Fügt Stürmer-, Artillerie-, Abfangjäger- und dann Flak-Eskorten hinzu"],
         ["Arc coil projector","Proyector de bobina de arco","电弧线圈投射器","Projecteur de bobine à arc","Lichtbogenspulen-Projektor"],
         ["CIVILIAN DETENTION","DETENCIÓN DE CIVILES","平民拘押","DÉTENTION DE CIVILS","ZIVILINTERNIERUNG"],
         ["CONVOY IDENT MATCH","IDENT DEL CONVOY COINCIDE","船队识别码匹配","IDENT DU CONVOI CONCORDANTE","KONVOI-KENNUNG STIMMT ÜBEREIN"],
@@ -3704,7 +3743,7 @@
         ["The trunk cannon fires a heavy aimed pulse while the branches release slow rings. I let the ring spread before crossing, and keep moving when the trunk lights up.","El cañón del tronco dispara un pulso pesado apuntado mientras las ramas sueltan anillos lentos. Dejo que el anillo se abra antes de cruzar, y sigo moviéndome cuando el tronco se enciende.","树干炮射出沉重的瞄准脉冲，同时枝条放出缓慢的环形弹幕。我会等环散开后再穿过去，树干亮起时则保持移动。","Le canon du tronc tire une lourde impulsion ciblée pendant que les branches libèrent des anneaux lents. Je laisse l\u0027anneau s\u0027élargir avant de traverser, et je reste en mouvement quand le tronc s\u0027allume.","Die Stammkanone feuert einen schweren gezielten Puls, während die Äste langsame Ringe freisetzen. Ich lasse den Ring auseinanderlaufen, bevor ich ihn kreuze, und bleibe in Bewegung, wenn der Stamm aufleuchtet."],
         ["The mirrored wings put out two counter-rotating rings. Between them it sends a short aimed fan. The reflections are distracting; the downward bolts are what matter.","Las alas de espejo emiten dos anillos que giran en sentidos opuestos. Entre ellos envía un abanico corto apuntado. Los reflejos distraen; lo que importa son los proyectiles que bajan.","镜面机翼放出两道反向旋转的环形弹幕。在两者之间，它会射出一道短促的瞄准扇形弹幕。倒影很分散注意力；真正要紧的是朝下飞来的弹药。","Les ailes-miroirs émettent deux anneaux contrarotatifs. Entre les deux, il envoie un court éventail ciblé. Les reflets distraient ; ce sont les tirs descendants qui comptent.","Die verspiegelten Flügel werfen zwei gegenläufig rotierende Ringe aus. Dazwischen schickt er einen kurzen gezielten Fächer. Die Spiegelungen lenken ab; auf die Geschosse nach unten kommt es an."],
         ["The wing batteries fire in staggered ranks. One broadside crosses the other, followed by a fast shot from the nose. I keep an escape lane outside the crossing point.","Las baterías de las alas disparan en filas escalonadas. Una andanada cruza a la otra, seguida de un disparo rápido desde el morro. Mantengo un carril de escape fuera del punto de cruce.","机翼炮组错列开火。一道舷侧齐射与另一道交叉，紧接着机鼻射出一发快弹。我会在交叉点之外留一条退路。","Les batteries d\u0027aile tirent en rangs décalés. Une bordée croise l\u0027autre, suivie d\u0027un tir rapide depuis le nez. Je garde un couloir de fuite en dehors du point de croisement.","Die Flügelbatterien feuern in versetzten Reihen. Eine Breitseite kreuzt die andere, gefolgt von einem schnellen Schuss aus der Nase. Ich halte mir eine Fluchtbahn außerhalb des Kreuzungspunkts frei."],
-        ["An escort craft and its flight-link transponder. Requisition order is Striker, Artillery, then Interceptor. Each flies beside your ship with its own distinct armament.","Una nave de escolta y su transpondedor de enlace de vuelo. El orden de requisición es Asalto, Artillería y luego Interceptora. Cada una vuela junto a tu nave con su propio armamento.","一艘护航舰及其飞行链路应答机。征调顺序为突击、炮击、拦截。每一艘都携带各自独特的武装，在你的飞船旁伴飞。","Un vaisseau d\u0027escorte et son transpondeur de liaison de vol. L\u0027ordre de réquisition est Assaut, Artillerie, puis Interception. Chacun vole à côté de votre vaisseau avec son propre armement.","Ein Eskortschiff samt Flugverbund-Transponder. Die Anforderungsreihenfolge lautet Stürmer, Artillerie, dann Abfangjäger. Jedes fliegt mit eigener Bewaffnung neben deinem Schiff."],
+        ["An escort craft and its flight-link transponder. Requisition order is Striker, Artillery, Interceptor, then Flak. Each flies beside your ship with its own distinct armament.","Una nave de escolta y su transpondedor de enlace de vuelo. El orden de requisición es Asalto, Artillería, Interceptora y luego Metralla. Cada una vuela junto a tu nave con su propio armamento.","一艘护航舰及其飞行链路应答机。征调顺序为突击、炮击、拦截、散射。每一艘都携带各自独特的武装，在你的飞船旁伴飞。","Un vaisseau d\u0027escorte et son transpondeur de liaison de vol. L\u0027ordre de réquisition est Assaut, Artillerie, Interception, puis Mitraille. Chacun vole à côté de votre vaisseau avec son propre armement.","Ein Eskortschiff samt Flugverbund-Transponder. Die Anforderungsreihenfolge lautet Stürmer, Artillerie, Abfangjäger, dann Flak. Jedes fliegt mit eigener Bewaffnung neben deinem Schiff."],
         ["A recovered receiver claims it has the missing convoy\u0027s coordinates. Its signal comes from a station beyond the four mapped universes. Inspect the beacon to investigate.","Un receptor recuperado afirma tener las coordenadas del convoy desaparecido. Su señal procede de una estación situada más allá de los cuatro universos cartografiados. Inspecciona la baliza para investigar.","一台回收的接收器声称掌握着失踪船队的坐标。它的信号来自四个已测绘宇宙之外的一座空间站。检视信标以展开调查。","Un récepteur récupéré prétend détenir les coordonnées du convoi disparu. Son signal provient d\u0027une station située au-delà des quatre univers cartographiés. Inspectez la balise pour enquêter.","Ein geborgener Empfänger behauptet, die Koordinaten des vermissten Konvois zu haben. Sein Signal kommt von einer Station jenseits der vier kartierten Universen. Inspiziere den Notrufsender, um der Sache nachzugehen."],
         ["polished armor and three pale bolts aimed at my cockpit. The volley stays narrow. I move before the next one settles on me, rather than waiting to see how close it gets.","blindaje pulido y tres proyectiles pálidos apuntados a mi cabina. La salva se mantiene estrecha. Me muevo antes de que la siguiente se centre en mí, en vez de esperar a ver cuánto se acerca.","锃亮的装甲，外加三发瞄准我座舱的苍白弹药。齐射始终很窄。我会在下一轮对准我之前移动，而不是等着看它能擦得多近。","blindage poli et trois tirs pâles visant mon cockpit. La salve reste étroite. Je bouge avant que la suivante ne se cale sur moi, plutôt que d\u0027attendre de voir à quel point elle s\u0027approche.","polierte Panzerung und drei fahle Geschosse, die auf mein Cockpit zielen. Die Salve bleibt schmal. Ich bewege mich, bevor sich die nächste auf mich einpendelt, statt abzuwarten, wie nah sie kommt."],
         ["There\u0027s a light inside the split trunk. Hard to get a good look while dodging. It switches between wide and narrow pulses, so I use the time between them to move across.","Hay una luz dentro del tronco partido. Cuesta verla bien mientras esquivo. Alterna pulsos anchos y estrechos, así que aprovecho el tiempo entre ellos para cruzar.","裂开的树干里有一道光。闪躲的时候很难看清。它在宽脉冲和窄脉冲之间切换，所以我利用两者之间的间隙横穿过去。","Il y a une lumière dans le tronc fendu. Difficile de bien regarder en esquivant. Il alterne impulsions larges et étroites, alors je profite du temps entre deux pour traverser.","Im gespaltenen Stamm ist ein Licht. Beim Ausweichen schwer genau zu erkennen. Er wechselt zwischen breiten und schmalen Pulsen, also nutze ich die Zeit dazwischen, um hinüberzuwechseln."],
@@ -3820,12 +3859,82 @@
         ["Lv. {0}","Nv. {0}","{0} 级","Niv. {0}","St. {0}"],
         ["{0} XP","{0} EXP","{0} 经验","{0} EXP","{0} EP"],
         ["{0} OF {1}","{0} DE {1}","{0}/{1}","{0} SUR {1}","{0} VON {1}"],
-        ["ID","ID","编号","ID","ID"]
+        ["ID","ID","编号","ID","ID"],
+        ["Bonus missions", "Misiones extra", "奖励任务", "Missions bonus", "Bonusmissionen"],
+        ["Bonus mission", "Misión extra", "奖励任务", "Mission bonus", "Bonusmission"],
+        ["Bonus missions:", "Misiones extra:", "奖励任务：", "Missions bonus :", "Bonusmissionen:"],
+        ["once the convoy is rescued, five patrol contracts appear in the hangar. Clear each one to unlock the next. They use your current ship, parts and difficulty, pay scrap, and never change your campaign checkpoint.", "cuando rescatas el convoy, aparecen cinco contratos de patrulla en el hangar. Supera cada uno para desbloquear el siguiente. Usan tu nave, piezas y dificultad actuales, pagan chatarra y nunca cambian tu punto de control de campaña.", "救出护航队后，机库中会出现五个巡逻合约。通关一个即可解锁下一个。它们使用你当前的飞船、部件和难度，支付废料，并且不会改变你的战役检查点。", "une fois le convoi secouru, cinq contrats de patrouille apparaissent dans le hangar. Réussissez chacun pour débloquer le suivant. Ils utilisent votre vaisseau, vos pièces et votre difficulté actuels, rapportent de la ferraille et ne modifient jamais votre point de contrôle de campagne.", "sobald der Konvoi gerettet ist, erscheinen fünf Patrouillenaufträge im Hangar. Schaffe jeden, um den nächsten freizuschalten. Sie nutzen dein aktuelles Schiff, deine Teile und deinen Schwierigkeitsgrad, bringen Schrott und ändern nie deinen Kampagnen-Kontrollpunkt."],
+        ["Wayline patrol", "Patrulla de la Vía", "航路巡逻", "Patrouille de la Voie", "Wayline-Patrouille"],
+        ["After the blockade", "Tras el bloqueo", "封锁之后", "Après le blocus", "Nach der Blockade"],
+        ["Return to campaign orders", "Volver a las órdenes de campaña", "返回战役指令", "Revenir aux ordres de campagne", "Zurück zu den Kampagnenbefehlen"],
+        ["Five bonus missions and a Boss Rush mode are now posted in the hangar.", "Hay cinco misiones extra y un modo Asalto de jefes disponibles en el hangar.", "机库中现已发布五个奖励任务和首领连战模式。", "Cinq missions bonus et un mode Ruée des boss sont maintenant affichés dans le hangar.", "Im Hangar hängen jetzt fünf Bonusmissionen und ein Boss-Rush-Modus aus."],
+        ["Boss Rush", "Asalto de jefes", "首领连战", "Ruée des boss", "Boss Rush"],
+        ["Boss Rush:", "Asalto de jefes:", "首领连战：", "Ruée des boss :", "Boss Rush:"],
+        ["GAME MODE", "MODO DE JUEGO", "游戏模式", "MODE DE JEU", "SPIELMODUS"],
+        ["Boss Rush complete", "Asalto de jefes completado", "首领连战完成", "Ruée des boss terminée", "Boss Rush abgeschlossen"],
+        ["Boss Rush over", "Asalto de jefes terminado", "首领连战结束", "Ruée des boss interrompue", "Boss Rush vorbei"],
+        ["Retry Boss Rush", "Reintentar Asalto de jefes", "重试首领连战", "Réessayer la Ruée des boss", "Boss Rush wiederholen"],
+        ["RUSH OVER", "ASALTO TERMINADO", "连战结束", "RUÉE INTERROMPUE", "RUSH VORBEI"],
+        ["NEW BEST TIME", "NUEVO MEJOR TIEMPO", "新的最佳时间", "NOUVEAU MEILLEUR TEMPS", "NEUE BESTZEIT"],
+        ["BEST TIME {0}", "MEJOR TIEMPO {0}", "最佳时间 {0}", "MEILLEUR TEMPS {0}", "BESTZEIT {0}"],
+        ["RECORD {0} OF {1}", "RÉCORD {0} DE {1}", "纪录 {0}/{1}", "RECORD {0} SUR {1}", "REKORD {0} VON {1}"],
+        ["{0} OF {1} DESTROYED", "{0} DE {1} DESTRUIDOS", "已击毁 {0}/{1}", "{0} SUR {1} DÉTRUITS", "{0} VON {1} ZERSTÖRT"],
+        ["{0} MORE BEHIND IT", "{0} MÁS DETRÁS", "其后还有 {0} 艘", "{0} AUTRES DERRIÈRE", "{0} WEITERE DAHINTER"],
+        ["Every capital ship from Void Commander to the Aeon Devourer, back to back, each in its home sector. No waves in between, and two hull repaired after each kill. Your record is kept.", "Todas las naves capitales, de Void Commander al Aeon Devourer, una tras otra y cada una en su sector. Sin oleadas entre medias y con dos puntos de casco reparados tras cada victoria. Tu récord se guarda.", "从 Void Commander 到 Aeon Devourer 的每一艘主力舰接连登场，各自在其所属扇区。中间没有杂兵波次，每次击毁后修复两点船体。你的纪录会被保存。", "Tous les vaisseaux capitaux, de Void Commander à l'Aeon Devourer, à la suite, chacun dans son secteur. Aucune vague entre deux, et deux points de coque réparés après chaque victoire. Votre record est conservé.", "Jedes Großkampfschiff von Void Commander bis Aeon Devourer, direkt hintereinander und jeweils in seinem Heimatsektor. Keine Wellen dazwischen, und nach jedem Abschuss werden zwei Rumpfpunkte repariert. Dein Rekord wird gespeichert."],
+        ["Twenty-eight capital ships in a single flight. Nobody at Flight Command has anything left to teach you.", "Veintiocho naves capitales en un solo vuelo. En el Mando de Vuelo ya nadie tiene nada que enseñarte.", "一次飞行击毁二十八艘主力舰。飞行指挥部已经没有人能再教你什么了。", "Vingt-huit vaisseaux capitaux en un seul vol. Plus personne au Commandement de vol n'a quoi que ce soit à vous apprendre.", "Achtundzwanzig Großkampfschiffe in einem einzigen Flug. Im Flugkommando kann dir niemand mehr etwas beibringen."],
+        ["Boss Rush: {0} of {1} capital ships destroyed, MET {2}, score {3}. Your record is {4} of {5}. Your purchases and recovered scrap are safe.", "Asalto de jefes: {0} de {1} naves capitales destruidas, TDM {2}, puntuación {3}. Tu récord es {4} de {5}. Tus compras y la chatarra recuperada están a salvo.", "首领连战：击毁 {0}/{1} 艘主力舰，任务时间 {2}，得分 {3}。你的纪录是 {4}/{5}。你购买的物品和回收的废料都安全。", "Ruée des boss : {0} vaisseaux capitaux détruits sur {1}, TDM {2}, score {3}. Votre record est de {4} sur {5}. Vos achats et la ferraille récupérée sont en sécurité.", "Boss Rush: {0} von {1} Großkampfschiffen zerstört, MET {2}, Punktzahl {3}. Dein Rekord liegt bei {4} von {5}. Deine Käufe und der geborgene Schrott sind sicher."],
+        ["unlocked with the bonus missions. Fight all 28 capital ships back to back with a small repair after each kill. The hangar keeps your best count and fastest clear.", "se desbloquea con las misiones extra. Lucha contra las 28 naves capitales una tras otra, con una pequeña reparación tras cada victoria. El hangar guarda tu mejor marca y tu victoria más rápida.", "与奖励任务一同解锁。连续迎战全部 28 艘主力舰，每次击毁后进行少量维修。机库会记录你的最佳击毁数和最快通关时间。", "débloquée avec les missions bonus. Affrontez les 28 vaisseaux capitaux à la suite, avec une petite réparation après chaque victoire. Le hangar conserve votre meilleur total et votre victoire la plus rapide.", "wird mit den Bonusmissionen freigeschaltet. Bekämpfe alle 28 Großkampfschiffe hintereinander, mit einer kleinen Reparatur nach jedem Abschuss. Der Hangar merkt sich deine beste Anzahl und deinen schnellsten Durchlauf."],
+        ["Bonus mission complete", "Misión extra completada", "奖励任务完成", "Mission bonus accomplie", "Bonusmission abgeschlossen"],
+        ["Bonus mission failed", "Misión extra fallida", "奖励任务失败", "Mission bonus échouée", "Bonusmission gescheitert"],
+        ["Retry bonus mission", "Reintentar misión extra", "重试奖励任务", "Réessayer la mission bonus", "Bonusmission wiederholen"],
+        ["Next bonus mission", "Siguiente misión extra", "下一个奖励任务", "Mission bonus suivante", "Nächste Bonusmission"],
+        ["Next mission", "Siguiente misión", "下一个任务", "Mission suivante", "Nächste Mission"],
+        ["BONUS MISSION SECURED", "MISIÓN EXTRA ASEGURADA", "奖励任务已完成", "MISSION BONUS SÉCURISÉE", "BONUSMISSION GESICHERT"],
+        ["BONUS MISSION {0} OF {1}", "MISIÓN EXTRA {0} DE {1}", "奖励任务 {0}/{1}", "MISSION BONUS {0} SUR {1}", "BONUSMISSION {0} VON {1}"],
+        ["MISSION FAILED", "MISIÓN FALLIDA", "任务失败", "MISSION ÉCHOUÉE", "MISSION GESCHEITERT"],
+        ["RETRY AVAILABLE", "REINTENTO DISPONIBLE", "可重试", "NOUVEL ESSAI POSSIBLE", "WIEDERHOLUNG MÖGLICH"],
+        ["MISSION CLEARED", "MISIÓN SUPERADA", "任务已通关", "MISSION RÉUSSIE", "MISSION GESCHAFFT"],
+        ["MISSION OPEN", "MISIÓN DISPONIBLE", "任务开放", "MISSION DISPONIBLE", "MISSION OFFEN"],
+        ["MISSION LOCKED", "MISIÓN BLOQUEADA", "任务未解锁", "MISSION VERROUILLÉE", "MISSION GESPERRT"],
+        ["CLEAR THE PREVIOUS MISSION FIRST", "SUPERA ANTES LA MISIÓN ANTERIOR", "请先通关上一个任务", "TERMINEZ D'ABORD LA MISSION PRÉCÉDENTE", "ERST DIE VORHERIGE MISSION SCHAFFEN"],
+        ["REPLAY PAYS ✦ {0}", "REPETIR PAGA ✦ {0}", "重玩奖励 ✦ {0}", "REJOUER RAPPORTE ✦ {0}", "WIEDERHOLUNG BRINGT ✦ {0}"],
+        ["FIRST CLEAR PAYS ✦ {0}", "PRIMERA VEZ PAGA ✦ {0}", "首次通关奖励 ✦ {0}", "PREMIÈRE RÉUSSITE : ✦ {0}", "ERSTER ERFOLG BRINGT ✦ {0}"],
+        ["✦ {0} SCRAP REWARD", "RECOMPENSA DE ✦ {0} DE CHATARRA", "✦ {0} 废料奖励", "RÉCOMPENSE DE ✦ {0} FERRAILLE", "✦ {0} SCHROTT BELOHNUNG"],
+        ["FIRST CLEAR", "PRIMERA VEZ", "首次通关", "PREMIÈRE RÉUSSITE", "ERSTER ERFOLG"],
+        ["ALL BONUS MISSIONS CLEARED", "TODAS LAS MISIONES EXTRA SUPERADAS", "全部奖励任务已通关", "TOUTES LES MISSIONS BONUS RÉUSSIES", "ALLE BONUSMISSIONEN GESCHAFFT"],
+        ["NO CAPITAL SHIP", "SIN NAVE CAPITAL", "无主力舰", "AUCUN VAISSEAU CAPITAL", "KEIN GROSSKAMPFSCHIFF"],
+        ["HOLD THE LANE", "MANTÉN EL CORREDOR", "守住航道", "TENEZ LE COULOIR", "KORRIDOR HALTEN"],
+        ["NEXT CONTACT", "SIGUIENTE CONTACTO", "下一个目标", "PROCHAIN CONTACT", "NÄCHSTER KONTAKT"],
+        ["CONTACT IN {0}s", "CONTACTO EN {0} s", "{0} 秒后接敌", "CONTACT DANS {0} s", "KONTAKT IN {0} s"],
+        ["{0}s LEFT", "QUEDAN {0} s", "剩余 {0} 秒", "{0} s RESTANTES", "NOCH {0} s"],
+        ["Meteor Monsoon", "Monzón de meteoros", "陨石季风", "Mousson de météores", "Meteormonsun"],
+        ["Remnant Armada", "Armada remanente", "残余舰队", "Armada résiduelle", "Restarmada"],
+        ["Saucer Tide", "Marea de platillos", "飞碟潮", "Marée de soucoupes", "Untertassenflut"],
+        ["Captains' Gauntlet", "Desafío de los capitanes", "舰长连战", "Défi des capitaines", "Spießrutenlauf der Kapitäne"],
+        ["Last Light", "Última luz", "最后的光", "Dernière lueur", "Letztes Licht"],
+        ["The convoy is home, but the Wayline still needs flying. These contracts use your current ship, parts and difficulty. They pay scrap and never touch your campaign checkpoint.", "El convoy está en casa, pero la Vía aún necesita pilotos. Estos contratos usan tu nave, piezas y dificultad actuales. Pagan chatarra y nunca tocan tu punto de control de campaña.", "护航队已经回家，但航路仍需有人巡航。这些合约使用你当前的飞船、部件和难度。它们支付废料，并且不会影响你的战役检查点。", "Le convoi est rentré, mais la Voie a encore besoin de pilotes. Ces contrats utilisent votre vaisseau, vos pièces et votre difficulté actuels. Ils rapportent de la ferraille et ne touchent jamais à votre point de contrôle de campagne.", "Der Konvoi ist zu Hause, aber die Wayline will weiter beflogen werden. Diese Aufträge nutzen dein aktuelles Schiff, deine Teile und deinen Schwierigkeitsgrad. Sie bringen Schrott und berühren nie deinen Kampagnen-Kontrollpunkt."],
+        ["Every contract is flown. Replay any of them for a little scrap; they use your current ship, parts and difficulty.", "Todos los contratos están cumplidos. Repite cualquiera por algo de chatarra; usan tu nave, piezas y dificultad actuales.", "所有合约都已完成。可以重玩任意一个来赚取少量废料；它们使用你当前的飞船、部件和难度。", "Tous les contrats sont remplis. Rejouez-en un pour un peu de ferraille ; ils utilisent votre vaisseau, vos pièces et votre difficulté actuels.", "Alle Aufträge sind geflogen. Wiederhole einen beliebigen für etwas Schrott; sie nutzen dein aktuelles Schiff, deine Teile und deinen Schwierigkeitsgrad."],
+        ["A rock storm is crossing the reopened Crystal Expanse lane. No hostile ships, only meteors arriving in four heavy squalls. Hold the corridor for 75 seconds.", "Una tormenta de rocas cruza el corredor reabierto de Crystal Expanse. No hay naves hostiles, solo meteoros que llegan en cuatro fuertes ráfagas. Mantén el corredor durante 75 segundos.", "一场岩石风暴正穿过重新开放的 Crystal Expanse 航道。没有敌舰，只有分四阵猛烈袭来的陨石。守住航道 75 秒。", "Une tempête de roches traverse le couloir rouvert de Crystal Expanse. Aucun vaisseau hostile, seulement des météores en quatre fortes rafales. Tenez le couloir pendant 75 secondes.", "Ein Gesteinssturm zieht durch den wiedereröffneten Korridor von Crystal Expanse. Keine feindlichen Schiffe, nur Meteore in vier heftigen Böen. Halte den Korridor 75 Sekunden lang."],
+        ["The storm front has passed and the lane is open. Relief ships are already filing through behind you.", "El frente de la tormenta ha pasado y el corredor está abierto. Las naves de socorro ya cruzan detrás de ti.", "风暴锋面已经过去，航道畅通。救援船已经在你身后陆续通过。", "Le front de tempête est passé et le couloir est ouvert. Les vaisseaux de secours défilent déjà derrière vous.", "Die Sturmfront ist durch und der Korridor ist frei. Hinter dir ziehen bereits die Hilfsschiffe hindurch."],
+        ["Holdouts from every broken fleet have gathered at Bloomheart Gate. Expect ships from all four universes in one formation, led by a rebuilt Bloom Sovereign.", "Los últimos resistentes de cada flota derrotada se han reunido en Bloomheart Gate. Espera naves de los cuatro universos en una sola formación, lideradas por un Bloom Sovereign reconstruido.", "各支溃败舰队的残部已在 Bloomheart Gate 集结。四个宇宙的飞船将编成同一阵型，由一艘重建的 Bloom Sovereign 率领。", "Les irréductibles de chaque flotte brisée se sont rassemblés à Bloomheart Gate. Attendez-vous à des vaisseaux des quatre univers en une seule formation, menés par un Bloom Sovereign reconstruit.", "Versprengte aus jeder zerschlagenen Flotte haben sich am Bloomheart Gate gesammelt. Rechne mit Schiffen aus allen vier Universen in einer Formation, angeführt von einem wiederaufgebauten Bloom Sovereign."],
+        ["The holdout fleet has scattered. Bloomheart Gate is quiet for the first time since the blockade began.", "La flota resistente se ha dispersado. Bloomheart Gate está en calma por primera vez desde que empezó el bloqueo.", "残余舰队已经溃散。自封锁开始以来，Bloomheart Gate 第一次恢复了平静。", "La flotte des irréductibles s'est dispersée. Bloomheart Gate est calme pour la première fois depuis le début du blocus.", "Die versprengte Flotte hat sich zerstreut. Am Bloomheart Gate ist es zum ersten Mal seit Beginn der Blockade ruhig."],
+        ["A splinter brood is massing over Saucer Anchorage. Saucers, carriers and a mothership come first, then a second pair of Envoys.", "Una nidada disidente se concentra sobre Saucer Anchorage. Primero llegan platillos, portanaves y una nave nodriza; después, una segunda pareja de Enviados.", "一支分裂的族群正在 Saucer Anchorage 上空集结。先是飞碟、载机舰和一艘母舰，然后是第二对使者。", "Une couvée dissidente se masse au-dessus de Saucer Anchorage. D'abord des soucoupes, des porte-nefs et un vaisseau-mère, puis une seconde paire d'Émissaires.", "Eine abtrünnige Brut sammelt sich über Saucer Anchorage. Erst kommen Untertassen, Träger und ein Mutterschiff, dann ein zweites Paar Gesandter."],
+        ["The brood has pulled back beyond the Anchorage. Mara is logging the lane as clear.", "La nidada se ha retirado más allá del Anchorage. Mara registra el corredor como despejado.", "族群已经撤退到锚地之外。Mara 正在把这条航道登记为安全。", "La couvée s'est repliée au-delà de l'Anchorage. Mara consigne le couloir comme dégagé.", "Die Brut hat sich hinter die Anchorage zurückgezogen. Mara trägt den Korridor als frei ein."],
+        ["Admiral Veyr's academy wants your four flagship kills on record. Flight Command replays them back to back with reinforced hulls: Citadel Station, the Bloom Sovereign, the Obsidian Monarch and the Aeon Devourer. You get a short field repair between each.", "La academia del almirante Veyr quiere registrar tus cuatro victorias contra buques insignia. El Mando de Vuelo las repite una tras otra con cascos reforzados: Citadel Station, el Bloom Sovereign, el Obsidian Monarch y el Aeon Devourer. Recibes una breve reparación de campaña entre cada una.", "Veyr 上将的学院想把你击沉四艘旗舰的战斗记录在案。飞行指挥部以强化船体连续重演这些战斗：Citadel Station、Bloom Sovereign、Obsidian Monarch 和 Aeon Devourer。每场之间你会得到一次简短的战地维修。", "L'académie de l'amiral Veyr veut archiver vos quatre victoires contre des vaisseaux amiraux. Le Commandement de vol les rejoue à la suite avec des coques renforcées : Citadel Station, le Bloom Sovereign, l'Obsidian Monarch et l'Aeon Devourer. Vous avez droit à une courte réparation de campagne entre chacune.", "Admiral Veyrs Akademie will deine vier Flaggschiff-Abschüsse dokumentieren. Das Flugkommando spielt sie nacheinander mit verstärkten Rümpfen durch: Citadel Station, Bloom Sovereign, Obsidian Monarch und Aeon Devourer. Dazwischen gibt es jeweils eine kurze Feldreparatur."],
+        ["Four flagships, one flight. The academy is filing your recorder under required viewing.", "Cuatro buques insignia, un solo vuelo. La academia archiva tu registrador como material obligatorio.", "四艘旗舰，一次飞行。学院正把你的飞行记录列为必看教材。", "Quatre vaisseaux amiraux, un seul vol. L'académie classe votre enregistreur parmi les visionnages obligatoires.", "Vier Flaggschiffe, ein Flug. Die Akademie legt deinen Flugschreiber unter Pflichtmaterial ab."],
+        ["One final sweep of Siegeworld Assembly: a meteor storm, a mixed holdout fleet, and two flagships waiting behind it. The joint fleet flies with you.", "Un último barrido de Siegeworld Assembly: una tormenta de meteoros, una flota resistente mixta y dos buques insignia esperando detrás. La flota conjunta vuela contigo.", "对 Siegeworld Assembly 的最后一次清扫：一场陨石风暴、一支混编残余舰队，以及在其后等候的两艘旗舰。联合舰队与你同行。", "Un dernier ratissage de Siegeworld Assembly : une tempête de météores, une flotte d'irréductibles mixte et deux vaisseaux amiraux en embuscade derrière. La flotte conjointe vole avec vous.", "Ein letzter Durchgang durch Siegeworld Assembly: ein Meteorsturm, eine gemischte Flotte Versprengter und zwei Flaggschiffe, die dahinter warten. Die gemeinsame Flotte fliegt mit dir."],
+        ["Siegeworld Assembly is dark and the Wayline is clear from end to end. There is nothing left out here that needs you.", "Siegeworld Assembly está a oscuras y la Vía está despejada de punta a punta. Aquí fuera ya no queda nada que te necesite.", "Siegeworld Assembly 已陷入黑暗，航路从头到尾畅通无阻。这里再没有什么需要你了。", "Siegeworld Assembly est éteint et la Voie est dégagée d'un bout à l'autre. Plus rien ici n'a besoin de vous.", "Siegeworld Assembly ist dunkel und die Wayline ist von einem Ende zum anderen frei. Hier draußen braucht dich nichts mehr."],
+        ["The blockade is over and the convoy is home. Flight Command now posts patrol contracts along the reopened Wayline. Fly them for scrap whenever you like; none of them changes your campaign.", "El bloqueo ha terminado y el convoy está en casa. El Mando de Vuelo publica ahora contratos de patrulla a lo largo de la Vía reabierta. Vuélalos por chatarra cuando quieras; ninguno cambia tu campaña.", "封锁已经结束，护航队也已回家。飞行指挥部现在沿重新开放的航路发布巡逻合约。随时可以飞这些任务赚取废料；它们都不会改变你的战役。", "Le blocus est terminé et le convoi est rentré. Le Commandement de vol publie désormais des contrats de patrouille le long de la Voie rouverte. Effectuez-les pour de la ferraille quand vous voulez ; aucun ne modifie votre campagne.", "Die Blockade ist vorbei und der Konvoi ist zu Hause. Das Flugkommando schreibt jetzt Patrouillenaufträge entlang der wiedereröffneten Wayline aus. Flieg sie für Schrott, wann immer du willst; keiner davon ändert deine Kampagne."],
+        ["Scrap banked. The remaining contracts are posted in the hangar below.", "Chatarra ingresada. Los contratos restantes están publicados abajo, en el hangar.", "废料已入账。其余合约发布在下方的机库中。", "Ferraille encaissée. Les contrats restants sont affichés dans le hangar ci-dessous.", "Schrott verbucht. Die übrigen Aufträge hängen unten im Hangar aus."],
+        ["Campaign orders restored. Launch a new expedition when you're ready.", "Órdenes de campaña restauradas. Inicia una nueva expedición cuando quieras.", "战役指令已恢复。准备好后即可开始新的远征。", "Ordres de campagne rétablis. Lancez une nouvelle expédition quand vous serez prêt.", "Kampagnenbefehle wiederhergestellt. Starte eine neue Expedition, wenn du bereit bist."],
+        ["{0}: flight recorder recovered, MET {1}, score {2}. Your purchases and recovered scrap are safe. Retry, or choose another mission in the hangar.", "{0}: registrador de vuelo recuperado, TDM {1}, puntuación {2}. Tus compras y la chatarra recuperada están a salvo. Reintenta o elige otra misión en el hangar.", "{0}：飞行记录仪已回收，任务时间 {1}，得分 {2}。你购买的物品和回收的废料都安全。可以重试，或在机库中选择其他任务。", "{0} : enregistreur de vol récupéré, TDM {1}, score {2}. Vos achats et la ferraille récupérée sont en sécurité. Réessayez ou choisissez une autre mission dans le hangar.", "{0}: Flugschreiber geborgen, MET {1}, Punktzahl {2}. Deine Käufe und der geborgene Schrott sind sicher. Versuch es erneut oder wähle im Hangar eine andere Mission."],
+        ["Patrol contract is live. Scrap is paid on completion. Good hunting.", "Contrato de patrulla activo. La chatarra se paga al completarlo. Buena caza.", "巡逻合约已生效。完成后支付废料。祝狩猎顺利。", "Contrat de patrouille actif. La ferraille est versée à l'achèvement. Bonne chasse.", "Patrouillenauftrag läuft. Schrott gibt es bei Abschluss. Gute Jagd."],
+        ["Field repair complete. Next flagship inbound.", "Reparación de campaña completada. Se aproxima el siguiente buque insignia.", "战地维修完成。下一艘旗舰正在接近。", "Réparation de campagne terminée. Prochain vaisseau amiral en approche.", "Feldreparatur abgeschlossen. Nächstes Flaggschiff im Anflug."],
         /* GENERATED-LOCALE-ROWS-END */
       ];
       /* END-LOCALE-EXTRA-ROWS */
       /* LOCALE-NAME-KEYS */
-      const localeNameKeys = ["Abyssal Deep","ABYSSAL ENGINE","Aegis","AEON DEVOURER","AMBER COLOSSUS","Amber Nursery","Anvil Bastion Mk III","Arc coil projector","Artillery Escort","ASHEN ADMIRAL","AUREATE JUDGE","Bark Bastion","Bastille Monitor","BLOOM SOVEREIGN","Bloomheart Gate","BRASS TEMPEST","Broken Meridian","Bulwark","CANOPY SENTINEL","Cinder Scout Mk III","Cinderglass Reach","Citadel Approach","CITADEL STATION","Comet","Copper Tempest","Cradle Saucer","Crescent Skiff","Crown of Silence","Crown Regent","Crownfire","Crystal Expanse","Driftfield","Eclipse Drone","Ember Reach","Eventide Forge","EVENTIDE REVENANT","FROST WYRM","GALACTIC HARBINGER","Gilded Wastes","Gilt Lancer Mk III","Glass Cleaver","Glasswing","Halcyon","Halo Resonator","Hive Tender","Hornet missile pod","Interceptor Escort","JADE EMPRESS","Jade Mantis","Jade Monsoon","Luminous Shoal","MERIDIAN KEEPER","MINDGLASS HIEROPHANT","Mindglass Lance","Mindglass Spires","Mirror Grave","MIRROR SERAPH","Mirror Shard","Missile Launcher","Mosslight Belt","Mycelium","Nacre Continuum","Nacre Observer","Needlewing","Nova pulse ring","Obsidian Crown","OBSIDIAN MONARCH","Orchid Herald","Orion Frontier","Orrery Sentry","PELAGIC MIND","Pendulum","Petal Weaver","Prism Gardens","PRISM LEVIATHAN","Rapid Cannon","Raptor","RESONANCE ARCHON","Resonance Wells","RIFT COLOSSUS","Rift Passage","ROOT TITAN","Rootbound Hollow","Saucer Anchorage","Scatter Blaster","Seedling Scout","Siegeworld Assembly","SOLAR BEHEMOTH","Solar lance mirror","Spore Cathedral","Spore Lantern","SPORE ORACLE","Starweaver","Station Barrage","Station Hunter","Station Raider","Striker Escort","Sylph","Tempest","TEMPEST MATRIARCH","Tempest Veil","THE TWIN ENVOYS","Thorn Lancer","Tidecaller","TRIARCH NAVIGATOR","Trinary Moons","Triskelion","Veil Manta","Verdant Echo","Vesper","VOID COMMANDER","Void Medusa","WATCHER PRIME","Watchlight Border","Wisp","Mara Vale","Mara","High Admiral Veyr","Admiral Veyr","Veyr","Ilse Marr","Citadel","Wayline","Harbinger","Starfall","Aurelian","Convoy Seven"];
+      const localeNameKeys = ["Abyssal Deep","ABYSSAL ENGINE","Aegis","AEON DEVOURER","AMBER COLOSSUS","Amber Nursery","Anvil Bastion Mk III","Arc coil projector","Artillery Escort","ASHEN ADMIRAL","AUREATE JUDGE","Bark Bastion","Bastille Monitor","BLOOM SOVEREIGN","Bloomheart Gate","BRASS TEMPEST","Broken Meridian","Bulwark","CANOPY SENTINEL","Cinder Scout Mk III","Cinderglass Reach","Citadel Approach","CITADEL STATION","Comet","Copper Tempest","Cradle Saucer","Crescent Skiff","Crown of Silence","Crown Regent","Crownfire","Crystal Expanse","Driftfield","Eclipse Drone","Ember Reach","Eventide Forge","EVENTIDE REVENANT","Flak Escort","FROST WYRM","GALACTIC HARBINGER","Gilded Wastes","Gilt Lancer Mk III","Glass Cleaver","Glasswing","Halcyon","Halo Resonator","Hive Tender","Hornet missile pod","Interceptor Escort","JADE EMPRESS","Jade Mantis","Jade Monsoon","Luminous Shoal","MERIDIAN KEEPER","MINDGLASS HIEROPHANT","Mindglass Lance","Mindglass Spires","Mirror Grave","MIRROR SERAPH","Mirror Shard","Missile Launcher","Mosslight Belt","Mycelium","Nacre Continuum","Nacre Observer","Needlewing","Nova pulse ring","Obsidian Crown","OBSIDIAN MONARCH","Orchid Herald","Orion Frontier","Orrery Sentry","PELAGIC MIND","Pendulum","Petal Weaver","Prism Gardens","PRISM LEVIATHAN","Rapid Cannon","Raptor","RESONANCE ARCHON","Resonance Wells","RIFT COLOSSUS","Rift Passage","ROOT TITAN","Rootbound Hollow","Saucer Anchorage","Scatter Blaster","Seedling Scout","Siegeworld Assembly","SOLAR BEHEMOTH","Solar lance mirror","Spore Cathedral","Spore Lantern","SPORE ORACLE","Starweaver","Station Barrage","Station Hunter","Station Raider","Striker Escort","Sylph","Tempest","TEMPEST MATRIARCH","Tempest Veil","THE TWIN ENVOYS","Thorn Lancer","Tidecaller","TRIARCH NAVIGATOR","Trinary Moons","Triskelion","Veil Manta","Verdant Echo","Vesper","VOID COMMANDER","Void Medusa","WATCHER PRIME","Watchlight Border","Wisp","Mara Vale","Mara","High Admiral Veyr","Admiral Veyr","Veyr","Ilse Marr","Citadel","Wayline","Harbinger","Starfall","Aurelian","Convoy Seven"];
 
       const localeBaseRows = [...localeExtraRows.filter(row => !localeRows.some(base => base[0] === row[0])), ...localeRows];
       // Short labels are often shown in capitals (sector names on the HUD, boss titles), so every
@@ -4458,8 +4567,13 @@
         { id: "artillery", name: "Artillery Escort", color: "#ffd39c", glow: "#ff9d55", interval: 2.05, damage: 2,
           info: "Takes a little longer between shots, but the missiles follow their targets, so I can concentrate on flying. Two damage each, about 2.05 seconds between launches before upgrades. Escort Weapons cuts the wait and adds one damage at Level 2." },
         { id: "interceptor", name: "Interceptor Escort", color: "#a5d9ff", glow: "#58b6ff", interval: .9, damage: 1,
-          info: "I noticed it goes for incoming missiles before the fighters. Really useful when things get crowded, though I still need to dodge anything it misses. Fires every 0.9 seconds before upgrades. Escort Weapons speeds it up and adds one damage at Level 2." }
+          info: "I noticed it goes for incoming missiles before the fighters. Really useful when things get crowded, though I still need to dodge anything it misses. Fires every 0.9 seconds before upgrades. Escort Weapons speeds it up and adds one damage at Level 2." },
+        { id: "flak", name: "Flak Escort", color: "#d6b4ff", glow: "#9a6bff", interval: 1.6, damage: 1,
+          info: "The newest one in the wing. It throws three bolts in a fan, so it clears the small ships crowding my flanks while the others work on the big target. One damage per bolt, about 1.6 seconds between bursts before upgrades. Escort Weapons shortens the wait and adds one damage at Level 2." }
       ];
+      const wingmanMax = escortTypes.length;
+      // Every upgrade tops out at Level 3 except the wingman kit, which has one level per escort type.
+      const upgradeMax = id => id === "wingman" ? wingmanMax : 3;
       const stationSupportTypes = [
         { id: "raider", name: "Station Raider", type: "gunner", color: "#ff9977",
           info: "The Citadel's bay doors opened and this thing was already turning toward me. Fast, with a tight three-shot fan. I try to catch it on launch before it settles onto my course. Recorder lists 3 hull before sector bonuses." },
@@ -5324,10 +5438,71 @@
       let finaleActive = false;
       let finaleScene = null;
       let finaleFirstRescue = false;
+      // Bonus missions are posted in the hangar once the convoy is rescued. Each borrows a campaign sector's
+      // scenery and capital ships but flies on its own rules, and never writes a checkpoint or a resumable save.
+      //   sector: backdrop and meteor colours        threat: sector whose difficulty the waves use
+      //   seconds: flight time before the capital ship (default 60)   lead: skip straight to N seconds before contact
+      //   bosses: capital ships fought in order      tour: each boss is met in its home sector
+      //   bossTier: minimum universe used for boss hull   repair: hull restored between bosses
+      //   bossHull / bossRate: extra boss hull and firing-rate multipliers   heat: flat difficulty added on top of threat
+      //   meteorArmor: extra hits each meteor takes   saucerCap: [saucers, advanced saucers] allowed at once
+      const bonusMissions = [
+        { id: "monsoon", name: "Meteor Monsoon", sector: 3, threat: 20, seconds: 75, meteorRate: 2.1, squall: .6, meteorArmor: 1,
+          enemyRate: 0, scrapRate: 2, bosses: [], reward: 50,
+          brief: "A rock storm is crossing the reopened Crystal Expanse lane. No hostile ships, only meteors arriving in four heavy squalls. Hold the corridor for 75 seconds.",
+          debrief: "The storm front has passed and the lane is open. Relief ships are already filing through behind you." },
+        { id: "armada", name: "Remnant Armada", sector: 14, threat: 26, roster: "all", meteorRate: 1.2, enemyRate: 1.5,
+          bossTier: 3, bossRate: 1.1, bosses: [13], reward: 75,
+          brief: "Holdouts from every broken fleet have gathered at Bloomheart Gate. Expect ships from all four universes in one formation, led by a rebuilt Bloom Sovereign.",
+          debrief: "The holdout fleet has scattered. Bloomheart Gate is quiet for the first time since the blockade began." },
+        { id: "saucers", name: "Saucer Tide", sector: 23, threat: 28, enemyRate: 1.3, saucerCap: [3, 2], mothership: true,
+          bossHull: 1.4, bossRate: 1.12, bosses: [22], reward: 95,
+          roster: ["ufo", "ufo", "advancedUfo", "nacreScout", "nacreScout", "crescent", "broodSaucer"],
+          brief: "A splinter brood is massing over Saucer Anchorage. Saucers, carriers and a mothership come first, then a second pair of Envoys.",
+          debrief: "The brood has pulled back beyond the Anchorage. Mara is logging the lane as clear." },
+        { id: "gauntlet", name: "Captains' Gauntlet", sector: 7, threat: 28, heat: .1, lead: 5, meteorRate: 0, enemyRate: 0,
+          tour: true, bossTier: 3, bossRate: 1.15, repair: 1, bosses: [6, 13, 20, 27], reward: 140,
+          brief: "Admiral Veyr's academy wants your four flagship kills on record. Flight Command replays them back to back with reinforced hulls: Citadel Station, the Bloom Sovereign, the Obsidian Monarch and the Aeon Devourer. You get a short field repair between each.",
+          debrief: "Four flagships, one flight. The academy is filing your recorder under required viewing." },
+        { id: "lastlight", name: "Last Light", sector: 28, threat: 28, heat: .12, roster: "all", meteorRate: 1.6, enemyRate: 1.4,
+          bossHull: 1.3, bossRate: 1.15, repair: 1, bosses: [20, 27], reward: 200,
+          brief: "One final sweep of Siegeworld Assembly: a meteor storm, a mixed holdout fleet, and two flagships waiting behind it. The joint fleet flies with you.",
+          debrief: "Siegeworld Assembly is dark and the Wayline is clear from end to end. There is nothing left out here that needs you." }
+      ];
+      // Boss Rush: every campaign capital ship in order, each in its home sector at its campaign strength,
+      // with no waves in between. It sits beside the bonus missions but keeps its own record instead of a cleared flag.
+      const bossRushDef = { id: "bossrush", name: "Boss Rush", rush: true, sector: 1, lead: 5, meteorRate: 0, enemyRate: 0,
+        tour: true, repair: 2, bosses: Array.from({ length: 28 }, (_, index) => index), reward: 250, replayReward: 30,
+        brief: "Every capital ship from Void Commander to the Aeon Devourer, back to back, each in its home sector. No waves in between, and two hull repaired after each kill. Your record is kept.",
+        debrief: "Twenty-eight capital ships in a single flight. Nobody at Flight Command has anything left to teach you." };
+      const readBossRush = value => {
+        try {
+          const data = typeof value === "string" ? JSON.parse(value) : value;
+          const best = Number.isInteger(data?.best) ? Math.max(0, Math.min(bossRushDef.bosses.length, data.best)) : 0;
+          const time = best === bossRushDef.bosses.length && Number.isFinite(data.time) && data.time > 0 ? data.time : 0;
+          return { best, time };
+        } catch {
+          return { best: 0, time: 0 };
+        }
+      };
+      // best: most capital ships destroyed in one rush; time: fastest full clear in seconds (0 until cleared).
+      let bossRushRecord = readBossRush(localStorage.getItem("starfall-boss-rush"));
+      const bonusReplayReward = 10;
+      const bonusArmadaRoster = ["scout", "gunner", "volley", "seeker", "tank", "lancer", "bomber", "phantom", "sentinel", "reaper",
+        ...worldEnemies.map(enemy => enemy.id)];
+      const bonusCleared = new Set((localStorage.getItem("starfall-bonus") || "").split(",")
+        .filter(id => bonusMissions.some(mission => mission.id === id)));
+      let bonusRun = null;
+      const bonusPanel = document.querySelector("#bonus-missions");
+      const bonusList = document.querySelector("#bonus-list");
+      const bonusStandDown = document.querySelector("#bonus-stand-down");
+      const bonusComplete = document.querySelector("#bonus-complete");
+      const bonusNextButton = document.querySelector("#bonus-next");
+      let bonusPanelKey = "";
       const HARBINGER_INDEX = 28;
       const HARBINGER_SHIELD_CAPACITY = 200;
       const HARBINGER_SHIELD_RECHARGE = 12;
-      const finaleSceneDurations = { signal: 14, approach: 8.5, phase: 5.8, rescue: 31, credits: 30 };
+      const finaleSceneDurations = { signal: 14, approach: 8.5, phase: 5.8, rescue: 35, credits: 30 };
       const harbingerStages = [
         { name: "PERIMETER DEFENSE", hull: .38, interval: 1.35, color: "#a8d6ef" },
         { name: "SIEGE ARRAY", hull: .48, interval: 1.1, color: "#ffd19b" },
@@ -5490,7 +5665,7 @@
       function shieldCost() { return [9, 15, 23][shieldLevel]; }
       function weaponCost() { return [11, 17, 24][weaponLevel]; }
       function multiShotCost() { return [15, 23, 30][multiShotLevel]; }
-      function wingmanCost() { return [38, 68, 105][wingmanLevel]; }
+      function wingmanCost() { return [38, 68, 105, 150][wingmanLevel]; }
       function escortCost() { return [27, 45, 68][escortLevel]; }
       function laserCost() { return [53, 83, 120][laserLevel]; }
       function regenCost() { return [27, 48, 75][regenLevel]; }
@@ -5623,10 +5798,14 @@
           missionText("mission-objective", `${currentSector().name} / ${boss ? bossTypes[boss.typeIndex].name : "FREE FLIGHT"} / ${sandboxOptions.invincible ? "INVINCIBLE" : "LIVE HULL"}`);
           return;
         }
-        const next = playing && pendingUniverse !== null && pendingUniverse <= sectors.length ? pendingUniverse : playing ? sector : 1;
+        const next = playing && pendingUniverse !== null && pendingUniverse <= sectors.length ? pendingUniverse
+          : playing || bonusRun ? sector : 1;
         const route = sectors[next - 1];
         const model = shipModels[selectedShipId];
+        const bonus = bonusRun?.def;
+        const bonusTargets = bonus ? bonus.bosses.slice(playing ? bonusRun.bossIndex : 0) : [];
         const state = finaleVictory.open ? "CONVOY RESCUED / MISSION COMPLETE"
+          : bonusComplete.open ? "BONUS MISSION COMPLETE"
           : deathScene && !deathScene.finished ? "FLIGHT RECORDER / RECOVERING" : !playing ? "AWAITING LAUNCH" : pendingUniverse !== null
           ? pendingUniverse > sectors.length ? "DISTRESS BEACON RECOVERED" : "JUMP CLEARANCE RECEIVED"
           : levelShopOpen ? "REFIT / FLIGHT PAUSED" : bossCinematic?.kind === "launch" ? "LAUNCH CHECKLIST"
@@ -5650,7 +5829,9 @@
         missionText("terminal-pilot", activePlayer.name);
         missionText("terminal-craft", model.name);
         missionText("terminal-scrap", `${scrap.toLocaleString()} SCRAP`);
-        missionText("terminal-route", `WAYLINE / U${theatre + 1} / SECTOR ${(next - 1) % 7 + 1} OF 7`);
+        missionText("terminal-route", bonus?.rush ? `BOSS RUSH / ${bonusRun.bossIndex} OF ${bonus.bosses.length} DESTROYED`
+          : bonus ? `BONUS MISSION ${bonusRun.index + 1} OF ${bonusMissions.length} / ${bonus.name.toUpperCase()}`
+          : `WAYLINE / U${theatre + 1} / SECTOR ${(next - 1) % 7 + 1} OF 7`);
         missionText("terminal-status", `FLIGHT RECORDER / ${state} / MET ${missionTime()}`);
         const pilotReadout = missionReadouts["terminal-pilot"];
         // The title is translated in place, so compare against the stored source name.
@@ -5658,19 +5839,26 @@
           pilotReadout.dataset.titleSource = activePlayer.name;
           pilotReadout.title = activePlayer.name;
         }
-        missionText("briefing-route", finaleActive ? "FINAL COMMAND / UNCHARTED DETENTION FORTRESS"
+        missionText("briefing-route", bonus ? `BONUS MISSION / ${bonus.name} / ${route.name}`
+          : finaleActive ? "FINAL COMMAND / UNCHARTED DETENTION FORTRESS"
           : `U${Math.floor((next - 1) / 7) + 1} / ${route.name}`);
-        missionText("briefing-orders", finaleActive
+        missionText("briefing-orders", bonus ? bonus.brief : finaleActive
           ? "Disable the Harbinger's perimeter, siege array and command heart. Keep its detention hangar intact, then fly inside to free the missing convoy."
           : sectorOrders[next - 1]);
-        missionText("story-chapter", finaleActive ? "EPILOGUE / THE EMPEROR'S HARBINGER" : storyChapters[Math.floor((next - 1) / 7)].title);
-        missionText("story-dispatch", finaleActive
+        missionText("story-chapter", bonus ? "AFTER THE BLOCKADE / WAYLINE PATROL"
+          : finaleActive ? "EPILOGUE / THE EMPEROR'S HARBINGER" : storyChapters[Math.floor((next - 1) / 7)].title);
+        missionText("story-dispatch", bonus
+          ? "The blockade is over and the convoy is home. Flight Command now posts patrol contracts along the reopened Wayline. Fly them for scrap whenever you like; none of them changes your campaign."
+          : finaleActive
           ? "The beacon was a lure. The Throne Directorate, the Emperor's inner court, never accepted Veyr's truce. It hid the seized convoy inside the Harbinger, a fortress kept off every imperial register, and waited for the courier who broke its blockade. The crews are alive. Break the station's weapons, not the detention bay; those ships still need a way home."
           : storyDispatches[next - 1]);
         renderInterceptLog();
         missionText("briefing-pilot", `${activePlayer.name} / ${model.name}`);
         missionText("briefing-status", state);
-        missionText("briefing-target", finaleActive ? bossTypes[HARBINGER_INDEX].name
+        missionText("briefing-target", bonus
+          ? bonusTargets.length > 4 ? `${bossTypes[bonusTargets[0]].name} / ${bonusTargets.length - 1} MORE BEHIND IT`
+            : bonusTargets.map(index => bossTypes[index].name).join(" / ") || "NO CAPITAL SHIP / HOLD THE LANE"
+          : finaleActive ? bossTypes[HARBINGER_INDEX].name
           : pendingUniverse > sectors.length ? "DISTRESS BEACON / SOURCE UNVERIFIED" : bossTypes[next - 1].name);
         const hull = playing && ship ? `${ship.health}/${ship.maxHealth}` : `${model.health}/${model.health}`;
         const shields = playing && ship ? ship.shields : shieldCapacity(shieldLevel);
@@ -5680,6 +5868,10 @@
         missionText("pilot-identity", `${activePlayer.name.toUpperCase()} / ${model.name.toUpperCase()}`);
         missionText("mission-clock", `MET ${missionTime()}${playing && (levelShopOpen || almanac.open || howToPlay.open || pendingUniverse !== null) ? " / HOLD" : ""}`);
         const order = finaleVictory.open ? "MISSION COMPLETE / MISSING CONVOY RESCUED"
+          : bonus && !playing ? `BONUS MISSION / ${bonus.name} / ${difficultyModes[selectedDifficulty].name}`
+          : bonus && !boss && !bossCinematic ? bonusTargets.length
+            ? `BONUS MISSION / CONTACT IN ${Math.max(0, Math.ceil(sectorSecondsLeft()))}s`
+            : `BONUS MISSION / HOLD THE LANE / ${Math.max(0, Math.ceil(sectorSecondsLeft()))}s LEFT`
           : !playing ? `ASSIGNED / ${sectors[0].name} / ${difficultyModes[selectedDifficulty].name}`
           : pendingUniverse !== null ? pendingUniverse > sectors.length ? "DISTRESS BEACON / INSPECT IN PARTS SHOP" : `NAV / JUMP TO ${sectors[pendingUniverse - 1].name.toUpperCase()}`
           : finaleScene ? `FINAL COMMAND / ${state}`
@@ -5695,13 +5887,14 @@
           game: "starfall", version: 1, playerName: activePlayer.name,
           progress: {
             scrap, best, selectedShipId, selectedDifficulty, selectedFlightMode, highestSectorReached,
-            beaconUnlocked, convoyRescued,
+            beaconUnlocked, convoyRescued, bonusCleared: [...bonusCleared], bossRush: bossRushRecord,
             ownedShips: [...ownedShips], encounters: [...encounters],
             skins: skinSaveData(),
             gear: gearState,
             upgrades: [engineLevel, shieldLevel, weaponLevel, multiShotLevel, wingmanLevel, escortLevel, laserLevel, regenLevel]
           },
-          run: playing ? {
+          // Bonus missions are not resumable: a save taken during one keeps progress only.
+          run: playing && !bonusRun ? {
             width, ship, meteors, enemies, boss, playerShots, wingmen, imperialAllies, enemyShots, pickups,
             score, bonusScore, level, experience, sector, sectorElapsed, elapsed,
             spawnClock, enemySpawnClock, shotClock, laserClock, scrapSpawnClock, gearCharge,
@@ -5767,8 +5960,12 @@
         require((p.beaconUnlocked === undefined || typeof p.beaconUnlocked === "boolean")
           && (p.convoyRescued === undefined || typeof p.convoyRescued === "boolean")
           && (!p.convoyRescued || p.beaconUnlocked), "finale progress");
+        require(p.bonusCleared === undefined || list(p.bonusCleared,
+          id => bonusMissions.some(mission => mission.id === id), bonusMissions.length), "bonus missions");
+        require(p.bossRush === undefined || object(p.bossRush) && integer(p.bossRush.best, 0, bossRushDef.bosses.length)
+          && number(p.bossRush.time, 0, 1e7), "boss rush record");
         require(list(p.encounters, id => catalog.some(entry => entry.id === id), catalog.length), "discoveries");
-        require(list(p.upgrades, value => integer(value, 0, 3), 8) && p.upgrades.length === 8, "upgrades");
+        require(list(p.upgrades, (value, index) => integer(value, 0, upgradeMax(upgradeSaveKeys[index])), 8) && p.upgrades.length === 8, "upgrades");
         require(p.gear === undefined || validGearState(p.gear), "flight gear");
         if (data.run === null) return data;
         const r = data.run;
@@ -5838,7 +6035,7 @@
         require(list(r.playerShots, value => shot(value) && number(value.damage) && number(value.speed))
           && list(r.enemyShots, value => shot(value) && numericFields(value, ["vx", "vy"])), "projectiles");
         require(list(r.wingmen, escort => numericFields(escort, ["x", "y", "shotClock"])
-          && escortTypes.some(type => type.id === escort.variant), 3), "escorts");
+          && escortTypes.some(type => type.id === escort.variant), wingmanMax), "escorts");
         require(r.imperialAllies === undefined || list(r.imperialAllies,
           ally => numericFields(ally, ["x", "y", "shotClock"])
             && ["fighter", "bastion"].includes(ally.role)
@@ -5910,6 +6107,14 @@
         beaconUnlocked = p.beaconUnlocked === true || data.run?.pendingUniverse === sectors.length + 1;
         convoyRescued = p.convoyRescued === true;
         if (beaconUnlocked) localStorage.setItem("starfall-beacon", "true");
+        // Saves from before bonus missions existed keep whatever this pilot has already cleared.
+        const savedBonus = p.bonusCleared || (localStorage.getItem("starfall-bonus") || "").split(",")
+          .filter(id => bonusMissions.some(mission => mission.id === id));
+        bonusCleared.clear();
+        savedBonus.forEach(id => bonusCleared.add(id));
+        localStorage.setItem("starfall-bonus", [...bonusCleared].join(","));
+        bossRushRecord = readBossRush(p.bossRush || localStorage.getItem("starfall-boss-rush"));
+        localStorage.setItem("starfall-boss-rush", JSON.stringify(bossRushRecord));
         [engineLevel, shieldLevel, weaponLevel, multiShotLevel, wingmanLevel, escortLevel, laserLevel, regenLevel] = p.upgrades;
         gearState = p.gear === undefined ? storedGearState() : readGearState(p.gear);
         persistGear();
@@ -6002,7 +6207,11 @@
             .filter(([, itemId]) => items.some(item => item.id === itemId))) };
         }
         if (p.gear === undefined) p.gear = storedGearState();
+        if (p.bonusCleared === undefined) p.bonusCleared = [...bonusCleared];
         localStorage.setItem("starfall-save", JSON.stringify(data));
+        localStorage.setItem("starfall-bonus", p.bonusCleared.join(","));
+        if (p.bossRush === undefined) p.bossRush = { ...bossRushRecord };
+        localStorage.setItem("starfall-boss-rush", JSON.stringify(readBossRush(p.bossRush)));
         localStorage.setItem("starfall-gear", JSON.stringify(readGearState(p.gear)));
         for (const [key, value] of Object.entries({
           scrap: p.scrap, best: p.best, ship: p.selectedShipId, difficulty: p.selectedDifficulty,
@@ -6065,7 +6274,7 @@
         label.textContent = names[index];
         const select = document.createElement("select");
         select.id = `sandbox-upgrade-${key}`;
-        for (let level = 0; level <= 3; level++) select.add(new Option(`Level ${level}${level === 0 ? " / None" : ""}`, String(level)));
+        for (let level = 0; level <= upgradeMax(key); level++) select.add(new Option(`Level ${level}${level === 0 ? " / None" : ""}`, String(level)));
         label.htmlFor = select.id;
         label.append(select);
         document.querySelector("#sandbox-upgrades").append(label);
@@ -6203,7 +6412,7 @@
         if (!Object.hasOwn(shipModels, shipId) || !Object.hasOwn(difficultyModes, mode)
           || !Number.isInteger(background) || background < 1 || background > sectors.length
           || sandboxUpgradeSelects.some(select => select.value === "")
-          || upgrades.some(value => !Number.isInteger(value) || value < 0 || value > 3)
+          || upgrades.some((value, index) => !Number.isInteger(value) || value < 0 || value > upgradeMax(upgradeSaveKeys[index]))
           || weapon && !pickupWeapons.some(candidate => candidate.id === weapon)
           || gear && (!flightGearIds.includes(gear.id) || !Number.isInteger(gear.level) || gear.level < 1 || gear.level > 3)) {
           throw new Error("Choose a valid ship, backdrop, difficulty, weapon, flight gear and upgrade levels.");
@@ -6400,7 +6609,8 @@
         const select = document.createElement("select");
         select.id = id;
         Object.assign(select.dataset, data);
-        for (let level = 0; level <= 3; level++) select.add(new Option(level ? `Level ${level}` : zeroText, String(level)));
+        const top = data.part === undefined ? 3 : upgradeMax(upgradeSaveKeys[data.part]);
+        for (let level = 0; level <= top; level++) select.add(new Option(level ? `Level ${level}` : zeroText, String(level)));
         label.htmlFor = id;
         label.append(labelText, select);
         document.querySelector("#admin-parts").append(label);
@@ -6530,6 +6740,7 @@
         const finale = kind === "finale";
         const target = finale ? sectors.length : Number(kind);
         if (!Number.isInteger(target) || target < 1 || target > sectors.length) throw new Error("Choose a sector to launch at.");
+        bonusRun = null;
         if (target === 1) {
           startGame();
           return "Launching at sector 1.";
@@ -7714,12 +7925,13 @@
 
       function difficulty() {
         // Sector progression stays continuous; universePressure supplies the larger boundary jumps.
-        const progress = Math.min(sector - 1, 20) / 20 + Math.max(0, sector - 21) / 70;
+        const threat = threatSector();
+        const progress = Math.min(threat - 1, 20) / 20 + Math.max(0, threat - 21) / 70;
         const mode = difficultyModes[selectedDifficulty];
-        return mode.offset - .16 + (progress + .25 * progress ** 2) * mode.curve * .76;
+        return mode.offset - .16 + (progress + .25 * progress ** 2) * mode.curve * .76 + (bonusRun?.def.heat || 0);
       }
 
-      function universePressure(index = universeIndex(), ease = difficultyModes[selectedDifficulty].pressure) {
+      function universePressure(index = Math.floor((threatSector() - 1) / 7), ease = difficultyModes[selectedDifficulty].pressure) {
         return 1 + (index * .45 + index ** 2 * .12) * ease;
       }
 
@@ -7729,7 +7941,7 @@
 
       function bossFiringRate() {
         const harbingerTempo = boss.typeIndex === HARBINGER_INDEX ? 1.3 : 1;
-        return bossBalance.firingRate * harbingerTempo
+        return bossBalance.firingRate * harbingerTempo * (bonusRun?.def.bossRate || 1)
           * Math.sqrt(universePressure(Math.min(3, Math.floor(boss.typeIndex / 7))))
           * (boss.hp < boss.maxHp * .4 ? bossBalance.overdriveRate : 1);
       }
@@ -7763,7 +7975,11 @@
           sectorLabel.textContent = `Sandbox · ${difficultyModes[selectedDifficulty].name} · ${currentSector().name}`;
           return;
         }
-        sectorLabel.textContent = finaleActive
+        sectorLabel.textContent = bonusRun
+          ? bonusRun.def.rush
+            ? `${difficultyModes[selectedDifficulty].name} · BOSS RUSH · ${Math.min(bonusRun.bossIndex + 1, bonusRun.def.bosses.length)}/${bonusRun.def.bosses.length} · ${currentSector().name}`
+            : `${difficultyModes[selectedDifficulty].name} · BONUS MISSION · ${bonusRun.def.name} · ${currentSector().name}`
+          : finaleActive
           ? `${difficultyModes[selectedDifficulty].name} · FINAL COMMAND · Galactic Harbinger · ${(finaleScene?.stage || boss?.stage || 1)}/3`
           : `${difficultyModes[selectedDifficulty].name} · U${universeIndex() + 1} · ${universes[universeIndex()].name} · ${localSector()}/7 · ${currentSector().name}`;
       }
@@ -7847,7 +8063,7 @@
       }
 
       function saveCheckpoint() {
-        if (sandboxActive || sector < 2) return;
+        if (sandboxActive || bonusRun || sector < 2) return;
         localStorage.setItem("starfall-checkpoint", JSON.stringify({
           sector, score, bonusScore, level, experience, elapsed,
           finale: finaleActive ? "battle" : pendingUniverse > sectors.length && beaconUnlocked ? "beacon" : undefined,
@@ -7937,6 +8153,215 @@
         startButton.textContent = pendingUniverse > sectors.length ? "Follow distress beacon"
           : `Proceed to ${universes[Math.floor((pendingUniverse - 1) / 7)].name}`;
       }
+
+      // Bonus missions
+
+      function threatSector() {
+        return bonusRun ? bonusRun.def.threat ?? sector : sector;
+      }
+
+      const formatRunTime = seconds => `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(Math.floor(seconds) % 60).padStart(2, "0")}`;
+
+      // Keeps the better of the stored Boss Rush record and this flight: ships destroyed, and time for a full clear.
+      function recordBossRush(count, time = 0) {
+        const total = bossRushDef.bosses.length;
+        const improved = count > bossRushRecord.best
+          || count === total && time > 0 && (!bossRushRecord.time || time < bossRushRecord.time);
+        if (!improved) return false;
+        bossRushRecord = { best: Math.max(bossRushRecord.best, count),
+          time: count === total && time > 0 ? time : bossRushRecord.time };
+        localStorage.setItem("starfall-boss-rush", JSON.stringify(bossRushRecord));
+        return true;
+      }
+
+      // Seconds of flight left before the capital ship (or, with no ship left, before the mission is secured).
+      function sectorSecondsLeft() {
+        const seconds = bonusRun?.def.seconds || sectorDuration;
+        return (sectorDuration - sectorElapsed) * seconds / sectorDuration;
+      }
+
+      function bonusSpawnRate(kind) {
+        if (!bonusRun) return 1;
+        const def = bonusRun.def;
+        if (kind === "enemy") return def.enemyRate ?? 1;
+        if (kind === "scrap") return def.scrapRate ?? 1;
+        const rate = def.meteorRate ?? 1;
+        // Squalls: the storm swells and eases four times over the flight.
+        return def.squall ? rate * (1 - def.squall * Math.cos(sectorElapsed / sectorDuration * Math.PI * 8)) : rate;
+      }
+
+      function bonusMissionState(index) {
+        if (bonusRun && !playing && bonusRun.index === index) return "retry";
+        if (index === "rush") return bossRushRecord.time ? "cleared" : "open";
+        if (bonusCleared.has(bonusMissions[index].id)) return "cleared";
+        return index === 0 || bonusCleared.has(bonusMissions[index - 1].id) ? "open" : "locked";
+      }
+
+      function updateBonusPanel() {
+        const visible = convoyRescued && !playing && !sandboxActive;
+        const key = `${visible}|${[...bonusCleared].join(",")}|${bonusRun ? bonusRun.index : ""}|${bossRushRecord.best}|${bossRushRecord.time}`;
+        if (key === bonusPanelKey) return;
+        bonusPanelKey = key;
+        bonusPanel.hidden = !visible;
+        document.querySelector("#finale-bonus-note").hidden = bonusMissions.every(mission => bonusCleared.has(mission.id));
+        if (!visible) return;
+        const cleared = bonusMissions.filter(mission => bonusCleared.has(mission.id)).length;
+        document.querySelector("#bonus-intro").textContent = cleared === bonusMissions.length
+          ? "Every contract is flown. Replay any of them for a little scrap; they use your current ship, parts and difficulty."
+          : "The convoy is home, but the Wayline still needs flying. These contracts use your current ship, parts and difficulty. They pay scrap and never touch your campaign checkpoint.";
+        const entry = (mission, index, title, statusText) => {
+          const state = bonusMissionState(index);
+          const item = document.createElement("li");
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "bonus-mission";
+          button.dataset.state = state;
+          if (mission.rush) button.dataset.rush = "true";
+          button.disabled = state === "locked";
+          const name = document.createElement("span");
+          name.className = "bonus-name";
+          name.textContent = title;
+          const status = document.createElement("span");
+          status.className = "bonus-status";
+          status.textContent = statusText(state);
+          const brief = document.createElement("span");
+          brief.className = "bonus-brief";
+          brief.textContent = mission.brief;
+          button.append(name, status, brief);
+          button.addEventListener("click", () => startBonusMission(index));
+          item.append(button);
+          return item;
+        };
+        const rushTotal = bossRushDef.bosses.length;
+        bonusList.replaceChildren(
+          ...bonusMissions.map((mission, index) => entry(mission, index,
+            `${String(index + 1).padStart(2, "0")} / ${mission.name}`,
+            state => state === "retry" ? "MISSION FAILED / RETRY AVAILABLE"
+              : state === "cleared" ? `MISSION CLEARED / REPLAY PAYS ✦ ${bonusReplayReward}`
+              : state === "open" ? `MISSION OPEN / FIRST CLEAR PAYS ✦ ${mission.reward}`
+              : "MISSION LOCKED / CLEAR THE PREVIOUS MISSION FIRST")),
+          entry(bossRushDef, "rush", `GAME MODE / ${bossRushDef.name}`,
+            state => `${state === "retry" ? "RUSH OVER / RETRY AVAILABLE / " : ""}${bossRushRecord.time
+              ? `BEST TIME ${formatRunTime(bossRushRecord.time)} / REPLAY PAYS ✦ ${bossRushDef.replayReward}`
+              : `RECORD ${bossRushRecord.best} OF ${rushTotal} / FIRST CLEAR PAYS ✦ ${bossRushDef.reward}`}`));
+        bonusStandDown.hidden = !bonusRun;
+      }
+
+      function startBonusMission(index) {
+        const def = index === "rush" ? bossRushDef : bonusMissions[index];
+        if (!def || !convoyRescued || sandboxActive || playing || bonusMissionState(index) === "locked"
+          || howToPlay.open || deathScene && !deathScene.finished) return;
+        if (bonusComplete.open) bonusComplete.close();
+        reset();
+        bonusRun = { index, def, bossIndex: 0 };
+        sector = def.sector;
+        sectorElapsed = def.lead === undefined ? 0 : sectorDuration - def.lead;
+        updateSectorLabel();
+        playing = true;
+        beginBossCinematic("launch", null);
+        updateDifficultySelection();
+        updateFlightModeSelection();
+        updateUpgradeButton();
+        updateBonusPanel();
+        keys.clear();
+        pointerDown = false;
+        updateHealthBar();
+        overlay.inert = true;
+        overlay.classList.add("hidden");
+        lastTime = performance.now();
+        draw();
+      }
+
+      // Called once a bonus capital ship's defeat cutscene reaches its jump: line up the next ship, if any.
+      function advanceBonusStage() {
+        const { def } = bonusRun;
+        bonusRun.bossIndex++;
+        // A rush counts every kill as it lands, so a record survives quitting or crashing later in the flight.
+        if (def.rush && bonusRun.bossIndex < def.bosses.length) recordBossRush(bonusRun.bossIndex);
+        const next = def.bosses[bonusRun.bossIndex];
+        if (next === undefined) return;
+        if (def.repair) {
+          ship.health = Math.min(ship.maxHealth, ship.health + def.repair);
+          ship.shields = Math.max(ship.shields, Math.min(1, shieldCapacity(shieldLevel)));
+          updateHealthBar();
+        }
+        if (def.tour) {
+          sectorTransitionFrom = currentSector();
+          sectorTransitionElapsed = 0;
+          sector = next + 1;
+          updateSectorLabel();
+        }
+        sectorElapsed = sectorDuration - 4;
+        spawnClock = 0;
+        enemySpawnClock = 0;
+        transmitRadio(`bonus-next-${bonusRun.bossIndex}`, "Field repair complete. Next flagship inbound.", 1);
+      }
+
+      function completeBonusMission() {
+        const { def, index } = bonusRun;
+        const first = def.rush ? !bossRushRecord.time : !bonusCleared.has(def.id);
+        const newRecord = def.rush && recordBossRush(def.bosses.length, elapsed);
+        if (!def.rush) {
+          bonusCleared.add(def.id);
+          localStorage.setItem("starfall-bonus", [...bonusCleared].join(","));
+        }
+        const reward = first ? def.reward : def.replayReward ?? bonusReplayReward;
+        bonusScore += first ? 500 : 100;
+        score = Math.floor(elapsed * 10) + bonusScore;
+        scrap += reward;
+        best = Math.max(best, score);
+        localStorage.setItem("starfall-scrap", String(scrap));
+        localStorage.setItem("starfall-best", String(best));
+        scrapLabel.textContent = scrap; bestLabel.textContent = best; scoreLabel.textContent = score;
+        playing = false; boss = null; bossCinematic = null;
+        levelShopOpen = false; pendingLevelShop = false;
+        enemies = []; enemyShots = []; meteors = []; playerShots = [];
+        playerVolley = []; playerPortFireTimes = [];
+        laserTarget = null; laserBeam = null; gearEffects = []; gearQueued = false;
+        keys.clear(); pointerDown = false;
+        arena.classList.remove("cinematic");
+        window.clearTimeout(levelToastTimer);
+        levelToast.classList.remove("visible");
+        const allClear = bonusMissions.every(mission => bonusCleared.has(mission.id));
+        document.querySelector("#bonus-complete-heading").textContent = def.rush ? "Boss Rush complete" : `${def.name} / Bonus mission complete`;
+        document.querySelector("#bonus-complete-copy").textContent = def.debrief;
+        document.querySelector("#bonus-complete-results").textContent = `${activePlayer.name} / ${shipModels[ship.model].name} / SCORE ${score.toLocaleString()} / MET ${missionTime()} / ✦ ${reward} SCRAP REWARD${first ? " / FIRST CLEAR" : ""}${!first && newRecord ? " / NEW BEST TIME" : ""}${!def.rush && first && allClear ? " / ALL BONUS MISSIONS CLEARED" : ""}`;
+        const next = def.rush ? null : bonusMissions[index + 1];
+        bonusNextButton.hidden = !next;
+        if (next) bonusNextButton.textContent = `Next mission: ${next.name}`;
+        updateShop();
+        updateHealthBar();
+        bonusComplete.showModal();
+      }
+
+      // Leaves a finished or failed bonus mission and puts the terminal back on campaign orders.
+      function standDownBonus(completed) {
+        if (playing) return;
+        if (bonusComplete.open) bonusComplete.close();
+        reset();
+        hangarShop.hidden = false;
+        icon.textContent = "✦";
+        heading.textContent = completed ? "Bonus mission complete / Hangar" : "Ready, pilot?";
+        message.textContent = completed ? "Scrap banked. The remaining contracts are posted in the hangar below."
+          : "Campaign orders restored. Launch a new expedition when you're ready.";
+        startButton.textContent = "Launch mission";
+        overlay.classList.remove("returning", "launching");
+        overlay.inert = false;
+        overlay.classList.remove("hidden");
+        selectMenuPanel("hangar");
+        updateShop();
+        updateCheckpointButton();
+        overlay.scrollTop = 0;
+        draw();
+      }
+      bonusStandDown.addEventListener("click", () => standDownBonus(false));
+      document.querySelector("#bonus-hangar").addEventListener("click", () => standDownBonus(true));
+      bonusNextButton.addEventListener("click", () => {
+        const next = bonusRun && Number.isInteger(bonusRun.index) ? bonusRun.index + 1 : -1;
+        standDownBonus(true);
+        startBonusMission(next);
+      });
+      bonusComplete.addEventListener("cancel", event => { event.preventDefault(); standDownBonus(true); });
 
       function interpolateColor(from, to, progress) {
         const fromAlpha = from.length === 9 ? parseInt(from.slice(7, 9), 16) : 255;
@@ -8373,7 +8798,7 @@
         multishot: { name: "Linked volley hardpoints", color: "#d0b9ff", button: multiShotButton, description: multiShotDescription, cost: multiShotCostLabel,
           info: "A synchronized multi-barrel cradle distributes additional bolts across your ship's existing hardpoints. Wider coverage trades some individual bolt damage for a denser volley; the Comet's extra guns mount on its wings." },
         wingman: { name: "Escort deployment kit", color: "#8fffd4", button: wingmanButton, description: wingmanDescription, cost: wingmanCostLabel,
-          info: "An escort craft and its flight-link transponder. Requisition order is Striker, Artillery, then Interceptor. Each flies beside your ship with its own distinct armament." },
+          info: "An escort craft and its flight-link transponder. Requisition order is Striker, Artillery, Interceptor, then Flak. Each flies beside your ship with its own distinct armament." },
         escort: { name: "Escort cannon sleeves", color: "#b7e4ff", button: escortButton, description: escortDescription, cost: escortCostLabel,
           info: "Replacement cannon sleeves and faster cycling hardware for your purchased escort fleet. Level two also raises their projectile damage. The kit improves every escort you have deployed." },
         laser: { name: "Precision targeting lens", color: "#ff94b1", button: laserButton, description: laserDescription, cost: laserCostLabel,
@@ -9077,7 +9502,7 @@
         },
 
         wingman(scene, { accent, upgrade, time, live }) {
-          const type = escortTypes[Math.min(2, upgrade - 1)];
+          const type = escortTypes[Math.min(wingmanMax - 1, upgrade - 1)];
           const { steel, dark, light } = partMaterials;
           scene.tube(31, 29.5, -30, -27.2, 6, dark, { caps: "end", cap: partMaterial("#394553"), phase: Math.PI / 6, bias: -50 });
           scene.custom([0, -27.2, 0], (drawing, { onPlane }) => {
@@ -9904,7 +10329,7 @@
       }
 
       function partDisplayLevel(id) {
-        return id === "beacon" ? 1 : Math.min(3, shopPartLevel(id) + 1);
+        return id === "beacon" ? 1 : Math.min(upgradeMax(id), shopPartLevel(id) + 1);
       }
 
       const partCanvasVisible = new WeakMap();
@@ -9967,9 +10392,9 @@
         partPreview.setAttribute("aria-label", `${part.name}, detailed component design`);
         drawPartDesign(partPreview, selectedShopPart, partDisplayLevel(selectedShopPart));
         partBuyButton.disabled = beacon ? !beaconUnlocked || sandboxActive || !!finaleScene || !!bossCinematic
-          : upgrade >= 3 || scrap < shopPartPrice(selectedShopPart) || playing && !levelShopOpen;
+          : upgrade >= upgradeMax(selectedShopPart) || scrap < shopPartPrice(selectedShopPart) || playing && !levelShopOpen;
         partBuyButton.textContent = beacon ? !beaconUnlocked ? "No signal detected" : convoyRescued ? "Replay the Harbinger encounter" : "Trace distress beacon"
-          : upgrade >= 3 ? "Fully installed" : `Install Level ${upgrade + 1} / ${part.cost.textContent}`;
+          : upgrade >= upgradeMax(selectedShopPart) ? "Fully installed" : `Install Level ${upgrade + 1} / ${part.cost.textContent}`;
         const gearOwned = part.gear && upgrade > 0;
         if (part.gear && !upgrade) partBuyButton.textContent = `Buy & equip / ${part.cost.textContent}`;
         partEquipButton.hidden = !gearOwned;
@@ -10022,7 +10447,7 @@
               const equipped = gearState.equipped === id;
               stock.textContent = !upgrade ? "NOT OWNED / INSPECT" : `${equipped ? "EQUIPPED" : "STOWED"} / LEVEL ${upgrade}/3`;
               part.button.dataset.equipped = String(equipped);
-            } else stock.textContent = upgrade === 3 ? "FULLY FITTED / INSPECT" : `FITTED ${upgrade}/3 / INSPECT`;
+            } else stock.textContent = upgrade === upgradeMax(id) ? "FULLY FITTED / INSPECT" : `FITTED ${upgrade}/${upgradeMax(id)} / INSPECT`;
             part.button.setAttribute("aria-label", `${part.name}. ${stock.textContent}. ${part.cost.textContent}. Select to inspect.`);
           }
           drawPartDesign(part.button.querySelector("canvas"), id, partDisplayLevel(id));
@@ -10033,6 +10458,7 @@
 
       function updateShop() {
         updateAdminPanel();
+        updateBonusPanel();
         updateMissionDisplay();
         updateUpgradeButton();
         updateDifficultySelection();
@@ -10066,11 +10492,11 @@
         multiShotButton.disabled = multiShotLevel >= 3 || scrap < nextMultiShotCost;
 
         const nextWingmanCost = wingmanCost();
-        wingmanDescription.textContent = wingmanLevel < 3
+        wingmanDescription.textContent = wingmanLevel < wingmanMax
           ? `Level ${wingmanLevel} · add ${escortTypes[wingmanLevel].name}`
           : "Maximum escort fleet";
-        wingmanCostLabel.textContent = wingmanLevel < 3 ? `✦ ${nextWingmanCost}` : "MAX";
-        wingmanButton.disabled = wingmanLevel >= 3 || scrap < nextWingmanCost;
+        wingmanCostLabel.textContent = wingmanLevel < wingmanMax ? `✦ ${nextWingmanCost}` : "MAX";
+        wingmanButton.disabled = wingmanLevel >= wingmanMax || scrap < nextWingmanCost;
 
         const nextEscortCost = escortCost();
         escortDescription.textContent = escortLevel < 3
@@ -10692,6 +11118,8 @@
         deathScene = null;
         finaleActive = false;
         finaleScene = null;
+        bonusRun = null;
+        if (bonusComplete.open) bonusComplete.close();
         if (finaleVictory.open) finaleVictory.close();
         overlay.classList.remove("returning", "launching");
         resetMissionRadio();
@@ -11027,7 +11455,7 @@
         drawing.restore();
         for (let i = 0; i < wingmanLevel; i++) {
           drawing.save();
-          drawing.translate(i === 2 ? 365 : 65, i === 1 ? 176 : 73);
+          drawing.translate(i >= 2 ? 365 : 65, i % 2 ? 176 : 73);
           drawing.scale(1.8, 1.8);
           drawWingman({ x: 0, y: 0, variant: escortTypes[i].id }, drawing);
           drawing.restore();
@@ -12937,6 +13365,16 @@
           outline.lineTo(0, 6);
           outline.lineTo(-10, 9);
           outline.lineTo(-11, -4);
+        } else if (type.id === "flak") {
+          outline.moveTo(-4, -12);
+          outline.lineTo(4, -12);
+          outline.lineTo(8, -3);
+          outline.lineTo(13, 5);
+          outline.lineTo(7, 9);
+          outline.lineTo(0, 5);
+          outline.lineTo(-7, 9);
+          outline.lineTo(-13, 5);
+          outline.lineTo(-8, -3);
         } else if (type.id === "interceptor") {
           outline.moveTo(0, -16);
           outline.lineTo(6, -1);
@@ -12981,8 +13419,8 @@
         ctx.save();
         ctx.translate(0, -8);
         ctx.rotate(Math.PI);
-        drawHullWeaponCutouts(ctx, [[0, 0, 0, type.id === "artillery" ? .48 : .36,
-          type.id === "artillery" ? "torpedo" : type.id === "interceptor" ? "rail" : "cannon"]],
+        drawHullWeaponCutouts(ctx, [[0, 0, 0, type.id === "artillery" ? .48 : type.id === "flak" ? .44 : .36,
+          type.id === "artillery" ? "torpedo" : type.id === "interceptor" ? "rail" : type.id === "flak" ? "fan" : "cannon"]],
           type.glow, 0, interpolateColor(type.color, "#30465a", .65));
         ctx.restore();
         ctx.fillStyle = "#dffff8";
@@ -16945,7 +17383,16 @@
         ctx.fillRect(0, 0, width, height);
       }
 
+      // The arena behind the Harbinger. Far to near: sky and a nebula band, three drifting star layers,
+      // a ringed gas giant with a moon, the fortress's outer pylons, then loose wreckage. `heat` runs
+      // from 0 at the first shot to 1 as the command heart fails, and drives the battle damage: fires
+      // on the pylons, drifting wreckage, embers, and the fire-glow reflected on the planet.
       function drawHarbingerArenaBackground() {
+        const calm = reducedMotion.matches, time = calm ? 0 : ambientTime;
+        const stage = Math.max(1, Math.min(3, boss?.stage || finaleScene?.stage || 1));
+        const damage = boss && boss.maxHp > 0 ? 1 - Math.max(0, boss.hp) / boss.maxHp : 0;
+        const heat = finaleScene?.kind === "rescue" ? 1 : Math.min(1, (stage - 1 + damage) / 3);
+        const stageColor = harbingerStages[stage - 1].color, unit = Math.min(width, height);
         ctx.save();
         const sky = ctx.createLinearGradient(0, 0, width * .8, height);
         sky.addColorStop(0, "#091729");
@@ -16959,8 +17406,88 @@
         haze.addColorStop(1, "#07101b00");
         ctx.fillStyle = haze;
         ctx.fillRect(0, 0, width, height);
+        // Nebula: a noise texture painted once, with a brighter band running corner to corner. It is
+        // drawn a little oversized and drifts slowly so the sky is never perfectly still.
+        const nebula = nacreSprite("harbinger-arena-nebula", 160, 160, (data, w, h) => {
+          for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+            const u = x / w * 3, v = y / h * 3;
+            const warp = nacreFbm(u + 7, v + 3, 331, 3) - .5;
+            const cloud = Math.max(0, nacreFbm(u + warp * 1.6, v - warp * 1.2, 332, 5) - .4) / .6;
+            const band = Math.exp(-((((x / w) + (y / h) - 1) * 2.4) ** 2));
+            const tone = nacreFbm(u * .6 + 11, v * .6, 333, 3);
+            const edge = Math.min(1, x / 12, y / 12, (w - 1 - x) / 12, (h - 1 - y) / 12);
+            const i = (y * w + x) * 4;
+            data[i] = 70 + tone * 150; data[i + 1] = 60 + (1 - tone) * 70 + cloud * 40; data[i + 2] = 120 + (1 - tone) * 110;
+            data[i + 3] = Math.min(1, cloud * (.3 + band * .95)) * edge * 210;
+          }
+        });
+        ctx.save();
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = .5;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(nebula, -width * .12 + Math.sin(time * .021) * width * .04, -height * .1 + Math.cos(time * .017) * height * .03, width * 1.24, height * 1.2);
+        // The fortress lights the dust around it in the colour of whichever stage is active.
+        const fortress = harbingerGeometry();
+        drawGlow(ctx, width / 2, fortress.y, fortress.radius * 2.7, stageColor, .13 + heat * .08 + (calm ? 0 : Math.sin(time * 1.3) * .025), .1);
+        ctx.restore();
+        ctx.globalAlpha = 1;
+        // Three star layers fall past at different speeds, which reads as depth while holding station.
+        for (let i = 0; i < 150; i++) {
+          const layer = i % 3, warm = i % 9 === 0;
+          const x = sceneryRand(i, 321) * width, y = (sceneryRand(i, 322) * height + time * [2.5, 6, 12][layer]) % height;
+          const twinkle = calm ? .7 : .55 + Math.sin(time * (1 + i % 3) + i) * .25;
+          const size = warm ? 1.7 : .8 + layer * .3;
+          ctx.globalAlpha = twinkle * (.55 + layer * .2);
+          ctx.fillStyle = warm ? "#ffc991" : "#d5e8ff";
+          ctx.fillRect(x, y, size, size);
+          if (i % 19 === 0) {
+            ctx.globalCompositeOperation = "lighter";
+            drawGlow(ctx, x + size / 2, y + size / 2, 7 + layer * 2, warm ? "#ffc991" : "#a9c8ff", twinkle * .55, .2);
+            ctx.globalCompositeOperation = "source-over";
+          }
+        }
+        ctx.globalAlpha = 1;
+        if (!calm) {
+          // A fleet action far behind the fortress: brief flashes and the odd tracer.
+          ctx.save();
+          ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round";
+          for (let slot = 0; slot < 4; slot++) {
+            const clock = time / (1.1 + slot * .23) + slot * .37, index = Math.floor(clock), p = (clock - index) / .3;
+            if (p >= 1) continue;
+            const fx = sceneryRand(index * 4 + slot, 334) * width, fy = height * (.05 + sceneryRand(index * 4 + slot, 335) * .6);
+            drawGlow(ctx, fx, fy, 5 + p * 16, index % 3 ? "#ffd2a0" : "#cfe4ff", (1 - p) * (.35 + heat * .3), .3);
+          }
+          for (let slot = 0; slot < 2; slot++) {
+            const clock = time / (2.3 + slot * .9) + slot * .5, index = Math.floor(clock), p = (clock - index) / .45;
+            if (p >= 1) continue;
+            const fx = sceneryRand(index * 2 + slot, 336) * width, fy = height * (.08 + sceneryRand(index * 2 + slot, 337) * .5);
+            const angle = sceneryRand(index * 2 + slot, 338) * Math.PI * 2, reach = unit * .12;
+            const hx = fx + Math.cos(angle) * reach * p, hy = fy + Math.sin(angle) * reach * p;
+            ctx.globalAlpha = Math.sin(p * Math.PI) * .45;
+            ctx.strokeStyle = slot ? "#ffb48a" : "#a8e6ff"; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(hx - Math.cos(angle) * unit * .03, hy - Math.sin(angle) * unit * .03); ctx.stroke();
+          }
+          ctx.restore();
+        }
 
-        const planetX = width * .16, planetY = height * .53, planetRadius = Math.min(width, height) * .27;
+        const planetX = width * .16, planetY = height * .53 + Math.sin(time * .05) * 4, planetRadius = unit * .27;
+        // Atmosphere halo, the far half of the ring, and a small moon, all behind the planet's disc.
+        ctx.save();
+        ctx.globalCompositeOperation = "lighter";
+        drawGlow(ctx, planetX, planetY, planetRadius * 1.3, "#5f9fd0", .3, .5);
+        ctx.restore();
+        ctx.globalAlpha = 1;
+        const ringArc = (from, to) => {
+          for (const [reach, alpha, lineWidth] of [[1.26, .3, 2], [1.36, .16, 3.5], [1.47, .1, 1.2]]) {
+            ctx.strokeStyle = `rgba(150,190,210,${alpha})`; ctx.lineWidth = lineWidth;
+            ctx.beginPath(); ctx.ellipse(planetX, planetY + 5, planetRadius * reach, planetRadius * reach * .2, -.18, from, to); ctx.stroke();
+          }
+        };
+        ringArc(Math.PI, Math.PI * 2);
+        const moonX = planetX + planetRadius * 1.5, moonY = planetY - planetRadius * 1.05, moonR = planetRadius * .12;
+        const moon = ctx.createRadialGradient(moonX - moonR * .4, moonY - moonR * .4, moonR * .1, moonX, moonY, moonR);
+        moon.addColorStop(0, "#d3d9dc"); moon.addColorStop(.5, "#6f8292"); moon.addColorStop(1, "#16222f");
+        ctx.fillStyle = moon; ctx.beginPath(); ctx.arc(moonX, moonY, moonR, 0, Math.PI * 2); ctx.fill();
         const planet = ctx.createRadialGradient(planetX - planetRadius * .35, planetY - planetRadius * .42,
           planetRadius * .08, planetX, planetY, planetRadius);
         planet.addColorStop(0, "#bdc4cb");
@@ -16985,9 +17512,17 @@
         const night = ctx.createLinearGradient(planetX - planetRadius * .1, planetY, planetX + planetRadius, planetY);
         night.addColorStop(0, "#050a15a8"); night.addColorStop(1, "#050a1500");
         ctx.fillStyle = night; ctx.fillRect(planetX - planetRadius, planetY - planetRadius, planetRadius * 2, planetRadius * 2);
+        // The burning fortress throws a warm light onto the limb that faces it.
+        if (heat > 0) {
+          ctx.globalCompositeOperation = "lighter";
+          const lit = ctx.createRadialGradient(planetX + planetRadius, planetY - planetRadius * .45, 0, planetX + planetRadius, planetY - planetRadius * .45, planetRadius * 1.1);
+          lit.addColorStop(0, `rgba(255,150,95,${.34 * heat})`); lit.addColorStop(1, "rgba(255,110,70,0)");
+          ctx.fillStyle = lit; ctx.fillRect(planetX - planetRadius, planetY - planetRadius, planetRadius * 2, planetRadius * 2);
+        }
         ctx.restore();
-        ctx.strokeStyle = "#83b4ca35"; ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.ellipse(planetX, planetY + 5, planetRadius * 1.26, planetRadius * .25, -.18, Math.PI * 1.04, Math.PI * 1.94); ctx.stroke();
+        ctx.strokeStyle = "rgba(207,230,245,.4)"; ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.arc(planetX, planetY, planetRadius - .7, Math.PI * .95, Math.PI * 1.62); ctx.stroke();
+        ringArc(0, Math.PI);
 
         ctx.save();
         ctx.lineCap = "square";
@@ -17012,15 +17547,72 @@
           ctx.fillStyle = i % 3 ? "#91c4d099" : "#ffbc8066";
           ctx.fillRect(side < 0 ? 9 : width - 12, y + 2, 3, 2);
         }
+        // Pylon dressing: plate joints, running lamps, a searchlight from each elbow, and fires that
+        // take hold along both arms as the fortress is beaten down.
+        const pylons = [
+          [[0, height * .05], [width * .22, height * .12], [width * .4, height * .34], [width * .53, height * .41]],
+          [[width, height * .02], [width * .81, height * .13], [width * .66, height * .29], [width * .53, height * .41]]
+        ];
+        const along = (points, f) => {
+          const spans = points.slice(1).map(([x, y], i) => Math.hypot(x - points[i][0], y - points[i][1]));
+          let left = f * spans.reduce((sum, span) => sum + span, 0);
+          for (let i = 0; i < spans.length; i++) {
+            if (left <= spans[i] || i === spans.length - 1) {
+              const k = Math.min(1, left / spans[i]);
+              return [points[i][0] + (points[i + 1][0] - points[i][0]) * k, points[i][1] + (points[i + 1][1] - points[i][1]) * k];
+            }
+            left -= spans[i];
+          }
+        };
+        ctx.lineCap = "butt";
+        ctx.setLineDash([2, 13]);
+        for (const points of pylons) drawTruss(points, "#0a1622", 15);
+        ctx.setLineDash([]);
+        ctx.globalCompositeOperation = "lighter";
+        pylons.forEach((points, arm) => {
+          for (let k = 0; k < 6; k++) {
+            const [lx, ly] = along(points, .08 + k * .15);
+            const lampOn = calm ? 1 : .35 + .65 * (Math.sin(time * 2.4 - k * .9 + arm * 1.7) > .2);
+            drawGlow(ctx, lx, ly, 5, k % 3 ? "#9fd8e6" : "#ffc48a", lampOn * .7, .3);
+          }
+          const [ex, ey] = points[1], swing = Math.PI / 2 + (arm ? .35 : -.35) + (calm ? 0 : Math.sin(time * .45 + arm * 2.1) * .5);
+          const reach = height * .62, beam = ctx.createRadialGradient(ex, ey, 0, ex, ey, reach);
+          beam.addColorStop(0, alphaHex(stageColor, .16)); beam.addColorStop(1, alphaHex(stageColor, 0));
+          ctx.globalAlpha = 1; ctx.fillStyle = beam;
+          ctx.beginPath(); ctx.moveTo(ex, ey); ctx.arc(ex, ey, reach, swing - .09, swing + .09); ctx.closePath(); ctx.fill();
+          for (let k = 0; k < 4; k++) {
+            const lit = Math.min(1, (heat - .12 - (k * 2 + arm) * .1) / .1);
+            if (lit <= 0) continue;
+            const [bx, by] = along(points, .2 + k * .2 + arm * .07);
+            const flicker = calm ? .8 : .65 + .35 * Math.sin(time * 17 + k * 3 + arm) * Math.sin(time * 7.3 + k);
+            drawGlow(ctx, bx, by, unit * (.035 + k % 2 * .012), "#ff9a50", lit * flicker * .75, .3);
+            if (calm) continue;
+            for (let spark = 0; spark < 3; spark++) {
+              const age = (time * (.7 + spark * .2) + sceneryRand(k * 8 + arm * 4 + spark, 339)) % 1;
+              const sx = bx + (sceneryRand(k * 8 + arm * 4 + spark, 340) - .5) * 26 * age, sy = by - 8 * age + 46 * age * age;
+              drawGlow(ctx, sx, sy, 2.2, "#ffd08a", lit * (1 - age), .4);
+            }
+          }
+        });
         ctx.restore();
 
-        for (let i = 0; i < 100; i++) {
-          const x = sceneryRand(i, 321) * width, y = sceneryRand(i, 322) * height;
-          const twinkle = reducedMotion.matches ? .7 : .5 + Math.sin(ambientTime * (1 + i % 3) + i) * .2;
-          ctx.globalAlpha = twinkle;
-          ctx.fillStyle = i % 9 === 0 ? "#ffc991" : "#d5e8ff";
-          ctx.fillRect(x, y, i % 9 === 0 ? 1.7 : 1, i % 9 === 0 ? 1.7 : 1);
+        // Loose wreckage tumbles past between the pylons and the fight, more of it as the battle goes on.
+        ctx.globalAlpha = 1;
+        const wrecks = 3 + Math.round(heat * 8);
+        for (let i = 0; i < wrecks; i++) {
+          const x = sceneryRand(i, 341) * width + Math.sin(time * .2 + i) * 6;
+          const y = (sceneryRand(i, 342) + time * (.006 + sceneryRand(i, 343) * .012)) % 1 * (height + 80) - 40;
+          ctx.globalAlpha = .6;
+          drawFinaleShard(x, y, (4 + sceneryRand(i, 344) * 9) * unit / 480, time * (sceneryRand(i, 345) - .5) * .8 + i, i + 60, heat > .55 && i % 3 === 0 ? .6 : 0);
         }
+        ctx.save();
+        ctx.globalCompositeOperation = "lighter";
+        for (let i = 0; i < Math.round(heat * 28); i++) {
+          const fall = (sceneryRand(i, 346) + time * (.03 + sceneryRand(i, 347) * .05)) % 1;
+          const x = sceneryRand(i, 348) * width + Math.sin(fall * 7 + i) * 9;
+          drawGlow(ctx, x, fall * height, 2.5 + sceneryRand(i, 349) * 3, "#ff9a5c", Math.sin(fall * Math.PI) * .5, .35);
+        }
+        ctx.restore();
         ctx.globalAlpha = 1;
         const shade = ctx.createLinearGradient(0, 0, 0, height);
         shade.addColorStop(0, "#02071112");
@@ -24050,6 +24642,15 @@
         }
         if (!forcedType && sector >= 5 && Math.random() < .06
           && !enemies.some(enemy => enemy.type === "advancedUfo")) type = "advancedUfo";
+        const bonusRoster = bonusRun?.def.roster;
+        if (!forcedType && bonusRoster) {
+          const roster = bonusRoster === "all" ? bonusArmadaRoster : bonusRoster;
+          type = roster[Math.floor(Math.random() * roster.length)];
+          // Saucers are dangerous in numbers; cap them and send an Observer instead.
+          const flying = id => enemies.filter(enemy => enemy.type === id).length;
+          const [saucers, advanced] = bonusRun.def.saucerCap || [2, 1];
+          if (type === "ufo" && flying("ufo") >= saucers || type === "advancedUfo" && flying("advancedUfo") >= advanced) type = "nacreScout";
+        }
         if (forcedType) type = forcedType;
         const worldType = worldEnemies.find(enemy => enemy.id === type);
         const stats = worldType ? { radius: 16 + worldType.style, hp: worldType.hp, speed: worldType.speed,
@@ -24121,16 +24722,17 @@
 
       function spawnBoss(sandboxTypeIndex) {
         const manual = sandboxActive && Number.isInteger(sandboxTypeIndex);
-        const typeIndex = manual ? sandboxTypeIndex : finaleActive ? HARBINGER_INDEX : sector - 1;
+        const typeIndex = manual ? sandboxTypeIndex : finaleActive ? HARBINGER_INDEX
+          : bonusRun ? bonusRun.def.bosses[bonusRun.bossIndex] ?? -1 : sector - 1;
         if (sandboxActive && !manual) return;
-        if (boss || !manual && !finaleActive && (sectorElapsed < sectorDuration || spawnedBossTypes.has(typeIndex))
+        if (boss || !manual && !finaleActive && (sectorElapsed < sectorDuration || !bonusRun && spawnedBossTypes.has(typeIndex))
           || typeIndex < 0 || typeIndex >= bossTypes.length) return;
         spawnedBossTypes.add(typeIndex);
         const type = bossTypes[typeIndex];
-        const bossPressure = universePressure(Math.min(3, Math.floor(typeIndex / 7)));
+        const bossPressure = universePressure(Math.max(Math.min(3, Math.floor(typeIndex / 7)), bonusRun?.def.bossTier ?? 0));
         const bossTempo = Math.sqrt(bossPressure);
         const bossHealth = Math.round((33 + typeIndex * 16 + typeIndex ** 2 * .85)
-          * difficultyModes[selectedDifficulty].hull * bossBalance.hull * bossPressure);
+          * difficultyModes[selectedDifficulty].hull * bossBalance.hull * bossPressure * (bonusRun?.def.bossHull || 1));
         boss = {
           typeIndex,
           x: width / 2,
@@ -24210,7 +24812,7 @@
       }
 
       function followDistressBeacon() {
-        if (!beaconUnlocked || sandboxActive || bossCinematic || finaleScene || playing && !levelShopOpen) {
+        if (!beaconUnlocked || sandboxActive || bossCinematic || finaleScene || playing && (!levelShopOpen || bonusRun)) {
           partsStatus.textContent = beaconUnlocked
             ? "The distress route is unavailable. Trace the recovered beacon from the hangar or the paused parts shop."
             : "The beacon stays silent. It doesn't appear to do anything until all four universes are secured.";
@@ -24288,9 +24890,11 @@
         if (finaleScene.time >= duration) finishFinaleScene();
       }
 
-      function drawConvoyShip(x, y, scale, variant, departing = false) {
+      // `departing` is true for a half turn or an angle in radians; `power` runs from 0 (a dark, clamped
+      // hull with its drives and lamps off) to 1 (fully lit).
+      function drawConvoyShip(x, y, scale, variant, departing = false, power = 1) {
         ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
-        if (departing) ctx.rotate(Math.PI);
+        if (departing) ctx.rotate(departing === true ? Math.PI : departing);
         const metal = ctx.createLinearGradient(-26, 0, 26, 0);
         metal.addColorStop(0, "#24364a"); metal.addColorStop(.32, "#bac9cb");
         metal.addColorStop(.55, "#718a98"); metal.addColorStop(1, "#172c3c");
@@ -24301,6 +24905,17 @@
         const hull = new Path2D();
         hull.moveTo(0, -48); hull.lineTo(19, -28); hull.lineTo(23, 32);
         hull.lineTo(12, 45); hull.lineTo(-12, 45); hull.lineTo(-23, 32); hull.lineTo(-19, -28); hull.closePath();
+        // The hull has thickness: its dark lower flank shows past the lit upper deck on the shadow side.
+        // The offset is counter-rotated so the flank always falls toward the bottom right of the screen.
+        const turned = departing === true ? Math.PI : departing || 0;
+        // Coming about, the ship banks into the turn, which narrows its plan view.
+        ctx.scale(1 - Math.abs(Math.sin(turned)) * .22, 1);
+        const flankX = 2.6 * Math.cos(turned) + 4.4 * Math.sin(turned), flankY = -2.6 * Math.sin(turned) + 4.4 * Math.cos(turned);
+        const lamps = reducedMotion.matches ? 1 : performance.now() / 1000;
+        ctx.save(); ctx.translate(flankX, flankY);
+        ctx.fillStyle = "#0b1721"; ctx.fill(hull);
+        ctx.strokeStyle = "#02070c"; ctx.lineWidth = 1; ctx.stroke(hull);
+        ctx.restore();
         ctx.fillStyle = metal; ctx.fill(hull);
         ctx.save();
         ctx.clip(hull);
@@ -24310,20 +24925,43 @@
         const gloss = ctx.createLinearGradient(-15, 0, -3, 0);
         gloss.addColorStop(0, "rgba(244,250,252,0)"); gloss.addColorStop(.5, "rgba(244,250,252,.38)"); gloss.addColorStop(1, "rgba(244,250,252,0)");
         ctx.fillStyle = gloss; ctx.fillRect(-15, -44, 12, 84);
+        // Livery band in the ship's own colour, then rows of cabin windows that light up with the power.
+        ctx.fillStyle = ["#c98f5a", "#6fb0a8", "#9a8fd0"][variant % 3]; ctx.globalAlpha = .75;
+        ctx.fillRect(-24, 20.5, 48, 3.5); ctx.fillRect(-24, -27, 48, 1.6);
+        ctx.globalAlpha = 1;
+        for (const side of [-1, 1]) for (let k = 0; k < 8; k++) {
+          const on = power > 0 && sceneryRand(variant * 31 + k + (side > 0 ? 9 : 0), 951) > .25;
+          ctx.fillStyle = on ? `rgba(255,232,170,${.9 * power})` : "rgba(20,34,46,.8)";
+          ctx.fillRect(side * 15.6 - .7, -21 + k * 5.6, 1.4, 2.2);
+        }
         ctx.strokeStyle = "rgba(6,14,22,.5)"; ctx.lineWidth = .8;
         ctx.beginPath();
         for (const seamY of [-22, -4, 14, 30]) { ctx.moveTo(-23, seamY); ctx.lineTo(23, seamY); }
         ctx.moveTo(-10, -40); ctx.lineTo(-10, 45); ctx.moveTo(10, -40); ctx.lineTo(10, 45);
         ctx.stroke();
+        // Rounded edges: the deck darkens where it curves down to the flank, with a bright rim on the
+        // lit side and a specular spot on the forward shoulder.
+        ctx.strokeStyle = "rgba(2,8,14,.3)"; ctx.lineWidth = 9; ctx.stroke(hull);
+        ctx.strokeStyle = "rgba(2,8,14,.3)"; ctx.lineWidth = 4; ctx.stroke(hull);
+        const spot = ctx.createRadialGradient(-9, -24, 0, -9, -24, 15);
+        spot.addColorStop(0, "rgba(255,255,255,.5)"); spot.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = spot; ctx.fillRect(-24, -40, 30, 32);
         ctx.restore();
         ctx.strokeStyle = "rgba(4,10,18,.8)"; ctx.lineWidth = 1.2; ctx.stroke(hull);
+        ctx.strokeStyle = "rgba(236,246,248,.55)"; ctx.lineWidth = .9;
+        ctx.beginPath(); ctx.moveTo(-.6, -47); ctx.lineTo(-18.6, -27.8); ctx.lineTo(-22.4, 31.5); ctx.stroke();
+        // The bridge is a raised block: shadow thrown behind it, a lit top edge and a shaded flank.
+        ctx.fillStyle = "rgba(0,4,9,.45)"; ctx.fillRect(-7.5, -32.5, 19, 14);
         ctx.fillStyle = "#122235"; ctx.fillRect(-9, -35, 18, 13);
+        ctx.fillStyle = "#3d566b"; ctx.fillRect(-9, -35, 18, 1.4); ctx.fillRect(-9, -35, 1.4, 13);
+        ctx.fillStyle = "#060e17"; ctx.fillRect(7.6, -35, 1.4, 13); ctx.fillRect(-9, -23.4, 18, 1.4);
         const glass = ctx.createLinearGradient(-7, -32, 7, -27);
         glass.addColorStop(0, "#e6fbfc"); glass.addColorStop(.45, "#8fcfd6"); glass.addColorStop(1, "#2f5f70");
         ctx.fillStyle = glass; ctx.fillRect(-7, -31, 14, 3);
         // Navigation lights (red to port, green to starboard) and the bloom from the two drives.
         ctx.save();
         ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = power;
         for (const [lx, rgb] of [[-21, "255,70,60"], [21, "90,255,150"]]) {
           const lamp = ctx.createRadialGradient(lx, -26, 0, lx, -26, 7);
           lamp.addColorStop(0, `rgba(${rgb},.95)`); lamp.addColorStop(1, `rgba(${rgb},0)`);
@@ -24337,16 +24975,53 @@
         ctx.restore();
         for (const side of [-1, 1]) {
           for (let i = 0; i < 3; i++) {
+            // Cargo pods hang off the flank, each over its own shadow and catching light along the top.
             ctx.save(); ctx.translate(side * 23, -12 + i * 17);
+            ctx.fillStyle = "rgba(0,4,9,.5)"; ctx.fillRect(-11 + flankX, -6 + flankY, 22, 13);
             drawWeaponHousing(ctx, 12, 7, ["#9f8568", "#829a99", "#9694a3"][variant % 3]);
+            ctx.fillStyle = "rgba(255,255,255,.28)"; ctx.fillRect(-9, -4.5, 18, 1.1);
             ctx.fillStyle = "#d8e0d3"; ctx.fillRect(-9, -1, 18, 1);
-            ctx.fillStyle = "#263c49"; ctx.fillRect(-8, 2, 16, 1); ctx.restore();
+            ctx.fillStyle = "#263c49"; ctx.fillRect(-8, 2, 16, 1);
+            ctx.fillStyle = "rgba(0,4,9,.35)"; ctx.fillRect(-9, 4, 18, 1.6); ctx.restore();
           }
-          ctx.fillStyle = "#435d70"; ctx.fillRect(side * 14 - 5, 35, 10, 12);
-          drawShipThruster(ctx, side * 14, 47, 8, 22, "#a4ecf1");
+          // Drive nacelles are round in section: bright along the lit side, with a dark nozzle that
+          // glows from within once the drives are running.
+          const nacelle = ctx.createLinearGradient(side * 14 - 5, 0, side * 14 + 5, 0);
+          nacelle.addColorStop(0, "#a9bcc4"); nacelle.addColorStop(.4, "#4f6a7a"); nacelle.addColorStop(1, "#131f29");
+          ctx.fillStyle = nacelle; ctx.fillRect(side * 14 - 5, 35, 10, 12);
+          ctx.fillStyle = "#04090e"; ctx.beginPath(); ctx.ellipse(side * 14, 47, 5, 2.1, 0, 0, Math.PI * 2); ctx.fill();
+          if (power > 0) {
+            ctx.fillStyle = `rgba(200,250,255,${.95 * power})`;
+            ctx.beginPath(); ctx.ellipse(side * 14, 47, 3.5, 1.4, 0, 0, Math.PI * 2); ctx.fill();
+          }
+          if (power > 0) {
+            ctx.save(); ctx.globalAlpha = power;
+            drawShipThruster(ctx, side * 14, 47, 8, 22, "#a4ecf1");
+            ctx.restore();
+          }
         }
+        // The spine stands proud of the deck: a cast shadow beside it and a highlight along its lit edge.
+        ctx.fillStyle = "rgba(0,4,9,.4)"; ctx.fillRect(-2.5, -13, 9, 47);
         ctx.fillStyle = "#2b4658"; ctx.fillRect(-4, -15, 8, 47);
-        ctx.fillStyle = "#b3a786"; ctx.fillRect(-2, -12, 4, 39);
+        const spine = ctx.createLinearGradient(-2, 0, 2, 0);
+        spine.addColorStop(0, "#e2d8b8"); spine.addColorStop(.5, "#b3a786"); spine.addColorStop(1, "#6f6650");
+        ctx.fillStyle = spine; ctx.fillRect(-2, -12, 4, 39);
+        ctx.fillStyle = "#587388"; ctx.fillRect(-4, -15, 1.2, 47);
+        // A comms dish on the foredeck and a red anti-collision beacon aft that flashes when powered.
+        ctx.fillStyle = "rgba(0,4,9,.45)"; ctx.beginPath(); ctx.ellipse(1.6, -17, 3.6, 3.6, 0, 0, Math.PI * 2); ctx.fill();
+        const dish = ctx.createRadialGradient(-1, -19.5, .3, 0, -18.5, 3.6);
+        dish.addColorStop(0, "#f2f7f8"); dish.addColorStop(.6, "#8ea3ad"); dish.addColorStop(1, "#33475a");
+        ctx.fillStyle = dish; ctx.beginPath(); ctx.arc(0, -18.5, 3.4, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = "#0c1822"; ctx.beginPath(); ctx.arc(0, -18.5, .9, 0, Math.PI * 2); ctx.fill();
+        const flash = power * (reducedMotion.matches ? .6 : Math.max(0, Math.sin(lamps * 5 + variant * 2.1)) ** 6);
+        if (flash > .02) {
+          ctx.save(); ctx.globalCompositeOperation = "lighter";
+          const beacon = ctx.createRadialGradient(0, 37, 0, 0, 37, 9);
+          beacon.addColorStop(0, `rgba(255,120,100,${flash})`); beacon.addColorStop(1, "rgba(255,60,50,0)");
+          ctx.fillStyle = beacon; ctx.beginPath(); ctx.arc(0, 37, 9, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
+        if (power < 1) { ctx.fillStyle = `rgba(2,7,13,${.6 * (1 - power)})`; ctx.fill(hull); }
         ctx.restore();
       }
 
@@ -24411,19 +25086,56 @@
         ctx.restore();
       }
 
+      // A torn piece of plating with real thickness. As `rotation` advances it also tumbles end over end:
+      // the face foreshortens, the cut edge swings into view, and the lit outer skin alternates with the
+      // dark ribbed underside. `heat` makes the edges glow and adds a halo of fire.
       function drawFinaleShard(x, y, size, rotation, seed, heat = 0) {
-        ctx.save(); ctx.translate(x, y); ctx.rotate(rotation);
-        ctx.beginPath();
+        const flip = Math.cos(rotation * 1.3 + seed * 2.1), face = .28 + .72 * Math.abs(flip), outer = flip > 0;
+        const thick = size * (.1 + .26 * (1 - Math.abs(flip))), base = ctx.globalAlpha;
+        const points = [];
         for (let k = 0; k < 5; k++) {
           const angle = k / 5 * Math.PI * 2 + sceneryRand(seed * 7 + k, 823) * .8;
           const reach = size * (.45 + sceneryRand(seed * 7 + k, 824) * .55);
-          k ? ctx.lineTo(Math.cos(angle) * reach, Math.sin(angle) * reach * .7) : ctx.moveTo(Math.cos(angle) * reach, Math.sin(angle) * reach * .7);
+          points.push([Math.cos(angle) * reach, Math.sin(angle) * reach * .7 * face]);
         }
-        ctx.closePath();
-        const metal = ctx.createLinearGradient(-size, -size, size, size);
-        metal.addColorStop(0, "#a8b6bd"); metal.addColorStop(.35, "#4f6370"); metal.addColorStop(1, "#111a22");
-        ctx.fillStyle = metal; ctx.fill();
+        const trace = drop => {
+          ctx.beginPath();
+          points.forEach(([px, py], k) => k ? ctx.lineTo(px, py + drop) : ctx.moveTo(px, py + drop));
+          ctx.closePath();
+        };
+        ctx.save(); ctx.translate(x, y); ctx.rotate(rotation);
+        // The cut edge: the far outline plus a wall joining it to the face along every side.
+        ctx.fillStyle = heat > 0 ? `rgb(${Math.round(70 + heat * 150)},${Math.round(34 + heat * 60)},22)` : "#0b1218";
+        trace(thick); ctx.fill();
+        for (let k = 0; k < 5; k++) {
+          const [ax, ay] = points[k], [bx, by] = points[(k + 1) % 5];
+          ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineTo(bx, by + thick); ctx.lineTo(ax, ay + thick); ctx.closePath(); ctx.fill();
+        }
+        const metal = ctx.createLinearGradient(-size, -size * face, size, size * face);
+        if (outer) { metal.addColorStop(0, "#c6d3d8"); metal.addColorStop(.35, "#5d7380"); metal.addColorStop(1, "#18242e"); }
+        else { metal.addColorStop(0, "#44535d"); metal.addColorStop(.4, "#202c35"); metal.addColorStop(1, "#090f15"); }
+        trace(0); ctx.fillStyle = metal; ctx.fill();
+        ctx.save(); ctx.clip();
+        ctx.lineWidth = Math.max(.6, size * .05);
+        if (outer) {
+          ctx.strokeStyle = "rgba(6,12,18,.55)";
+          ctx.beginPath(); ctx.moveTo(-size, -size * .12 * face); ctx.lineTo(size, size * .2 * face); ctx.stroke();
+          const glint = ctx.createRadialGradient(-size * .25, -size * .2 * face, 0, -size * .25, -size * .2 * face, size * .6);
+          glint.addColorStop(0, `rgba(255,255,255,${.5 * flip ** 3})`); glint.addColorStop(1, "rgba(255,255,255,0)");
+          ctx.fillStyle = glint; ctx.fillRect(-size, -size, size * 2, size * 2);
+        } else {
+          ctx.strokeStyle = "rgba(120,140,150,.35)";
+          ctx.beginPath();
+          for (const rib of [-.4, 0, .4]) { ctx.moveTo(-size, rib * size * face); ctx.lineTo(size, rib * size * face); }
+          ctx.stroke();
+        }
+        ctx.restore();
+        trace(0);
         ctx.strokeStyle = heat > 0 ? `rgba(255,${130 + heat * 80},60,${.5 + heat * .5})` : "#0a1016"; ctx.lineWidth = 1.2; ctx.stroke();
+        if (heat > 0) {
+          ctx.globalCompositeOperation = "lighter";
+          drawGlow(ctx, 0, thick / 2, size * 1.5, "#ff8a4a", base * heat * .4, .25);
+        }
         ctx.restore();
       }
 
@@ -24440,8 +25152,37 @@
         ctx.restore();
       }
 
-      function drawFinaleInterior(release, collapse = 0, t = 0) {
-        const vx = width / 2, vy = height * .19;
+      // Choreography of the detention-bay rescue, as a function of the rescue scene's clock. The courier
+      // scans the six bays, then sends a release code to each in turn (far row first). A freed ship powers
+      // up, backs out of its bay while turning for the exit, holds beside the centre lane, and finally
+      // burns out toward the camera, nearest row first.
+      function finaleRescueBays(t) {
+        const vx = width / 2, vy = height * .19, calm = reducedMotion.matches, bays = [];
+        const unit = value => Math.max(0, Math.min(1, value));
+        for (let row = 0; row < 3; row++) for (const side of [-1, 1]) {
+          const x = vx + side * width * (.19 + row * .045), y = height * (.29 + row * .17);
+          const bayW = width * (.14 + row * .035), bayH = height * (.13 + row * .02);
+          const freeAt = 7.8 + (row * 2 + (side > 0 ? 1 : 0)) * .5, since = t - freeAt;
+          const slide = cinematicEase(unit((since - .3) / 2));
+          const holdX = x - side * slide * width * .09, holdY = y + slide * height * .07;
+          // Leaving is a move away from the vanishing point; the far rows have more deck to cover.
+          const leave = unit((t - (14.3 + (2 - row) * .3)) / 2.2) ** 2, reach = 1 + leave * (1.1 + (2 - row) * 2.2);
+          const bob = calm ? 0 : Math.sin(t * 1.6 + row + side) * 1.5 * unit((since - 2.3) / .5) * (1 - leave);
+          const bearing = Math.atan2(y - height * .69, x - vx) + Math.PI / 2;
+          bays.push({ row, side, x, y, bayW, bayH, depth: .34 + row * .23, since,
+            foundAt: 5.8 + 1.5 * (bearing / 1.35 + 1) / 2,
+            open: cinematicEase(unit(since / .5)), lift: cinematicEase(unit(since / 1.2)), settle: slide,
+            power: since <= 0 ? 0 : unit(since / .7) * (!calm && since < .55 && Math.sin(t * 58) < 0 ? .35 : 1),
+            turn: Math.PI * cinematicEase(unit((since - .9) / 1.5)),
+            shipX: vx + (holdX - vx) * reach, shipY: vy + (holdY - vy) * reach + bob,
+            shipScale: Math.min(.65, bayH / 110) * (1 + leave * 1.2) });
+        }
+        return bays;
+      }
+
+      function drawFinaleInterior(bays, collapse = 0, t = 0) {
+        const vx = width / 2, vy = height * .19, calm = reducedMotion.matches;
+        const freed = bays.filter(bay => bay.since >= 0).length;
         const wall = ctx.createLinearGradient(0, 0, width, 0);
         wall.addColorStop(0, "#172c3c"); wall.addColorStop(.24, "#08121e");
         wall.addColorStop(.5, "#182b39"); wall.addColorStop(.76, "#08121e"); wall.addColorStop(1, "#172c3c");
@@ -24496,37 +25237,149 @@
           ctx.fillStyle = sheen; ctx.fillRect(0, vy, width, height - vy);
         }
         ctx.restore();
-        for (let row = 0; row < 3; row++) for (const side of [-1, 1]) {
-          const depth = .34 + row * .23, x = vx + side * width * (.19 + row * .045);
-          const y = height * (.29 + row * .17), bayW = width * (.14 + row * .035), bayH = height * (.13 + row * .02);
-          const bay = ctx.createLinearGradient(x - bayW / 2, y - bayH / 2, x + bayW / 2, y + bayH / 2);
-          bay.addColorStop(0, "#a7b9bc"); bay.addColorStop(.16, "#69848f"); bay.addColorStop(.47, "#253e4d"); bay.addColorStop(1, "#0a1925");
-          ctx.fillStyle = bay;
-          ctx.beginPath(); ctx.moveTo(x - bayW / 2 + 7, y - bayH / 2);
-          ctx.lineTo(x + bayW / 2 - 7, y - bayH / 2); ctx.lineTo(x + bayW / 2, y - bayH / 2 + 7);
-          ctx.lineTo(x + bayW / 2, y + bayH / 2 - 7); ctx.lineTo(x + bayW / 2 - 7, y + bayH / 2);
-          ctx.lineTo(x - bayW / 2 + 7, y + bayH / 2); ctx.lineTo(x - bayW / 2, y + bayH / 2 - 7);
-          ctx.lineTo(x - bayW / 2, y - bayH / 2 + 7); ctx.closePath(); ctx.fill();
-          const recess = ctx.createRadialGradient(x, y, 0, x, y, bayW * .6);
-          recess.addColorStop(0, "#243e49"); recess.addColorStop(.65, "#0d1e2a"); recess.addColorStop(1, "#020911");
-          ctx.fillStyle = recess; ctx.fillRect(x - bayW / 2 + 7, y - bayH / 2 + 7, bayW - 14, bayH - 14);
-          ctx.strokeStyle = "#637e87"; ctx.lineWidth = 1; ctx.strokeRect(x - bayW / 2 + 7, y - bayH / 2 + 7, bayW - 14, bayH - 14);
-          for (let deck = 0; deck < 4; deck++) {
-            const deckY = y + bayH * (.16 + deck * .075);
-            ctx.strokeStyle = "#526e75"; ctx.globalAlpha = .4;
-            ctx.beginPath(); ctx.moveTo(x - bayW * .39, deckY); ctx.lineTo(x + bayW * .39, deckY); ctx.stroke(); ctx.globalAlpha = 1;
+        // Depth cues for the hall itself: wall seams and a row of lamps on each side that converge on
+        // the vanishing point, ceiling lamps down the centre line, and haze gathering at the far end.
+        ctx.save();
+        for (const side of [-1, 1]) {
+          const edgeX = vx - side * width * .69;
+          for (const f of [.16, .3, .46, .62]) {
+            const edgeY = height * (-.06 + f * 1.16);
+            ctx.strokeStyle = "rgba(3,9,16,.8)"; ctx.lineWidth = 2.4;
+            ctx.beginPath(); ctx.moveTo(vx, vy); ctx.lineTo(edgeX, edgeY); ctx.stroke();
+            ctx.strokeStyle = "rgba(150,186,198,.22)"; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(vx, vy + 1.5); ctx.lineTo(edgeX, edgeY + 2.5); ctx.stroke();
           }
-          ctx.fillStyle = release > .4 ? "#98e7cc" : "#dfb18b"; ctx.fillRect(x - bayW / 2 + 4, y - bayH / 2 + 4, bayW - 8, 2);
-          const scale = Math.min(.65, bayH / 110);
-          drawConvoyShip(x - side * release * width * .09, y + release * height * .07, scale, row);
-          ctx.fillStyle = "#9aadb3";
+        }
+        ctx.globalCompositeOperation = "lighter";
+        const lampFail = collapse > 0 && !calm ? .55 + .45 * Math.sin(t * 29) * Math.sin(t * 11.3) : 1;
+        for (let k = 1; k <= 7; k++) {
+          const d = (k / 7) ** 1.6, glow = (4 + d * 26) * width / 480;
+          for (const side of [-1, 1]) {
+            drawGlow(ctx, vx - side * width * .69 * d, vy + (height * .195 - vy) * d, glow,
+              collapse > .5 && (k + (side > 0)) % 3 === 0 ? "#ff8a66" : "#a9dcec", (.35 + d * .35) * lampFail, .3);
+          }
+          drawGlow(ctx, vx, vy - height * .25 * d, glow * 1.3, "#cfeaf2", (.3 + d * .3) * lampFail * (1 - collapse * .5), .3);
+        }
+        const farHaze = ctx.createRadialGradient(vx, vy + height * .03, 0, vx, vy + height * .03, height * .3);
+        farHaze.addColorStop(0, "rgba(120,165,185,.2)"); farHaze.addColorStop(1, "rgba(120,165,185,0)");
+        ctx.globalAlpha = 1; ctx.fillStyle = farHaze; ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+        ctx.globalAlpha = 1;
+        // Each berth is a pit sunk into the deck, drawn in the hall's perspective: a raised coaming,
+        // the far and side walls dropping to a marked pad, and a lock bar that lights the far wall.
+        for (const bay of bays) {
+          const { x, y, bayW, bayH } = bay, hw = bayW / 2, hh = bayH / 2, pit = bayH * .16;
+          const project = (px, py, drop = 0) => [vx + (px - vx) * (py - vy) / (y - vy), py + drop];
+          const quad = (inset, drop = 0) => [project(x - hw + inset, y - hh + inset, drop), project(x + hw - inset, y - hh + inset, drop),
+            project(x + hw - inset, y + hh - inset, drop), project(x - hw + inset, y + hh - inset, drop)];
+          const trace = points => { ctx.beginPath(); points.forEach(([px, py], k) => k ? ctx.lineTo(px, py) : ctx.moveTo(px, py)); ctx.closePath(); };
+          const rim = quad(-5), mouth = quad(0), pad = quad(0, pit);
+          const coaming = ctx.createLinearGradient(rim[0][0], rim[0][1], rim[2][0], rim[2][1]);
+          coaming.addColorStop(0, "#b4c5c8"); coaming.addColorStop(.3, "#6d8893"); coaming.addColorStop(1, "#22394a");
+          trace(rim); ctx.fillStyle = coaming; ctx.fill();
+          ctx.strokeStyle = "#040b12"; ctx.lineWidth = 1.2; ctx.stroke();
+          ctx.save();
+          trace(mouth); ctx.fillStyle = "#03090f"; ctx.fill(); ctx.clip();
+          // Pad first, then the walls that stand between the deck edge and the pad.
+          const floorLight = ctx.createRadialGradient(x, y + pit, 0, x, y + pit, bayW * .62);
+          floorLight.addColorStop(0, "#2d4a57"); floorLight.addColorStop(.6, "#11222e"); floorLight.addColorStop(1, "#040b12");
+          trace(pad); ctx.fillStyle = floorLight; ctx.fill();
+          ctx.strokeStyle = "rgba(120,160,170,.4)"; ctx.lineWidth = 1;
+          const guide = quad(Math.min(hw, hh) * .34, pit); trace(guide); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(...project(x, y - hh * .5, pit)); ctx.lineTo(...project(x, y + hh * .5, pit)); ctx.stroke();
+          const farWall = ctx.createLinearGradient(0, mouth[0][1], 0, mouth[0][1] + pit);
+          farWall.addColorStop(0, "#5f7b88"); farWall.addColorStop(1, "#172a37");
+          trace([mouth[0], mouth[1], pad[1], pad[0]]); ctx.fillStyle = farWall; ctx.fill();
+          for (const [a, b, lit] of [[0, 3, bay.side > 0], [1, 2, bay.side < 0]]) {
+            trace([mouth[a], mouth[b], pad[b], pad[a]]); ctx.fillStyle = lit ? "#34505e" : "#0c1a25"; ctx.fill();
+          }
+          // Lock bar: amber and pulsing while the clamps hold, green once the courier's code lands.
+          const held = bay.since < 0, level = held && !calm ? .6 + .4 * Math.sin(t * 5 + bay.row * 2 + bay.side) : 1;
+          const spill = ctx.createLinearGradient(0, mouth[0][1], 0, mouth[0][1] + pit + bayH * .35);
+          spill.addColorStop(0, held ? `rgba(255,170,100,${.5 * level})` : `rgba(120,255,200,${.5 * level})`);
+          spill.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.globalCompositeOperation = "lighter";
+          ctx.fillStyle = spill; ctx.fillRect(mouth[0][0], mouth[0][1], mouth[1][0] - mouth[0][0], pit + bayH * .35);
+          ctx.restore();
+          ctx.globalAlpha = level;
+          ctx.strokeStyle = held ? "#ffc998" : "#a9ffdc"; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(mouth[0][0] + 3, mouth[0][1] + 1.5); ctx.lineTo(mouth[1][0] - 3, mouth[1][1] + 1.5); ctx.stroke();
+          ctx.globalAlpha = 1;
+          ctx.strokeStyle = "rgba(205,228,232,.5)"; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(...rim[0]); ctx.lineTo(...rim[1]); ctx.stroke();
+        }
+        // The ships are drawn after every berth so a freed ship crossing the deck is never hidden by a
+        // nearer one. Each rides above its own soft shadow, which slides away and spreads as it lifts.
+        for (const bay of bays) {
+          const { x, y, bayW, bayH, since } = bay, s = bay.shipScale, pit = bayH * .16;
+          const lift = (3 + bay.lift * 13) * s / .65, ground = pit * (1 - bay.settle);
+          ctx.save();
+          ctx.translate(bay.shipX + lift * .45, bay.shipY + ground + lift * .9);
+          ctx.rotate(bay.turn); ctx.scale(1, 1.75);
+          const shadowR = 30 * s * (1 + bay.lift * .25);
+          const shadow = ctx.createRadialGradient(0, 0, shadowR * .2, 0, 0, shadowR);
+          shadow.addColorStop(0, `rgba(0,3,8,${.62 - bay.lift * .22})`); shadow.addColorStop(1, "rgba(0,3,8,0)");
+          ctx.fillStyle = shadow; ctx.beginPath(); ctx.arc(0, 0, shadowR, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+          if (bay.power > 0) {
+            // Drive wash: the lit engines throw a pool of light onto the deck beneath them.
+            ctx.save(); ctx.globalCompositeOperation = "lighter";
+            drawGlow(ctx, bay.shipX - Math.sin(bay.turn) * 48 * s, bay.shipY + ground + Math.cos(bay.turn) * 48 * s + lift * .5, 34 * s, "#8fe6f0", bay.power * .4, .2);
+            ctx.restore(); ctx.globalAlpha = 1;
+          }
+          drawConvoyShip(bay.shipX, bay.shipY + ground * .7 - lift * .35, s, bay.row, bay.turn, bay.power);
+          // Clamp arms: short pillars standing on the coaming, each with a lit cap and a shaded flank.
           for (const clamp of [-1, 1]) {
-            const clampX = x + clamp * (bayW * (.12 + release * .35));
-            ctx.fillRect(clampX - 3, y - bayH * .22, 6, bayH * .44);
-            ctx.fillStyle = "#e0b28b"; ctx.fillRect(clampX - 4, y - 3, 8, 6); ctx.fillStyle = "#9aadb3";
+            const clampX = x + clamp * (bayW * (.12 + bay.open * .35)), top = y - bayH * .15, tall = bayH * .3;
+            ctx.fillStyle = "rgba(0,3,8,.4)"; ctx.fillRect(clampX - 1, top + 5, 9, tall);
+            const arm = ctx.createLinearGradient(clampX - 3, 0, clampX + 3, 0);
+            arm.addColorStop(0, "#c3d2d6"); arm.addColorStop(.45, "#8fa3aa"); arm.addColorStop(1, "#465a66");
+            ctx.fillStyle = arm; ctx.fillRect(clampX - 3, top, 6, tall);
+            ctx.fillStyle = "#e3eef0"; ctx.fillRect(clampX - 3, top, 6, 1.5);
+            ctx.fillStyle = since < 0 ? "#e0b28b" : "#98e7cc"; ctx.fillRect(clampX - 4, y - 3, 8, 6);
+            ctx.fillStyle = "rgba(255,255,255,.5)"; ctx.fillRect(clampX - 4, y - 3, 8, 1.2);
           }
-          ctx.strokeStyle = "#587480"; ctx.lineWidth = depth * 5;
-          ctx.beginPath(); ctx.moveTo(x - bayW / 2, y - bayH / 2); ctx.lineTo(vx, vy); ctx.stroke();
+          ctx.save();
+          ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round"; ctx.lineJoin = "round";
+          // Life-sign marker: brackets and a heartbeat trace appear as the courier's scan finds the crew,
+          // and clear when the ship is released.
+          const marked = Math.max(0, Math.min(1, (t - bay.foundAt) / .3)) * (since < 0 ? 1 : Math.max(0, 1 - since / .5));
+          if (marked > 0) {
+            const hw = bayW * .4, hh = bayH * .38, arm = 4 + bay.depth * 6;
+            ctx.strokeStyle = `rgba(150,255,225,${marked * .8})`; ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            for (const [sx, sy] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
+              ctx.moveTo(x + sx * hw, y + sy * (hh - arm)); ctx.lineTo(x + sx * hw, y + sy * hh); ctx.lineTo(x + sx * (hw - arm), y + sy * hh);
+            }
+            ctx.stroke();
+            const beat = calm ? 1 : .35 + .65 * Math.max(0, Math.sin(t * 7 + bay.row * 1.9 + bay.side));
+            const traceY = y - bayH * .29, amp = bayH * .07;
+            ctx.strokeStyle = `rgba(190,255,235,${marked * beat})`; ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            [[0, 0], [.34, 0], [.42, -1], [.5, 1.5], [.58, -.6], [.66, 0], [1, 0]].forEach(([f, lift], k) => {
+              const px = x - bayW * .2 + bayW * .4 * f, py = traceY + lift * amp;
+              k ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+            });
+            ctx.stroke();
+          }
+          // The unlock: a ring of light off the bay and sparks thrown from both clamps as they let go.
+          const burst = since / .6;
+          if (burst > 0 && burst < 1) {
+            ctx.strokeStyle = `rgba(170,255,225,${(1 - burst) * .8})`; ctx.lineWidth = 1 + (1 - burst) * 3;
+            ctx.beginPath(); ctx.ellipse(x, y, bayW * (.3 + burst * .45), bayH * (.3 + burst * .45), 0, 0, Math.PI * 2); ctx.stroke();
+            if (!calm) {
+              ctx.lineWidth = 1.3;
+              for (const clamp of [-1, 1]) for (let k = 0; k < 7; k++) {
+                const seed = bay.row * 40 + (bay.side + 1) * 9 + (clamp + 1) * 4 + k;
+                const angle = sceneryRand(seed, 861) * Math.PI * 2, speed = bayW * (.25 + sceneryRand(seed, 862) * .45);
+                const sx = x + clamp * bayW * .12 + Math.cos(angle) * speed * burst;
+                const sy = y + Math.sin(angle) * speed * burst + burst * burst * bayH * .3;
+                ctx.strokeStyle = `rgba(255,${Math.round(235 - burst * 80)},${Math.round(170 - burst * 90)},${1 - burst})`;
+                ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx - Math.cos(angle) * bayW * .05, sy - Math.sin(angle) * bayW * .05); ctx.stroke();
+              }
+            }
+          }
+          ctx.restore();
         }
         const flicker = collapse > 0 ? .75 + .25 * Math.sin(t * 37) * Math.sin(t * 13.7) : 1;
         ctx.save(); ctx.globalCompositeOperation = "lighter";
@@ -24592,18 +25445,45 @@
             ctx.fillStyle = burn; ctx.beginPath(); ctx.arc(fx, fy, 30 * scale, 0, Math.PI * 2); ctx.fill();
           }
           for (let i = 0; i < 26; i++) {
-            const age = t - (6 + i * .27);
-            if (age <= 0 || age > 2.4) continue;
-            const x = sceneryRand(i, 818) * width, y = -20 + 60 * age + .5 * height * .8 * age * age;
-            drawFinaleShard(x, y, (5 + sceneryRand(i, 819) * 13) * scale, age * (sceneryRand(i, 820) * 8 - 4), i, sceneryRand(i, 821) > .6 ? 1 : 0);
+            // Roof plating falls onto the deck either side of the lane. Each piece drops toward its own
+            // shadow, which tightens as it nears, hits in a puff of dust and stays where it lands.
+            const age = t - (8.5 + i * .3);
+            if (age <= 0) continue;
+            const inset = sceneryRand(i, 818) * width * .26, x = i % 2 ? inset : width - inset;
+            const land = height * (.42 + sceneryRand(i, 822) * .5), fallTime = .9 + sceneryRand(i, 826) * .5;
+            const fall = Math.min(1, age / fallTime), rest = age - fallTime;
+            const size = (6 + sceneryRand(i, 819) * 13) * scale * (.55 + .45 * land / height);
+            const y = -30 + (land + 30) * fall * fall, hot = sceneryRand(i, 821) > .6;
+            ctx.save();
+            ctx.translate(x + 4, land + size * .35); ctx.scale(1, .4);
+            const shadowR = size * (2.3 - fall * 1.2), shadow = ctx.createRadialGradient(0, 0, 0, 0, 0, shadowR);
+            shadow.addColorStop(0, `rgba(0,3,8,${.12 + .45 * fall})`); shadow.addColorStop(1, "rgba(0,3,8,0)");
+            ctx.fillStyle = shadow; ctx.beginPath(); ctx.arc(0, 0, shadowR, 0, Math.PI * 2); ctx.fill();
+            if (rest > 0 && rest < .7) {
+              const puff = rest / .7, dustR = size * (1 + puff * 3.2), dust = ctx.createRadialGradient(0, 0, dustR * .3, 0, 0, dustR);
+              dust.addColorStop(0, "rgba(196,184,170,0)"); dust.addColorStop(.7, `rgba(196,184,170,${(1 - puff) * .4})`); dust.addColorStop(1, "rgba(196,184,170,0)");
+              ctx.fillStyle = dust; ctx.beginPath(); ctx.arc(0, 0, dustR, 0, Math.PI * 2); ctx.fill();
+            }
+            ctx.restore();
+            drawFinaleShard(x, y, size, Math.min(age, fallTime) * (sceneryRand(i, 820) * 8 - 4), i, hot ? rest > 0 ? Math.max(.25, 1 - rest * .4) : 1 : 0);
           }
-          for (const [drop, side] of [[8.6, -1], [10.9, 1]]) {
+          // Two roof girders come down across the emptied bays, clear of the ships holding by the lane.
+          for (const [drop, side] of [[12.6, -1], [14.6, 1]]) {
             const age = t - drop;
             if (age <= 0) continue;
-            const fall = Math.min(1, age / .75), land = height * .66;
-            const gx = vx + side * width * .18, gy = -40 + (land + 40) * fall * fall;
-            ctx.save(); ctx.translate(gx, gy); ctx.rotate(side * (.2 + fall * .55));
+            const fall = Math.min(1, age / .75), land = height * .5;
+            const gx = vx + side * width * .36, gy = -40 + (land + 40) * fall * fall;
             const beamW = width * .62, beamH = 16 * scale;
+            ctx.save();
+            ctx.translate(gx, land + beamH); ctx.rotate(side * .75); ctx.scale(1, .16);
+            const beamShadow = ctx.createRadialGradient(0, 0, 0, 0, 0, beamW * .5);
+            beamShadow.addColorStop(0, `rgba(0,3,8,${.15 + .4 * fall})`); beamShadow.addColorStop(1, "rgba(0,3,8,0)");
+            ctx.fillStyle = beamShadow; ctx.beginPath(); ctx.arc(0, 0, beamW * .5, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+            ctx.save(); ctx.translate(gx, gy); ctx.rotate(side * (.2 + fall * .55));
+            // A box girder: lit top flange, shadowed underside, lattice web between.
+            ctx.fillStyle = "#0d151b"; ctx.fillRect(-beamW / 2, beamH / 2, beamW, 4 * scale);
+            ctx.fillStyle = "#6a838f"; ctx.fillRect(-beamW / 2, -beamH / 2 - 5 * scale, beamW, 5 * scale);
             ctx.fillStyle = "#2c3a44"; ctx.fillRect(-beamW / 2, -beamH / 2, beamW, beamH);
             ctx.strokeStyle = "#7f939c"; ctx.lineWidth = 1.2; ctx.strokeRect(-beamW / 2, -beamH / 2, beamW, beamH);
             ctx.beginPath();
@@ -24641,16 +25521,28 @@
           ctx.fillStyle = Math.sin(t * 9) > -.2 ? "#ff6b5c" : "#7a1d1a";
           ctx.fillText(`STRUCTURAL FAILURE / HULL INTEGRITY ${integrity}%`, vx, height * .16, width - 28);
           ctx.fillStyle = "#ffd2a8"; ctx.font = `${Math.max(9, Math.min(13, width * .028))}px ui-monospace, monospace`;
-          ctx.fillText(release > .5 ? "CLAMPS RELEASED / ALL SIX VESSELS FREE" : "DETENTION BAY / EVACUATE IMMEDIATELY", vx, height * .16 + 18, width - 28);
-        } else ctx.fillText(release > .5 ? "CLAMPS RELEASED / CONVOY IDENT CONFIRMED" : "CIVILIAN DETENTION / SIX VESSELS", vx, height * .16, width - 28);
+          ctx.fillText(freed === 6 ? "CLAMPS RELEASED / ALL SIX VESSELS FREE" : "DETENTION BAY / EVACUATE IMMEDIATELY", vx, height * .16 + 18, width - 28);
+        } else ctx.fillText(freed === 6 ? "CLAMPS RELEASED / CONVOY IDENT CONFIRMED" : "CIVILIAN DETENTION / SIX VESSELS", vx, height * .16, width - 28);
+        // One lamp per ship under the readout: amber while clamped, green as each is freed.
+        for (let i = 0; i < 6; i++) {
+          const lit = i < freed, justLit = lit && i === freed - 1 && bays.some(bay => bay.since >= 0 && bay.since < .4);
+          ctx.fillStyle = lit ? justLit ? "#eafff6" : "#98e7cc" : "rgba(223,177,139,.55)";
+          ctx.fillRect(vx - 44 + i * 15, height * .16 + 27, 11, 4);
+        }
       }
 
       function drawFinaleTunnel(u, pilot) {
         const vx = width / 2, vy = height * .4, rate = 4.2;
-        const breakage = .12 + u * .07;
+        const breakage = .12 + u * .07, calm = reducedMotion.matches;
         const glow = ctx.createRadialGradient(vx, vy, 0, vx, vy, Math.max(width, height));
         glow.addColorStop(0, "#ffcf8a"); glow.addColorStop(.2, "#c4521e"); glow.addColorStop(.55, "#4a1309"); glow.addColorStop(1, "#120304");
-        ctx.fillStyle = glow; ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = glow; ctx.fillRect(-40, -40, width + 80, height + 80);
+        // The chase camera rolls with the courier's weaving; the view is enlarged so no edge shows.
+        ctx.save();
+        if (!calm) {
+          ctx.translate(vx, vy); ctx.rotate(Math.sin(u * 1.15) * .04 + Math.sin(u * 2.7) * .012);
+          ctx.scale(1.09, 1.09); ctx.translate(-vx, -vy);
+        }
         for (let i = 0; i < 18; i++) {
           const fx = sceneryRand(i, 861) * width, fy = sceneryRand(i, 862) * height;
           finaleBlast(fx, fy, (60 + sceneryRand(i, 863) * 70) * width / 480, (u * .7 + sceneryRand(i, 864)) % 1);
@@ -24679,11 +25571,72 @@
             ctx.beginPath(); ctx.moveTo(...corner(far, ax, ay)); ctx.lineTo(...corner(far, bx, by));
             ctx.lineTo(...corner(near, bx, by)); ctx.lineTo(...corner(near, ax, ay)); ctx.closePath(); ctx.fill();
             ctx.strokeStyle = "#060b10"; ctx.lineWidth = 1; ctx.stroke();
+            // Each panel is a shallow tray: a recessed centre with a shadowed lip on the far side and a
+            // lit lip on the near side. The floor trays also carry a strip of guide lighting.
+            const quad = [corner(far, ax, ay), corner(far, bx, by), corner(near, bx, by), corner(near, ax, ay)];
+            const mx = (quad[0][0] + quad[1][0] + quad[2][0] + quad[3][0]) / 4, my = (quad[0][1] + quad[1][1] + quad[2][1] + quad[3][1]) / 4;
+            const inner = quad.map(([px, py]) => [px + (mx - px) * .16, py + (my - py) * .16]);
+            ctx.beginPath(); inner.forEach(([px, py], k) => k ? ctx.lineTo(px, py) : ctx.moveTo(px, py)); ctx.closePath();
+            ctx.fillStyle = "rgba(2,6,10,.3)"; ctx.fill();
+            ctx.lineWidth = Math.max(.6, 1.6 * near.s);
+            ctx.strokeStyle = "rgba(0,3,7,.6)"; ctx.beginPath(); ctx.moveTo(...inner[0]); ctx.lineTo(...inner[1]); ctx.stroke();
+            ctx.strokeStyle = "rgba(255,214,176,.3)"; ctx.beginPath(); ctx.moveTo(...inner[3]); ctx.lineTo(...inner[2]); ctx.stroke();
+            if (side === 2) {
+              ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round";
+              for (const lane of [-.38, .38]) {
+                const [x0, y0] = corner(far, lane, 1), [x1, y1] = corner(near, lane, 1);
+                const lit = near.i % 2 ? .9 : .35;
+                ctx.strokeStyle = `rgba(150,240,235,${lit * .25})`; ctx.lineWidth = Math.max(1, 9 * near.s);
+                ctx.beginPath(); ctx.moveTo(x0 + (x1 - x0) * .2, y0 + (y1 - y0) * .2); ctx.lineTo(x0 + (x1 - x0) * .8, y0 + (y1 - y0) * .8); ctx.stroke();
+                ctx.strokeStyle = `rgba(215,255,250,${lit})`; ctx.lineWidth = Math.max(.8, 2.4 * near.s);
+                ctx.stroke();
+              }
+              ctx.restore();
+            }
           });
-          ctx.strokeStyle = sceneryRand(near.i, 866) < .3 ? `rgba(255,90,60,${.5 + .5 * Math.sin(u * 14 + near.i)})` : "#86a2ad";
-          ctx.lineWidth = Math.max(1, 6 * near.s);
+          // The frame between two bays is a deep rib, not a line: its inner faces run back into the
+          // corridor, lit warm on the side toward the fire and dark underneath, with a bright front edge.
+          const back = 1 / (1 / near.s + .14), backW = width * .72 * back, backH = height * .62 * back;
+          const alarm = sceneryRand(near.i, 866) < .3;
+          // The rib stands in from the walls by `lip`; its inner faces run back to `back`.
+          const lip = .93, inW = near.hw * lip, inH = near.hh * lip;
+          [[-1, -1, 1, -1, "#1b2831"], [1, -1, 1, 1, "#3a2f2c"], [1, 1, -1, 1, "#4c4038"], [-1, 1, -1, -1, "#3a2f2c"]].forEach(([ax, ay, bx, by, tone]) => {
+            ctx.fillStyle = tone;
+            ctx.beginPath(); ctx.moveTo(vx + ax * inW, vy + ay * inH); ctx.lineTo(vx + bx * inW, vy + by * inH);
+            ctx.lineTo(vx + bx * backW * lip, vy + by * backH * lip); ctx.lineTo(vx + ax * backW * lip, vy + ay * backH * lip); ctx.closePath(); ctx.fill();
+          });
+          const front = ctx.createLinearGradient(0, vy - near.hh, 0, vy + near.hh);
+          front.addColorStop(0, "#2a3942"); front.addColorStop(.5, "#56676f"); front.addColorStop(1, "#7a6a5c");
+          ctx.fillStyle = front;
+          ctx.beginPath();
+          ctx.rect(vx - near.hw, vy - near.hh, near.hw * 2, near.hh * 2);
+          ctx.rect(vx - inW, vy - inH, inW * 2, inH * 2);
+          ctx.fill("evenodd");
+          ctx.strokeStyle = "#05090d"; ctx.lineWidth = 1;
           ctx.strokeRect(vx - near.hw, vy - near.hh, near.hw * 2, near.hh * 2);
+          ctx.strokeStyle = alarm ? `rgba(255,90,60,${.5 + .5 * Math.sin(u * 14 + near.i)})` : "#a9c0c8";
+          ctx.lineWidth = Math.max(1, 2.2 * near.s);
+          ctx.strokeRect(vx - inW, vy - inH, inW * 2, inH * 2);
         }
+        // Conduits run the length of the corridor on every wall, and each frame carries a pair of lamps;
+        // both give the eye lines and points that rush outward from the vanishing point.
+        ctx.save();
+        for (const [cx, cy] of [[-1, -.34], [1, -.34], [-1, .42], [1, .42], [-.42, -1], [.42, -1], [-.5, 1], [.5, 1]]) {
+          const ex = vx + cx * width * 2.2, ey = vy + cy * height * 1.9;
+          ctx.strokeStyle = "rgba(4,9,14,.4)"; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(vx, vy); ctx.lineTo(ex, ey); ctx.stroke();
+          ctx.strokeStyle = "rgba(255,214,170,.28)"; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(vx, vy - 1.5); ctx.lineTo(ex, ey - 2.5); ctx.stroke();
+        }
+        ctx.globalCompositeOperation = "lighter";
+        for (const ring of rings) {
+          const glow = Math.min(70, 40 * ring.s) * width / 480, failing = sceneryRand(ring.i, 866) < .3;
+          for (const sx of [-1, 1]) {
+            drawGlow(ctx, vx + sx * ring.hw * .97, vy - ring.hh * .55, glow, failing ? "#ff7a55" : "#ffd9a6", Math.min(1, ring.s * 1.3) * .8, .3);
+          }
+        }
+        ctx.restore();
+        ctx.globalAlpha = 1;
         const exit = Math.max(0, Math.min(1, (u - 3) / 2.4));
         const light = ctx.createRadialGradient(vx, vy, 0, vx, vy, 24 + exit * width * 1.1);
         light.addColorStop(0, "rgba(255,255,255,1)"); light.addColorStop(.4, `rgba(220,240,255,${.6 + exit * .4})`); light.addColorStop(1, "rgba(220,240,255,0)");
@@ -24692,7 +25645,19 @@
           const away = Math.min(1, u / 4.4), side = i % 2 ? 1 : -1, row = Math.floor(i / 2);
           const sx = vx + side * width * (.16 + row * .05) * (1 - away * .8);
           const sy = height * (.62 - row * .05) - (height * (.62 - row * .05) - vy) * away;
-          drawConvoyShip(sx, sy, (.42 - row * .06) * (1 - away * .75), row);
+          const shipScale = (.42 - row * .06) * (1 - away * .75);
+          // Each ship flies above the deck: its shadow and the wash of its drives fall on the floor below.
+          const floorY = sy + (vy + (height * .62 - vy) * 1.45 - sy) * (1 - away) * .55 + 46 * shipScale;
+          ctx.save();
+          ctx.translate(sx, floorY); ctx.scale(1, .34);
+          const under = ctx.createRadialGradient(0, 0, 0, 0, 0, 62 * shipScale);
+          under.addColorStop(0, "rgba(0,2,6,.6)"); under.addColorStop(1, "rgba(0,2,6,0)");
+          ctx.fillStyle = under; ctx.beginPath(); ctx.arc(0, 0, 62 * shipScale, 0, Math.PI * 2); ctx.fill();
+          ctx.globalCompositeOperation = "lighter";
+          drawGlow(ctx, 0, 70 * shipScale, 60 * shipScale, "#8fe6f0", .4, .2);
+          ctx.restore();
+          ctx.globalAlpha = 1;
+          drawConvoyShip(sx, sy, shipScale, row);
         }
         for (let i = 0; i < 16; i++) {
           const z = 1 - ((u * .9 + sceneryRand(i, 867)) % 1), s = .3 / Math.max(.05, z);
@@ -24701,8 +25666,24 @@
         }
         const chase = ctx.createLinearGradient(0, height, 0, height * .55);
         chase.addColorStop(0, `rgba(255,120,40,${.55 + u * .07})`); chase.addColorStop(1, "rgba(255,90,30,0)");
-        ctx.fillStyle = chase; ctx.fillRect(0, height * .55, width, height * .45);
-        pilot(vx + Math.sin(u * 3.1) * width * .04, height * .78, 1.05);
+        ctx.fillStyle = chase; ctx.fillRect(-40, height * .55, width + 80, height * .45 + 40);
+        // The courier banks into each weave, over its own shadow and drive wash on the deck.
+        const weave = Math.sin(u * 3.1), courierX = vx + weave * width * .04;
+        ctx.save();
+        ctx.translate(courierX - weave * 5, height * .9); ctx.scale(1, .32);
+        const below = ctx.createRadialGradient(0, 0, 0, 0, 0, 44);
+        below.addColorStop(0, "rgba(0,2,6,.6)"); below.addColorStop(1, "rgba(0,2,6,0)");
+        ctx.fillStyle = below; ctx.beginPath(); ctx.arc(0, 0, 44, 0, Math.PI * 2); ctx.fill();
+        ctx.globalCompositeOperation = "lighter";
+        drawGlow(ctx, 0, 46, 54, "#9fd0ff", .45, .2);
+        ctx.restore();
+        ctx.globalAlpha = 1;
+        ctx.save();
+        ctx.translate(courierX, height * .78);
+        if (!calm) { ctx.rotate(Math.cos(u * 3.1) * .1); ctx.scale(1 - Math.abs(Math.cos(u * 3.1)) * .1, 1); }
+        pilot(0, 0, 1.05);
+        ctx.restore();
+        ctx.restore();
         if (exit > .6) { ctx.fillStyle = `rgba(255,255,255,${(exit - .6) * 2.2})`; ctx.fillRect(0, 0, width, height); }
       }
 
@@ -24710,14 +25691,27 @@
         const cx = width / 2, R = radius * (1 - Math.min(1, e / 12) * .22), cy = stationY;
         const wedges = 7, sep = Math.max(0, e - 3.4);
         const blown = Math.max(0, e - 7);
+        const pull = e < 7 ? cinematicEase(Math.max(0, Math.min(1, (e - 6.4) / .6))) : 0;
         const wedgeAngle = k => -Math.PI / 2 + k / wedges * Math.PI * 2 + (sceneryRand(k, 871) - .5) * .35;
         const wedgeOffset = k => {
           const mid = (wedgeAngle(k) + wedgeAngle(k + 1) + (k + 1 === wedges ? Math.PI * 2 : 0)) / 2;
-          const reach = R * (.035 * sep ** 1.5 + .7 * blown + .03 * blown * blown);
+          // Just before the core goes, the drifting wedges are dragged back toward it.
+          const reach = R * (.035 * sep ** 1.5 * (1 - pull * .45) + .7 * blown + .03 * blown * blown);
           return { mid, x: Math.cos(mid) * reach, y: Math.sin(mid) * reach * .8, spin: (sceneryRand(k, 872) - .5) * (sep * .05 + blown * .22) };
         };
         const subject = { x: cx, y: cy, radius: R, stage: 3, typeIndex: HARBINGER_INDEX };
         const fade = Math.max(0, 1 - Math.max(0, e - 8.5) / 3.5);
+        if (sep > 0) {
+          // The exposed core burns white-hot behind the wedges, so every widening gap glows.
+          const hot = fade * Math.max(0, 1 - blown / 2) * (calm ? .8 : .8 + .2 * Math.sin(e * 23));
+          const glowR = R * (.75 + Math.min(1.2, sep * .12));
+          const molten = ctx.createRadialGradient(cx, cy, 0, cx, cy, glowR);
+          molten.addColorStop(0, `rgba(255,250,230,${hot})`); molten.addColorStop(.35, `rgba(255,170,80,${hot * .8})`);
+          molten.addColorStop(.75, `rgba(210,60,30,${hot * .35})`); molten.addColorStop(1, "rgba(120,20,20,0)");
+          ctx.save(); ctx.globalCompositeOperation = "lighter";
+          ctx.fillStyle = molten; ctx.beginPath(); ctx.arc(cx, cy, glowR, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
         if (fade > 0) {
           if (sep <= 0) drawHarbinger(subject, ctx, 1);
           else for (let k = 0; k < wedges; k++) {
@@ -24742,6 +25736,15 @@
             ctx.restore();
           }
         }
+        if (sep > 0 && fade > 0) {
+          // The core's light falls on the broken hull: plating near the gaps is lit hot, the rim stays dark.
+          const lit = fade * Math.max(0, 1 - blown / 2) * .3;
+          const wash = ctx.createRadialGradient(cx, cy, R * .1, cx, cy, R * 1.15);
+          wash.addColorStop(0, `rgba(255,200,130,${lit})`); wash.addColorStop(1, "rgba(255,120,60,0)");
+          ctx.save(); ctx.globalCompositeOperation = "lighter";
+          ctx.fillStyle = wash; ctx.beginPath(); ctx.arc(cx, cy, R * 1.15, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
         for (let i = 0; i < 22; i++) {
           const start = .3 + i * .3, age = (e - start) / 1.2;
           if (age <= 0 || age >= 1) continue;
@@ -24754,6 +25757,38 @@
           }
           const offset = sep > 0 ? wedgeOffset(k) : { x: 0, y: 0 };
           finaleBlast(cx + Math.cos(angle) * rr + offset.x, cy + Math.sin(angle) * rr * .8 + offset.y, R * (.22 + sceneryRand(i, 875) * .25), age);
+        }
+        if (!calm && e > .8 && e < 7) {
+          // Pressure venting: jets of burning atmosphere blow out of each seam as it opens.
+          ctx.save(); ctx.globalCompositeOperation = "lighter";
+          for (let k = 0; k < wedges; k++) {
+            const on = Math.min(1, (e - .8 - k * .35) / .5);
+            if (on <= 0) continue;
+            const a = wedgeAngle(k), offset = sep > 0 ? wedgeOffset(k) : { x: 0, y: 0 };
+            const bx = cx + offset.x + Math.cos(a) * R * .82, by = cy + offset.y + Math.sin(a) * R * .82;
+            const length = R * (.35 + sceneryRand(k, 881) * .45) * on * (.75 + .25 * Math.sin(e * 31 + k * 2.3));
+            const tx = bx + Math.cos(a) * length, ty = by + Math.sin(a) * length, nx = -Math.sin(a) * R * .07, ny = Math.cos(a) * R * .07;
+            const jet = ctx.createLinearGradient(bx, by, tx, ty);
+            jet.addColorStop(0, "rgba(255,244,220,.85)"); jet.addColorStop(.35, "rgba(255,150,70,.5)"); jet.addColorStop(1, "rgba(160,60,40,0)");
+            ctx.fillStyle = jet;
+            ctx.beginPath(); ctx.moveTo(bx - nx * .3, by - ny * .3); ctx.lineTo(tx - nx, ty - ny);
+            ctx.lineTo(tx + nx, ty + ny); ctx.lineTo(bx + nx * .3, by + ny * .3); ctx.closePath(); ctx.fill();
+          }
+          ctx.restore();
+        }
+        const implode = (e - 6.4) / .6;
+        if (implode > 0 && implode < 1) {
+          // The instant before detonation: the light drops and rings of it collapse into the core.
+          ctx.save();
+          ctx.fillStyle = `rgba(0,2,8,${Math.sin(implode * Math.PI) * (calm ? .2 : .42)})`; ctx.fillRect(-40, -40, width + 80, height + 80);
+          ctx.globalCompositeOperation = "lighter";
+          for (let k = 0; k < 3; k++) {
+            const q = Math.min(1, (implode - k * .18) / (1 - k * .18));
+            if (q <= 0) continue;
+            ctx.strokeStyle = `rgba(255,220,235,${q * .7})`; ctx.lineWidth = 1 + q * 2.5;
+            ctx.beginPath(); ctx.arc(cx, cy, R * (2.6 * (1 - q) + .15), 0, Math.PI * 2); ctx.stroke();
+          }
+          ctx.restore();
         }
         if (e > 5 && e < 7.3) {
           const charge = Math.min(1, (e - 5) / 2);
@@ -24783,7 +25818,50 @@
           ctx.strokeStyle = `rgba(255,170,110,${ringA * .6})`; ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.ellipse(cx, cy, ringR * .8, ringR * .8, 0, 0, Math.PI * 2); ctx.stroke();
           ctx.fillStyle = `rgba(255,240,220,${ringA * .8})`; ctx.fillRect(0, cy - 1.5, width, 3);
+          // A second, tilted shock front follows a beat behind the first.
+          const second = blown - .35;
+          if (second > 0) {
+            ctx.strokeStyle = `rgba(255,214,180,${Math.max(0, 1 - second / 2.6) * .8})`; ctx.lineWidth = 2 + second * 2;
+            ctx.beginPath(); ctx.ellipse(cx, cy, R * second * 2.2, R * second * 1.2, .5, 0, Math.PI * 2); ctx.stroke();
+          }
           ctx.restore();
+          // The fireball is not one smooth glow: billowing lobes of fire and smoke roll outward and cool.
+          for (let i = 0; i < 10; i++) {
+            const age = (blown - sceneryRand(i, 911) * .5) / (2.4 + sceneryRand(i, 912) * 1.6);
+            const angle = sceneryRand(i, 913) * Math.PI * 2, reach = R * (.3 + sceneryRand(i, 914) * 1.1) * Math.min(1.6, .5 + blown * .5);
+            finaleBlast(cx + Math.cos(angle) * reach, cy + Math.sin(angle) * reach * .8, R * (.7 + sceneryRand(i, 915) * .6), age);
+          }
+          // Each wedge of the hull is thrown clear on a trail of fire, and keeps exploding as it goes.
+          for (let k = 0; k < wedges && fade > 0; k++) {
+            const offset = wedgeOffset(k);
+            const px = cx + offset.x + Math.cos(offset.mid) * R * .5, py = cy + offset.y + Math.sin(offset.mid) * R * .5;
+            const sx = cx + Math.cos(offset.mid) * R * .3, sy = cy + Math.sin(offset.mid) * R * .3;
+            ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round";
+            const trail = ctx.createLinearGradient(px, py, sx, sy);
+            trail.addColorStop(0, `rgba(255,200,120,${fade * .55})`); trail.addColorStop(.5, `rgba(230,90,40,${fade * .25})`); trail.addColorStop(1, "rgba(120,30,20,0)");
+            ctx.strokeStyle = trail; ctx.lineWidth = R * .16;
+            ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(sx, sy); ctx.stroke();
+            ctx.restore();
+            finaleBlast(px, py, R * .42, (blown - .5 - k * .22) / 1.1);
+            finaleBlast(px + R * .12, py - R * .08, R * .34, (blown - 2 - k * .2) / 1.2);
+          }
+          // Large pieces of plating tumble out of the blast, burning, and fall away under their own weight.
+          for (let i = 0; i < 14; i++) {
+            const life = Math.max(0, 1 - blown / (4 + sceneryRand(i, 921) * 2));
+            if (!life) continue;
+            const angle = sceneryRand(i, 922) * Math.PI * 2, speed = R * (.5 + sceneryRand(i, 923) * 1.1);
+            const px = cx + Math.cos(angle) * speed * blown, py = cy + Math.sin(angle) * speed * blown * .8 + blown * blown * R * .05;
+            const size = R * (.07 + sceneryRand(i, 924) * .12) * (1 + blown * .12);
+            ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round";
+            const tail = ctx.createLinearGradient(px, py, px - Math.cos(angle) * speed * .45, py - Math.sin(angle) * speed * .36);
+            tail.addColorStop(0, `rgba(255,190,110,${life * .7})`); tail.addColorStop(1, "rgba(200,60,30,0)");
+            ctx.strokeStyle = tail; ctx.lineWidth = size * .5;
+            ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px - Math.cos(angle) * speed * .45, py - Math.sin(angle) * speed * .36); ctx.stroke();
+            ctx.restore();
+            ctx.save(); ctx.globalAlpha = Math.min(1, life * 2);
+            drawFinaleShard(px, py, size, blown * (sceneryRand(i, 925) * 4 - 2) + i, i + 40, life);
+            ctx.restore();
+          }
           for (let i = 0; i < 70; i++) {
             const angle = sceneryRand(i, 876) * Math.PI * 2, speed = (.6 + sceneryRand(i, 877)) * R * 1.4;
             const life = Math.max(0, 1 - blown / (2.5 + sceneryRand(i, 878) * 3));
@@ -24798,13 +25876,29 @@
             dust.addColorStop(0, `rgba(255,140,90,${dustA})`); dust.addColorStop(.5, `rgba(140,70,120,${dustA * .7})`); dust.addColorStop(1, "rgba(60,30,80,0)");
             ctx.fillStyle = dust; ctx.fillRect(0, 0, width, height);
           }
+          if (blown > 2) {
+            // What is left: a cooling ember where the core was, inside a slowly widening field of debris.
+            const settle = Math.min(1, (blown - 2) / 2);
+            ctx.save(); ctx.globalCompositeOperation = "lighter";
+            drawGlow(ctx, cx, cy, R * (.95 - settle * .3), "#ff8a5c", settle * (calm ? .45 : .4 + .1 * Math.sin(e * 3.1)), .3);
+            for (let i = 0; i < 70; i++) {
+              const angle = sceneryRand(i, 926) * Math.PI * 2 + blown * .04 * (sceneryRand(i, 927) - .5);
+              const reach = R * (1.2 + blown * .35) * (.55 + sceneryRand(i, 928) * .75);
+              ctx.globalAlpha = settle * (.25 + sceneryRand(i, 929) * .5) * (calm ? 1 : .7 + .3 * Math.sin(e * 4 + i));
+              ctx.fillStyle = i % 5 ? "#ffc9a0" : "#cfe2ff";
+              ctx.fillRect(cx + Math.cos(angle) * reach, cy + Math.sin(angle) * reach * .55, 1.6, 1.6);
+            }
+            ctx.restore();
+          }
         }
         const escape = cinematicEase(Math.max(0, Math.min(1, e / 3.2)));
-        const leadY = cy + R * .55 + (height * .76 - cy - R * .55) * escape + Math.max(0, e - 3.2) * 4;
+        // The shock front overtakes the convoy: every ship is kicked forward and the courier's deflector flares.
+        const jolt = calm ? 0 : Math.sin(Math.max(0, Math.min(1, (blown - .5) / 1)) * Math.PI);
+        const leadY = cy + R * .55 + (height * .76 - cy - R * .55) * escape + Math.max(0, e - 3.2) * 4 + jolt * 12;
         for (let i = 0; i < 6; i++) {
           const side = i % 2 ? 1 : -1, row = Math.floor(i / 2);
-          const fx = cx + side * Math.min(width * .36, 52 + row * 42) * escape;
-          const fy = leadY - (40 + row * 32) * escape;
+          const fx = cx + side * Math.min(width * .36, 52 + row * 42) * escape + jolt * Math.sin(e * 40 + i * 2) * 2;
+          const fy = leadY - (40 + row * 32) * escape + jolt * row * 3;
           if (!calm) {
             ctx.strokeStyle = "#a6e9e8"; ctx.globalAlpha = .18; ctx.lineWidth = 2;
             ctx.beginPath(); ctx.moveTo(fx, fy - 30); ctx.lineTo(fx, fy - 90); ctx.stroke(); ctx.globalAlpha = 1;
@@ -24812,6 +25906,28 @@
           drawConvoyShip(fx, fy, .26 + escape * .24, row, true);
         }
         pilot(cx, leadY, .6 + escape * .45, true);
+        if (jolt > .03) {
+          ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round";
+          for (const [lineWidth, alpha, from, to] of [[2.5, .85, 1.12, 1.88], [7, .3, 1.2, 1.8]]) {
+            ctx.strokeStyle = `rgba(140,235,255,${jolt * alpha})`; ctx.lineWidth = lineWidth;
+            ctx.beginPath(); ctx.arc(cx, leadY, 30 + jolt * 6, Math.PI * from, Math.PI * to); ctx.stroke();
+          }
+          ctx.restore();
+        }
+        if (!calm && blown > 1) {
+          // Burning fragments rain down past the camera in the wake of the blast.
+          ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round";
+          for (let i = 0; i < 22; i++) {
+            const age = (blown - 1 - sceneryRand(i, 931) * 2.2) / (1.6 + sceneryRand(i, 932) * 1.4);
+            if (age <= 0 || age >= 1) continue;
+            const wobble = Math.sin(age * 5 + i);
+            const x = sceneryRand(i, 933) * width + wobble * 10, y = cy + age * age * (height - cy) * 1.1;
+            ctx.strokeStyle = `rgba(255,${150 + (i % 3) * 35},80,${Math.sin(age * Math.PI) * .9})`;
+            ctx.lineWidth = 1 + sceneryRand(i, 934) * 2;
+            ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - wobble * 2, y - 8 - age * 22); ctx.stroke();
+          }
+          ctx.restore();
+        }
         if (blown > 0) {
           const flash = Math.max(0, 1 - blown / 1.3) * (calm ? .45 : .95);
           ctx.fillStyle = `rgba(255,248,235,${flash})`; ctx.fillRect(0, 0, width, height);
@@ -25200,6 +26316,27 @@
       // Film grain over the whole frame, so the smooth gradients read as photographed rather than drawn.
       // The tile is built once; each frame lays it down at a new offset (a fixed one with reduced motion).
       let finaleGrainTile = null;
+      // Bloom: the frame is copied to a small buffer, squared so only its highlights survive, blurred,
+      // and added back. Bright things (drives, fires, lamps, the detonation) glow into what surrounds them.
+      function finaleBloom(strength) {
+        const source = ctx.canvas, buffer = finaleBloom.buffer ||= document.createElement("canvas");
+        const bw = Math.max(1, Math.round(source.width / 6)), bh = Math.max(1, Math.round(source.height / 6));
+        if (buffer.width !== bw || buffer.height !== bh) { buffer.width = bw; buffer.height = bh; }
+        const small = buffer.getContext("2d");
+        small.globalCompositeOperation = "copy";
+        if ("filter" in small) small.filter = "blur(2.5px)";
+        small.drawImage(source, 0, 0, bw, bh);
+        if ("filter" in small) small.filter = "none";
+        small.globalCompositeOperation = "multiply";
+        small.drawImage(buffer, 0, 0);
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = strength;
+        ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(buffer, 0, 0, source.width, source.height);
+        ctx.restore();
+      }
+
       function drawFinaleGrain(still, strength = 1) {
         if (strength <= 0) return;
         if (!finaleGrainTile) {
@@ -25230,14 +26367,14 @@
         let title, subtitle;
         const pilot = (x, y, scale = 1, departing = false) => {
           ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
-          if (departing) ctx.rotate(Math.PI);
+          if (departing) ctx.rotate(departing === true ? Math.PI : departing);
           drawShip({ ...ship, x: 0, y: 0, vx: 0, bank: 0, shields: 0 }, ctx); ctx.restore();
         };
         ctx.save();
         let shake = 0;
         if (!calm && scene.kind === "rescue") {
-          shake = t < 5 ? Math.max(0, t - 2) * .8 : t < 13 ? Math.max(0, (t - 5.6) / 7.4) * 7 + (t > 8.6 && t < 9.4 || t > 10.9 && t < 11.7 ? 6 : 0)
-            : t < 18.5 ? 6 : Math.max(0, 1 - Math.abs(t - 25.6) / 2.2) * 14 + (t < 22 ? 2 : 0);
+          shake = t < 5 ? Math.max(0, t - 2) * .8 : t < 17 ? Math.max(0, (t - 5.6) / 11.4) * 7 + (t > 13.3 && t < 14.1 || t > 15.3 && t < 16.1 ? 6 : 0)
+            : t < 22.5 ? 6 : Math.max(0, 1 - Math.abs(t - 29.6) / 2.2) * 14 + (t < 26 ? 2 : 0);
         } else if (!calm && scene.kind === "signal" && t > 9.4 && t < 12) shake = 2.5;
         else if (!calm && scene.kind === "phase") shake = t < 1.5 ? 1 + t * 2.2 : t < 2.6 ? 9 * (1 - (t - 1.5) / 1.1) + 1 : 0;
         if (shake) ctx.translate(Math.sin(t * 83) * shake, Math.cos(t * 97) * shake * .6);
@@ -25541,9 +26678,10 @@
           pilot(width / 2, boardY, 1 - boarding * .73);
           title = "COMMAND HEART / SILENCED";
           subtitle = t < 2 ? "Weapons offline. Detention hangar access restored." : "Mara: There's your opening. Bring our people home.";
-        } else if (t < 13) {
-          const release = ease((t - 7.8) / 3.4), collapse = calm ? Math.min(.35, Math.max(0, (t - 5.6) / 7.4)) : Math.max(0, Math.min(1, (t - 5.6) / 7.4));
-          drawFinaleInterior(release, collapse, t);
+        } else if (t < 17) {
+          const bays = finaleRescueBays(t);
+          const collapse = calm ? Math.min(.35, Math.max(0, (t - 5.6) / 11.4)) : Math.max(0, Math.min(1, (t - 5.6) / 11.4));
+          drawFinaleInterior(bays, collapse, t);
           if (!calm) {
             // Emergency lighting sweeps the bay and dust shakes loose from the overhead as it fails.
             ctx.save();
@@ -25562,22 +26700,60 @@
             }
             ctx.restore();
           }
-          pilot(width / 2, height * (.83 - ease((t - 5) / 2.8) * .14 + release * .07), .85, t > 9.5);
-          title = t < 8 ? "INSIDE THE HARBINGER / DETENTION BAY" : t < 11 ? "THE MISSING CONVOY / FOUND" : "THE STATION IS TEARING APART";
+          // The courier glides in and holds on the centre lane, sweeps the bays for life signs, sends each
+          // bay its release code, then comes about and leads the convoy out toward the camera.
+          const leave = Math.max(0, Math.min(1, (t - 13.6) / 2)) ** 2;
+          const courierX = width / 2;
+          const courierY = height * (.83 - ease((t - 5) / 2.4) * .14 + leave * .62) + (calm ? 0 : Math.sin(t * 1.7) * 2 * (1 - leave));
+          const emitterY = courierY - 18;
+          ctx.save();
+          ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round";
+          const sweep = (t - 5.8) / 1.5;
+          if (!calm && sweep > 0 && sweep < 1) {
+            const angle = -Math.PI / 2 + (sweep * 2 - 1) * 1.35, reach = height * .78;
+            const fan = ctx.createRadialGradient(courierX, emitterY, 0, courierX, emitterY, reach);
+            fan.addColorStop(0, `rgba(150,255,225,${.34 * Math.sin(sweep * Math.PI) ** .5})`); fan.addColorStop(1, "rgba(150,255,225,0)");
+            ctx.fillStyle = fan;
+            ctx.beginPath(); ctx.moveTo(courierX, emitterY); ctx.arc(courierX, emitterY, reach, angle - .1, angle + .1); ctx.closePath(); ctx.fill();
+          }
+          for (const bay of bays) {
+            // Release code: a bright packet runs from the courier's nose to the bay's lock bar.
+            const travel = (bay.since + .4) / .4;
+            if (travel <= 0 || bay.since >= .3) continue;
+            const head = Math.min(1, travel), fade = bay.since < 0 ? 1 : 1 - bay.since / .3;
+            const hx = courierX + (bay.x - courierX) * head, hy = emitterY + (bay.y - bay.bayH / 2 + 5 - emitterY) * head;
+            for (const [lineWidth, alpha] of [[5, .14], [1.5, .6]]) {
+              ctx.strokeStyle = `rgba(150,255,235,${alpha * fade})`; ctx.lineWidth = lineWidth;
+              ctx.beginPath(); ctx.moveTo(courierX, emitterY); ctx.lineTo(hx, hy); ctx.stroke();
+            }
+            const packet = ctx.createRadialGradient(hx, hy, 0, hx, hy, 9);
+            packet.addColorStop(0, `rgba(240,255,250,${fade})`); packet.addColorStop(1, "rgba(150,255,235,0)");
+            ctx.fillStyle = packet; ctx.beginPath(); ctx.arc(hx, hy, 9, 0, Math.PI * 2); ctx.fill();
+          }
+          ctx.restore();
+          // The courier flies a little above the deck, over its own shadow and the wash of its drive.
+          ctx.save();
+          ctx.translate(courierX + 6 + leave * 5, courierY + 18 + leave * 12); ctx.scale(1, 1.3);
+          const shadowR = 24 * (1 + leave * .6), courierShadow = ctx.createRadialGradient(0, 0, shadowR * .2, 0, 0, shadowR);
+          courierShadow.addColorStop(0, "rgba(0,3,8,.5)"); courierShadow.addColorStop(1, "rgba(0,3,8,0)");
+          ctx.fillStyle = courierShadow; ctx.beginPath(); ctx.arc(0, 0, shadowR, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+          pilot(courierX, courierY, .85 * (1 + leave * .6), Math.PI * ease((t - 12.5) / 1.1));
+          title = t < 7.6 ? "INSIDE THE HARBINGER / DETENTION BAY" : t < 13.8 ? "THE MISSING CONVOY / FOUND" : "THE STATION IS TEARING APART";
           subtitle = t < 6.6 ? "Six civilian vessels. Crew signatures alive."
             : t < 8 ? "Mara: The core's chain reaction is spreading through the decks. Hurry!"
-            : t < 10 ? "Mara: Remote clamps releasing. They're free."
-            : t < 11.6 ? "Convoy captain: We thought no one was coming!" : "Mara: The whole station is going. Get them out, now!";
-        } else if (t < 18.5) {
-          drawFinaleTunnel(t - 13, pilot);
+            : t < 11.2 ? "Mara: Remote clamps releasing. They're free."
+            : t < 13.8 ? "Convoy captain: We thought no one was coming!" : "Mara: The whole station is going. Get them out, now!";
+        } else if (t < 22.5) {
+          drawFinaleTunnel(t - 17, pilot);
           // Speed streaks pour out of the exit, thickening as the courier nears daylight.
-          if (!calm) finaleSpeedLines(width / 2, height * .4, (t - 13) * 1.5, 869, 40, 30, Math.max(width, height) * .8,
-            "255,226,190", .3 + Math.min(1, (t - 13) / 5) * .35, true);
+          if (!calm) finaleSpeedLines(width / 2, height * .4, (t - 17) * 1.5, 869, 40, 30, Math.max(width, height) * .8,
+            "255,226,190", .3 + Math.min(1, (t - 17) / 5) * .35, true);
           title = "ESCAPE CORRIDOR / COLLAPSING";
-          subtitle = t < 15 ? "Convoy captain: Right behind you, courier. Don't slow down!"
-            : t < 17 ? "Mara: Bulkheads are failing behind you. Full burn!" : "Mara: I see daylight. GO!";
+          subtitle = t < 19 ? "Convoy captain: Right behind you, courier. Don't slow down!"
+            : t < 21 ? "Mara: Bulkheads are failing behind you. Full burn!" : "Mara: I see daylight. GO!";
         } else {
-          const e = t - 18.5;
+          const e = t - 22.5;
           drawHarbingerBreakup(e, radius, height * .3, calm, pilot);
           // Detonation (e = 7): a lens flare builds with the core, light rays turn through the fireball,
           // and glowing embers drift out across the sky afterwards.
@@ -25627,7 +26803,7 @@
         }
         ctx.restore();
         if (scene.kind === "rescue") {
-          const fade = Math.max(...[5, 13].map(cut => Math.max(0, 1 - Math.abs(t - cut) / .35)));
+          const fade = Math.max(...[5, 17].map(cut => Math.max(0, 1 - Math.abs(t - cut) / .35)));
           if (fade > 0) {
             ctx.save(); ctx.fillStyle = `rgba(2,7,14,${fade})`; ctx.fillRect(0, 0, width, height); ctx.restore();
           }
@@ -25635,6 +26811,7 @@
         if (scene.kind === "credits" && t < .8) {
           ctx.save(); ctx.fillStyle = `rgba(2,7,14,${1 - t / .8})`; ctx.fillRect(0, 0, width, height); ctx.restore();
         }
+        if (scene.kind === "rescue") finaleBloom(calm ? .24 : .32);
         // A soft vignette pulls the eye to the centre of every shot.
         ctx.save();
         const vignette = ctx.createRadialGradient(width / 2, height / 2, Math.min(width, height) * .38, width / 2, height / 2, Math.hypot(width, height) * .62);
@@ -25848,6 +27025,10 @@
 
       function enterNextSector() {
         bossCinematic.arrived = true;
+        if (bonusRun) {
+          advanceBonusStage();
+          return;
+        }
         if (localSector() === 7) return;
         sector++;
         sectorElapsed = 0;
@@ -25889,6 +27070,12 @@
         arena.classList.remove("cinematic");
         levelToast.classList.remove("visible");
         updateUpgradeButton();
+        if (bonusRun) {
+          if (completedKind === "launch") {
+            transmitRadio("bonus-live", "Patrol contract is live. Scrap is paid on completion. Good hunting.", 1);
+          } else if (bonusRun.bossIndex >= bonusRun.def.bosses.length) completeBonusMission();
+          return;
+        }
         if (["defeat", "universe"].includes(completedKind) && localSector() !== 7) showSectorToast();
         if (completedKind === "launch" || completedKind === "universe") {
           transmitRadio("on-mission", `Signal reacquired. ${currentSector().name} ahead. Clear the capital ship to open the route.`, 1);
@@ -27177,7 +28364,11 @@
         ctx.fillStyle = "#d5eaff";
         ctx.font = "bold 12px system-ui, sans-serif";
         ctx.fillText(arrival ? profile.arrival : t < 1.65 ? profile.failure : t < 3.2 ? profile.aftermath
-          : t < 4.7 ? "JUMP DRIVE ENGAGED" : localSector() === 7 && scene.arrived
+          : t < 4.7 ? bonusRun && !bonusRun.def.tour ? profile.aftermath : "JUMP DRIVE ENGAGED"
+          : bonusRun ? bonusRun.bossIndex < bonusRun.def.bosses.length
+            ? `NEXT CONTACT / ${bossTypes[bonusRun.def.bosses[bonusRun.bossIndex]].name}`
+            : bonusRun.def.rush ? "BOSS RUSH COMPLETE" : "BONUS MISSION SECURED"
+          : localSector() === 7 && scene.arrived
             ? "UNIVERSE SECURED" : `${routeLabel().toUpperCase()} / ${currentSector().name.toUpperCase()}`,
           width / 2, 28, width - 20);
         if (arrival) {
@@ -28283,7 +29474,7 @@
           size: .4 + Math.random() * .8,
           light: Math.random() < .5
         }));
-        const maxHp = (radius >= 21 ? 3 : radius >= 16 ? 2 : 1) + Math.floor((sector - 1) / 7);
+        const maxHp = (radius >= 21 ? 3 : radius >= 16 ? 2 : 1) + Math.floor((sector - 1) / 7) + (bonusRun?.def.meteorArmor || 0);
         const meteorColors = currentSector().meteors;
         const sectorSpeed = (.6 + difficulty() * .55) * universePressure() ** .25;
         meteors.push({
@@ -28572,7 +29763,7 @@
         const costs = { engine: engineCost(), shield: shieldCost(), weapon: weaponCost(), multishot: multiShotCost(), wingman: wingmanCost(), escort: escortCost(), laser: laserCost(), regen: regenCost() };
         const level = levels[type];
         const price = costs[type];
-        if (level >= 3 || scrap < price) return;
+        if (level >= upgradeMax(type) || scrap < price) return;
 
         scrap -= price;
         if (type === "engine") {
@@ -29197,6 +30388,16 @@
         heading.textContent = "Ship destroyed!";
         message.textContent = `Flight recorder recovered: ${finaleActive ? `Galactic Harbinger, stage ${boss?.stage || 1} of 3` : currentSector().name}, MET ${missionTime()}, score ${score}. Your purchases and recovered scrap are safe.${readCheckpoint() ? " Resume from your last checkpoint, or launch a fresh expedition." : " Command is ready when you are."}`;
         startButton.textContent = "Launch again";
+        if (bonusRun) {
+          heading.textContent = "Bonus mission failed";
+          message.textContent = `${bonusRun.def.name}: flight recorder recovered, MET ${missionTime()}, score ${score}. Your purchases and recovered scrap are safe. Retry, or choose another mission in the hangar.`;
+          startButton.textContent = "Retry bonus mission";
+          if (bonusRun.def.rush) {
+            heading.textContent = "Boss Rush over";
+            message.textContent = `Boss Rush: ${bonusRun.bossIndex} of ${bonusRun.def.bosses.length} capital ships destroyed, MET ${missionTime()}, score ${score}. Your record is ${bossRushRecord.best} of ${bonusRun.def.bosses.length}. Your purchases and recovered scrap are safe.`;
+            startButton.textContent = "Retry Boss Rush";
+          }
+        }
         selectMenuPanel("hangar");
         updateShop();
         overlay.classList.add("returning");
@@ -30138,9 +31339,13 @@
         elapsed += dt;
         updateRegen(dt);
         if (!boss && !sandboxActive && !finaleActive) {
-          sectorElapsed += dt;
+          sectorElapsed += dt * sectorDuration / (bonusRun?.def.seconds || sectorDuration);
           if (sectorElapsed >= sectorDuration) {
             sectorElapsed = sectorDuration;
+            if (bonusRun && bonusRun.bossIndex >= bonusRun.def.bosses.length) {
+              completeBonusMission();
+              return;
+            }
             spawnBoss();
             if (bossCinematic) return;
           }
@@ -30202,20 +31407,24 @@
             const dx = target ? target.x - wingman.x : 0;
             const dy = target ? target.y - wingman.y : -1;
             const distance = Math.hypot(dx, dy) || 1;
-            const speed = variant.id === "artillery" ? 300 : variant.id === "interceptor" ? 480 : 400;
-            playerShots.push({
-              x: wingman.x,
-              y: wingman.y - 10,
-              radius: variant.id === "artillery" ? 5 : 3,
-              speed,
-              vx: dx / distance * speed,
-              vy: dy / distance * speed,
-              type: "wingman",
-              damage: variant.damage + Math.floor(escortLevel / 2),
-              color: variant.color,
-              glow: variant.glow,
-              homing: variant.id === "artillery", turnRate: 2.4, target
-            });
+            const speed = variant.id === "artillery" ? 300 : variant.id === "interceptor" ? 480 : variant.id === "flak" ? 380 : 400;
+            // The flak escort fans three bolts around its aim line; every other escort fires one.
+            const aim = Math.atan2(dy, dx);
+            for (const spread of variant.id === "flak" ? [-.2, 0, .2] : [0]) {
+              playerShots.push({
+                x: wingman.x,
+                y: wingman.y - 10,
+                radius: variant.id === "artillery" ? 5 : variant.id === "flak" ? 2.5 : 3,
+                speed,
+                vx: Math.cos(aim + spread) * speed,
+                vy: Math.sin(aim + spread) * speed,
+                type: "wingman",
+                damage: variant.damage + Math.floor(escortLevel / 2),
+                color: variant.color,
+                glow: variant.glow,
+                homing: variant.id === "artillery", turnRate: 2.4, target
+              });
+            }
             wingman.shotClock = variant.interval * (1 - escortLevel * .08) * (loadout.escortRate || 1);
           }
         }
@@ -30237,8 +31446,9 @@
 
         spawnClock += dt;
         const spawnRate = adminMod("spawnRate");
-        const spawnInterval = (1.3 - difficulty() * .7) / Math.sqrt(universePressure()) / spawnRate;
-        if (spawnRate > 0 && spawnClock >= spawnInterval && !finaleActive && (!sandboxActive || sandboxOptions.waves)) {
+        const meteorRate = spawnRate * bonusSpawnRate("meteor");
+        const spawnInterval = (1.3 - difficulty() * .7) / Math.sqrt(universePressure()) / meteorRate;
+        if (meteorRate > 0 && spawnClock >= spawnInterval && !finaleActive && (!sandboxActive || sandboxOptions.waves)) {
           spawnClock = 0;
           spawnMeteor();
         }
@@ -30256,21 +31466,23 @@
         }
 
         if (!boss && !finaleActive && (!sandboxActive || sandboxOptions.waves)) {
-          if (sector >= 19 && sector <= 21 && sectorElapsed >= 18 && !spawnedMothershipSectors.has(sector)) {
+          if ((sector >= 19 && sector <= 21 || bonusRun?.def.mothership) && sectorElapsed >= 18
+            && !spawnedMothershipSectors.has(sector)) {
             spawnEnemy("mothership");
             spawnedMothershipSectors.add(sector);
           }
           enemySpawnClock += dt;
+          const enemyRate = spawnRate * bonusSpawnRate("enemy");
           const enemySpawnInterval = (2.7 - difficulty() * 1.6)
-            / Math.sqrt(universePressure()) * (selectedFlightMode === "pc" ? .93 : 1) / spawnRate;
-          if (spawnRate > 0 && enemySpawnClock >= enemySpawnInterval) {
+            / Math.sqrt(universePressure()) * (selectedFlightMode === "pc" ? .93 : 1) / enemyRate;
+          if (enemyRate > 0 && enemySpawnClock >= enemySpawnInterval) {
             enemySpawnClock = 0;
             spawnEnemy();
           }
         }
 
         scrapSpawnClock += dt;
-        if (scrapSpawnClock >= 3.1 + Math.random() * .8 && (!sandboxActive || sandboxOptions.waves)) {
+        if (scrapSpawnClock >= (3.1 + Math.random() * .8) / bonusSpawnRate("scrap") && (!sandboxActive || sandboxOptions.waves)) {
           scrapSpawnClock = 0;
           spawnPickup();
         }
@@ -30669,13 +31881,15 @@
 
       function updateBossAlert() {
         const arrival = bossCinematic?.kind === "arrival";
+        const upcoming = bonusRun ? bonusRun.def.bosses[bonusRun.bossIndex]
+          : spawnedBossTypes.has(sector - 1) ? undefined : sector - 1;
         const approaching = !sandboxActive && !boss && !bossCinematic && sectorElapsed >= sectorDuration - 5
-          && !spawnedBossTypes.has(sector - 1);
+          && upcoming !== undefined;
         const visible = playing && !levelShopOpen && !almanac.open && !howToPlay.open
           && pendingUniverse === null && (arrival || approaching);
         if (bossAlert.hidden !== !visible) bossAlert.hidden = !visible;
         if (visible) {
-          const type = bossTypes[arrival ? bossCinematic.boss.typeIndex : sector - 1];
+          const type = bossTypes[arrival ? bossCinematic.boss.typeIndex : upcoming];
           const text = `${type.name} / ${arrival ? "Hostile capital ship entering" : `Contact in ${Math.max(1, Math.ceil(sectorDuration - sectorElapsed))}s`}`;
           setSourceText(bossAlertDetail, text);
         }
@@ -31275,6 +32489,11 @@
         if (howToPlay.open || deathScene && !deathScene.finished) return;
         if (levelShopOpen) {
           resumeGame();
+          return;
+        }
+        // After a failed bonus mission the launch button retries it; the hangar panel offers the way back.
+        if (bonusRun) {
+          startBonusMission(bonusRun.index);
           return;
         }
         reset();
@@ -32078,6 +33297,7 @@
           }
           return;
         }
+        if (bonusComplete.open) return;
         if (howToPlay.open) {
           if (event.key === "Escape") {
             event.preventDefault();
